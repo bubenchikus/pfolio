@@ -1,0 +1,159 @@
+.root{
+    align-items: center;
+    justify-content: center;
+    margin:0;
+    padding: 0;
+    height: 90vh;
+}
+
+.grid {
+    text-decoration: none; 
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    max-width:900px;
+    gap: 20px;
+    margin: 0 auto;
+  }
+
+.menuBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width:200px;
+    
+}
+
+.leftBlock{
+    @extend .menuBlock;
+    color: black;
+}
+
+.rightBlock{
+    @extend .menuBlock;
+    color: black;
+}
+
+.blockTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: rgb(85, 85, 85);
+    letter-spacing: -2px;
+    padding: 5px 0 15px 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    mix-blend-mode: multiply;
+}
+
+.blockSubblock {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(120, 113, 120);
+    align-items: center;
+    justify-content: center;
+    text-justify: center;
+    text-decoration: none; 
+}
+
+.blockSubblockText {
+    position: absolute;
+    display: inline;
+    font-weight: 400;
+    font-size: 22px;
+    color: white;
+    text-shadow: 0 0 2px black, 0 0 5px black, 0 0 10px black;
+    z-index: 1;
+    transition:1s;
+}
+
+.blockSubblockImage {
+    width: 100%;
+    height: 100%;
+    background-position: center 50%;
+    background-size: 100% auto;
+    filter: brightness(0.6);
+    transition:1s;
+}
+
+.blockSubblock:hover .blockSubblockImage {
+    transition: 1s;
+    filter: brightness(1);
+}
+
+.blockSubblock:hover .blockSubblockText {
+    transition: 1s;
+    font-size: 25px;
+}
+
+.blockSubblockDev1Image {
+    @extend .blockSubblock;
+}
+
+.blockSubblockArt1Image {
+    @extend .blockSubblockImage;
+    background-image: url('../../uiPictures/cg-paint-left.png');
+}
+
+.blockSubblockArt2Image {
+    @extend .blockSubblockImage;
+    background-image: url('../../uiPictures/cg-paint-right.png');
+}
+
+.blockSubblockArt3Image {
+    @extend .blockSubblockImage;
+    background-image: url('../../uiPictures/cg-graph1.png');
+}
+
+.blockSubblockArt4Image {
+    @extend .blockSubblockImage;
+    background-image: url('../../uiPictures/trad.png');
+}
+
+.blockSubblockArt5Image {
+    @extend .blockSubblockImage;
+    background-image: url('../../uiPictures/comics.png');
+}
+
+.middleBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color:rgb(36, 36, 36);
+    max-height: 700px;
+}
+
+.helloImage {
+    // flex-shrink: 0;
+    // min-width: 100%;
+    min-height: 100%;
+  }
+
+.linkBox {
+    display: flex;
+    color:rgb(0, 0, 140);
+    margin-top: 25px;
+    justify-content: center;
+    text-decoration: underline 2px;
+    gap: 15px;
+    font-size: 20px;
+}
+
+.link {
+    color: inherit;
+    text-decoration: inherit;
+    min-width: 120px;
+    text-align: center;
+    transition:1s;
+}
+
+.link:hover {
+    transition:1s;
+    font-size: 22px;
+}
+  
