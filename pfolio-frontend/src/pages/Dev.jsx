@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from "../axios";
+import { PageTitle } from '../components/PageTitle';
 
 export const Dev = () => {
 
@@ -14,6 +15,7 @@ export const Dev = () => {
 
     return (
     <>
+    <PageTitle pageTitle="Dev works"/>
     </>
     );
 

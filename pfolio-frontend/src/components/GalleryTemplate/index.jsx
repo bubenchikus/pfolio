@@ -1,13 +1,14 @@
 import React from 'react';
 import axios from "../../axios";
-import styles from './GalleryTemplate.module.scss';
 import Container from '@mui/material/Container';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import universalStyles from '../UniversalStyles.module.scss'
 
 export const GalleryTemplate = ({url}) => {
 
-  const [data, setData] = React.useState();
+  const [imagesData, setData] = React.useState();
+  const [descriptionData, setDescription] = React.useState();
   const [isLoading, setLoading] = React.useState(true);
 
   React.useEffect(()=>{
@@ -20,40 +21,53 @@ export const GalleryTemplate = ({url}) => {
         console.warn(err);
         alert('Error occured while getting images!');
       })
+    }, [])
 
-    }, [url])
-
-    var images = {};
-
-    data?.forEach((element) => {
-      if (element.series in images) 
-      {images[element.series].push(element)}
-      else
-      {images[element.series] = [element]}
+  React.useEffect(()=>{
+    axios
+    .get(`${url}/description`)
+    .then((response) => {
+      setDescription(response.data)
+      setLoading(false)})
+    .catch((err) => {
+      console.warn(err);
+      alert('Error occured while getting descriptions!');
     })
+  }, [])
+
+  var images = {};
+
+  imagesData?.forEach((element) => {
+    if (element.series in images) 
+    {images[element.series].push(element)}
+    else
+    {images[element.series] = [element]}
+  })
+
+  var descriptions = {};
+
+  descriptionData?.forEach((element) => {
+    descriptions[element.series]=element.txt
+  })
 
   return (
   <>
-  {Object.keys(images).map((series, index)=> {
+  {Object.keys(images).map((series, index1)=> {
    return ( 
-   <Container maxWidth="lg" className='Cont' style={{
-    "margin-bottom":"30px", 
-    'border':'black 2px solid', 
-    'border-left':'black 4px solid',
-    'box-sizing': 'border-box',
-    'background-color':'rgba(90,90,90,.5)'
-    }}>
-   <div className={styles.title}>{`Series: ${series}`}</div>
-   <div className={styles.description}>Description</div> 
-   <ImageList sx={{'margin':'20px 0', "padding":'2px'}} cols={5} variant={'standard'} gap={"6px"}>
-    {images[series].map((item, index) => (
-      <ImageListItem key={index} rows={1} cols={1} 
+   <Container key={index1}>
+   <div className={universalStyles.blockContainer}>
+   <div className={universalStyles.blockTitle}>{`Series: ${series}`}</div>
+   <div className={universalStyles.blockText} >{descriptions[series]}</div> 
+   <ImageList sx={{'margin':'20px 0', "padding":'2px'}} cols={5} variant={'standard'} gap={6}>
+    {images[series].map((item, index2) => (
+      <ImageListItem key={index2} rows={1} cols={1} 
       sx={{
-      'box-shadow': '-1px 2px 2px black', 
-      'aspect-ratio': '1',
-      'overflow': 'hidden'
+      'boxShadow': '-1px 2px 2px black', 
+      'aspectRatio': '1',
+      'overflow': 'hidden' 
       }}>
         <img
+          className={universalStyles.img}
           src={`http://localhost:4444${item.pictureUrl}`}
           srcSet={`http://localhost:4444${item.pictureUrl}`}
           alt={item.title}
@@ -62,6 +76,7 @@ export const GalleryTemplate = ({url}) => {
       </ImageListItem>
     ))}
     </ImageList>
+    </div>
     </Container>)
 
   })}

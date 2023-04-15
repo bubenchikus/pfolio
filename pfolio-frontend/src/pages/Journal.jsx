@@ -2,6 +2,7 @@ import React from 'react';
 import axios from "../axios";
 
 import { JournalPostTemplate } from '../components/JournalPostTemplate';
+import {PageTitle} from '../components/PageTitle'
 
 export const Journal = () => {
 
@@ -21,9 +22,10 @@ export const Journal = () => {
 
   return (
   <>
+  <PageTitle pageTitle="Action Journal"/>
    {data?.map((post, index)=> {
     return (
-    <div>
+    <div key={index}>
       <JournalPostTemplate postData={post}/>
     </div>
    )}

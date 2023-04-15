@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './MainMenu.module.scss';
+import universalStyles from '../UniversalStyles.module.scss'
 import Container from '@mui/material/Container';
 
 import {Link} from 'react-router-dom'; // href ->da to, a -> Link
@@ -11,11 +12,10 @@ export const MainMenu = () => {
   const placeholder = "In process...";
 
   return (
-
-      <Container maxWidth="lg" className={styles.root}>
+      <Container className={styles.root}>
           <div className={styles.grid}> 
             <div className={styles.leftBlock}>
-              <Link to="/dev" className={styles.blockTitle}>Dev works</Link>
+              <Link to="/dev" className={universalStyles.pageSubtitle}>Dev works</Link>
               <Link to="/" className={styles.blockSubblock}>
                 <div className={styles.blockSubblockDev1Image}></div>
                 <div className={styles.blockSubblockText}>{placeholder}</div>
@@ -25,7 +25,7 @@ export const MainMenu = () => {
               <img className={styles.helloImage} src="https://arthive.net/res/media/img/orig/article/cc0/7567038@2x.jpg" alt="not found" />
             </div>
             <div className={styles.rightBlock}>
-              <Link to="/art" className={styles.blockTitle}>Art works</Link>
+              <Link to="/art" className={universalStyles.pageSubtitle}>Art works</Link>
 
               <Link to="/art/cg-paint-left" className={styles.blockSubblock}>
                 <div className={styles.blockSubblockArt1Image}></div>

@@ -19,12 +19,26 @@ app.get("/dev", DescriptionController.getDevDescription);
 
 app.get("/art", DescriptionController.getArtDescription);
 app.get("/art/cg-paint-left", PictureController.getCGPaintLeft);
+app.get(
+  "/art/cg-paint-left/description",
+  DescriptionController.getCGPaintLeftDescription
+);
 app.get("/art/cg-paint-right", PictureController.getCGPaintRight);
+app.get(
+  "/art/cg-paint-right/description",
+  DescriptionController.getCGPaintRightDescription
+);
 app.get("/art/cg-graph", PictureController.getCGGraph);
+app.get(
+  "/art/cg-graph/description",
+  DescriptionController.getCGGraphDescription
+);
 app.get("/art/trad", PictureController.getTrad);
+app.get("/art/trad/description", DescriptionController.getTradDescription);
 app.get("/art/comics", PictureController.getComics);
+app.get("/art/comics/description", DescriptionController.getComicsDescription);
 
-app.get("/about");
+app.get("/about", DescriptionController.getAbout);
 
 app.get("/journal", PostController.getAllPosts);
 app.get("/journal/:category", PostController.getPostsByCategory);
