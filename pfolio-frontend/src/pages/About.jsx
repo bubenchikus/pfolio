@@ -1,12 +1,17 @@
 import React from 'react';
 import axios from "../axios";
 import { PageTitle } from '../components/PageTitle';
+import { PageDescription } from '../components/PageDescription';
 
 export const About = () => {
+
+  const [descriptionData, setDescription] = React.useState();
 
     React.useEffect(()=>{
         axios
         .get("about")
+        .then((response) => {
+          setDescription(response.data)})
         .catch((err) => {
           console.warn(err);
           alert('Error occured while getting images!');
@@ -16,6 +21,7 @@ export const About = () => {
     return (
     <>
     <PageTitle pageTitle="About+Links"/>
+    <PageDescription descriptionData={descriptionData}/>
     </>
     );
 

@@ -1,22 +1,28 @@
 import React from 'react';
 import axios from "../axios";
 import { PageTitle } from '../components/PageTitle';
+import { PageDescription } from '../components/PageDescription'
 
 export const Art = () => {
 
-    React.useEffect(()=>{
-        axios
-        .get("art")
-        .catch((err) => {
-          console.warn(err);
-          alert('Error occured while getting Art page!');
-        });
-      })
+  const [descriptionData, setDescription] = React.useState();
 
-    return (
-    <>
-    <PageTitle pageTitle="Art works"/>
-    </>
-    );
+  React.useEffect(()=>{
+      axios
+      .get("art")
+      .then((response) => {
+        setDescription(response.data)})
+      .catch((err) => {
+        console.warn(err);
+        alert('Error occured while getting Art page!');
+      });
+    }, [])
+
+  return (
+  <>
+  <PageTitle pageTitle="Art works"/>
+  <PageDescription descriptionData={descriptionData}/>
+  </>
+  );
 
 };

@@ -30,8 +30,12 @@ async function getPageDescription(page, res) {
   }
 }
 
-export const getAbout = async (_, res) => {
+export const getAboutDescription = async (_, res) => {
   getPageDescription("about", res);
+};
+
+export const getJournalDescription = async (_, res) => {
+  getPageDescription("journal", res);
 };
 
 export const getArtDescription = async (_, res) => {

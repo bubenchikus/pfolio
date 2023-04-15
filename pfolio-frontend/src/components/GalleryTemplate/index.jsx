@@ -9,31 +9,29 @@ export const GalleryTemplate = ({url}) => {
 
   const [imagesData, setData] = React.useState();
   const [descriptionData, setDescription] = React.useState();
-  const [isLoading, setLoading] = React.useState(true);
+  // const [isLoading, setLoading] = React.useState(true);
 
   React.useEffect(()=>{
       axios
       .get(url)
       .then((response) => {
-        setData(response.data)
-        setLoading(false)})
+        setData(response.data)})
       .catch((err) => {
         console.warn(err);
         alert('Error occured while getting images!');
       })
-    }, [])
+    }, [url])
 
   React.useEffect(()=>{
     axios
     .get(`${url}/description`)
     .then((response) => {
-      setDescription(response.data)
-      setLoading(false)})
+      setDescription(response.data)})
     .catch((err) => {
       console.warn(err);
       alert('Error occured while getting descriptions!');
     })
-  }, [])
+  }, [url])
 
   var images = {};
 
@@ -57,8 +55,9 @@ export const GalleryTemplate = ({url}) => {
    <Container key={index1}>
    <div className={universalStyles.blockContainer}>
    <div className={universalStyles.blockTitle}>{`Series: ${series}`}</div>
-   <div className={universalStyles.blockText} >{descriptions[series]}</div> 
-   <ImageList sx={{'margin':'20px 0', "padding":'2px'}} cols={5} variant={'standard'} gap={6}>
+   <>{descriptions[series]?.length>0 ? <div className={universalStyles.blockText} >{descriptions[series]}</div> : <></>}</>
+   
+   <ImageList sx={{'margin':'5px 0 15px 0', "padding":'2px'}} cols={5} variant={'standard'} gap={6}>
     {images[series].map((item, index2) => (
       <ImageListItem key={index2} rows={1} cols={1} 
       sx={{

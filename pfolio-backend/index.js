@@ -38,9 +38,10 @@ app.get("/art/trad/description", DescriptionController.getTradDescription);
 app.get("/art/comics", PictureController.getComics);
 app.get("/art/comics/description", DescriptionController.getComicsDescription);
 
-app.get("/about", DescriptionController.getAbout);
+app.get("/about", DescriptionController.getAboutDescription);
 
 app.get("/journal", PostController.getAllPosts);
+app.get("/journal/description", DescriptionController.getJournalDescription);
 app.get("/journal/:category", PostController.getPostsByCategory);
 
 PictureController.updatePictureDB();

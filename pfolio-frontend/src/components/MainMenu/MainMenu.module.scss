@@ -35,20 +35,6 @@
     color: black;
 }
 
-.blockTitle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    color: rgb(85, 85, 85);
-    letter-spacing: -2px;
-    padding: 5px 0 15px 0;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 400;
-    mix-blend-mode: multiply;
-}
-
 .blockSubblock {
     display: flex;
     width: 100%;
@@ -129,8 +115,6 @@
 }
 
 .helloImage {
-    // flex-shrink: 0;
-    // min-width: 100%;
     min-height: 100%;
   }
 

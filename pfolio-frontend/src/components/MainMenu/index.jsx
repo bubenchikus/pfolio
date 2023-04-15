@@ -22,7 +22,7 @@ export const MainMenu = () => {
               </Link>
             </div>
             <div className={styles.middleBlock}>
-              <img className={styles.helloImage} src="https://arthive.net/res/media/img/orig/article/cc0/7567038@2x.jpg" alt="not found" />
+              <img className={styles.helloImage} src="https://arthive.net/res/media/img/orig/article/cc0/7567038@2x.jpg" alt="Not found" />
             </div>
             <div className={styles.rightBlock}>
               <Link to="/art" className={universalStyles.pageSubtitle}>Art works</Link>
