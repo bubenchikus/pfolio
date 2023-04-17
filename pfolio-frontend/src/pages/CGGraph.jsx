@@ -1,5 +1,5 @@
 import React from 'react';
-import {GalleryTemplate} from '../components/GalleryTemplate';
+import {GalleryTemplate} from '../components/GalleryTemplate/GalleryTemplate';
 import { PageTitle } from '../components/PageTitle';
 
 export const CGGraph = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '@mui/material/Container';
-import universalStyles from '../UniversalStyles.module.scss'
+import universalStyles from './UniversalStyles.module.scss'
 
 export const JournalPostTemplate = ({postData}) => {
 

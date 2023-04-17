@@ -10,27 +10,28 @@
 .blockTitle {
     font-size: 25px;
     margin-top: 10px;
+    text-decoration: underline 2px;
+    text-underline-offset: 4px;
 }
 
 .blockText {
     font-size: 20px;
-    margin: 10px 0 15px 0;
+    margin: 5px 0 20px 0;
     max-width: 800px;
     min-height: 0;
+    font-weight: 300;
 }
 
 .pageTitle {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    font-size: 45px;
+    font-size: 40px;
     color: rgb(119, 119, 119);
     border-bottom: solid rgb(119, 119, 119) 3px;
     letter-spacing: -2px;
     margin: 5px 0 25px 0;
     font-family: 'Marcellus SC', serif;
-    // text-decoration: underline 3px;
-    // text-underline-offset: 10%;
     line-height: 95%;
     text-transform: uppercase;
     font-weight: 400;
@@ -57,9 +58,4 @@
 .pageDescription{
     @extend .blockText;
     margin-bottom: 30px;
-}
-
-.img {
-    object-fit: cover;
-    image-rendering: auto;
 }
