@@ -16,16 +16,16 @@ export const GalleryTemplate = ({url}) => {
   const [imagesData, setData] = React.useState();
   const [descriptionData, setDescription] = React.useState();
 
-  const [currentImage, setCurrentImage] = React.useState(0);
+  const [currentImage, setCurrentImage] = React.useState();
   const[viewerIsOpen, setViewerIsOpen] = React.useState(false);
 
-  const openLightbox= (index) => {
-    setCurrentImage(index);
+  const openLightbox= (image) => {
+    setCurrentImage(image);
     setViewerIsOpen(true);
   };
 
   const closeLightbox = () => {
-    setCurrentImage(0);
+    setCurrentImage();
     setViewerIsOpen(false);
   };
 
@@ -73,6 +73,7 @@ export const GalleryTemplate = ({url}) => {
   })
 
   const iconStyle = {"color":"white", "fontSize":"60px", "padding":"10px"};
+  const disabledIconStyle = {"color":"rgb(60,60,60)", "fontSize":"60px", "padding":"10px"};
   
   return (
   <>
@@ -84,12 +85,13 @@ export const GalleryTemplate = ({url}) => {
           <div className={styles.carouselSidePanel}>
             <div className={styles.carouselSidePanelBox}></div>
             <div className={styles.carouselSidePanelBox}>
-              {currentImage > 0 ? <ArrowBackIcon sx={iconStyle} onClick={() => setCurrentImage(currentImage - 1)}/> : <></>}
+              {currentImage.galleryIndex > 0 ? <ArrowBackIcon sx={iconStyle} 
+              onClick={() => setCurrentImage(imagesData.find(image => image.galleryIndex === currentImage?.galleryIndex - 1))}/> : <ArrowBackIcon sx={disabledIconStyle}/>}
             </div> 
           </div>
           <div className={styles.carouselMiddleBox}>
             <div className={styles.carouselImageBox}>
-              <img src={`http://localhost:4444${imagesData.find(el => el.galleryIndex === currentImage).pictureUrl}`} className={styles.carouselImage}></img>
+              <img src={`http://localhost:4444${currentImage.pictureUrl}`} className={styles.carouselImage}></img>
             </div>
             <div className={styles.carouselDescription}>
               <div className={styles.carouselText}>{`Title: ${currentImage.title}`}</div>
@@ -100,7 +102,8 @@ export const GalleryTemplate = ({url}) => {
           <div className={styles.carouselSidePanel}>
             <div className={styles.carouselSidePanelBox}><CloseIcon sx={iconStyle} onClick={closeLightbox}/></div>
             <div className={styles.carouselSidePanelBox}>
-            {currentImage < imagesData.length - 1 ? <ArrowForwardIcon sx={iconStyle} onClick={() => setCurrentImage(currentImage + 1)}/> : <></>}
+            {currentImage.galleryIndex < imagesData.length - 1 ? <ArrowForwardIcon sx={iconStyle} 
+            onClick={() => setCurrentImage(imagesData.find(image => image.galleryIndex === currentImage?.galleryIndex + 1))}/> : <ArrowForwardIcon sx={disabledIconStyle}/>}
             </div>
           </div>
       </div>
@@ -118,7 +121,7 @@ export const GalleryTemplate = ({url}) => {
    <ImageList sx={{'margin':'15px 0', "padding":'2px'}} cols={5} variant={'standard'} gap={6}>
     {images[series].map((item) => (
       <ImageListItem key={item.id} rows={1} cols={1} 
-      onClick={() => openLightbox(item.galleryIndex)}
+      onClick={() => openLightbox(imagesData.find(image => image.galleryIndex === item.galleryIndex))}
       sx={{
       'aspectRatio': '1',
       'overflow': 'hidden' 

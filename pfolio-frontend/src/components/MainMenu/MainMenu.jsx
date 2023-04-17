@@ -4,7 +4,9 @@ import styles from './MainMenu.module.scss';
 import universalStyles from '../UniversalStyles.module.scss'
 import Container from '@mui/material/Container';
 
-import {Link} from 'react-router-dom'; // href ->da to, a -> Link
+import {Link} from 'react-router-dom';
+
+import helloImage from '../../uiPictures/hello-image.png'
 
 
 export const MainMenu = () => {
