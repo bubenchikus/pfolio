@@ -52,12 +52,9 @@ export const GalleryTemplate = ({url}) => {
   }, [url])
 
   var images = {};
-  var idToGalleryIndex = {}
 
   var galleryIndex = 0;
   imagesData?.forEach((element) => {
-    // imagesData.find(image => image.id === element.id).galleryIndex = galleryIndex;
-    idToGalleryIndex[element.id] = galleryIndex;
     element.galleryIndex = galleryIndex;
     galleryIndex++;
     if (element.series in images) 

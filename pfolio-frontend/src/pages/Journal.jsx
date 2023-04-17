@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "../axios";
 
-import { JournalPostTemplate } from '../components/JournalPostTemplate';
+import { JournalPostTemplate } from '../components/JournalPostTemplate/JournalPostTemplate';
 import {PageTitle} from '../components/PageTitle'
 import { PageDescription } from '../components/PageDescription';
 
