@@ -3,6 +3,10 @@
     image-rendering: auto;
 }
 
+.img:hover {
+    cursor: pointer;
+}
+
 .dark{
     display: flex;
     flex-direction: column;

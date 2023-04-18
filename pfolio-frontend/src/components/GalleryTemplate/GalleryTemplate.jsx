@@ -52,7 +52,6 @@ export const GalleryTemplate = ({url}) => {
   }, [url])
 
   var images = {};
-
   var galleryIndex = 0;
   imagesData?.forEach((element) => {
     element.galleryIndex = galleryIndex;
@@ -69,7 +68,7 @@ export const GalleryTemplate = ({url}) => {
     descriptions[element.series]=element.txt
   })
 
-  const iconStyle = {"color":"white", "fontSize":"60px", "padding":"10px"};
+  const iconStyle = {"color":"white", "fontSize":"60px", "padding":"10px", "cursor":"pointer"};
   const disabledIconStyle = {"color":"rgb(60,60,60)", "fontSize":"60px", "padding":"10px"};
   
   return (
@@ -88,7 +87,7 @@ export const GalleryTemplate = ({url}) => {
           </div>
           <div className={styles.carouselMiddleBox}>
             <div className={styles.carouselImageBox}>
-              <img src={`http://localhost:4444${currentImage.pictureUrl}`} className={styles.carouselImage}></img>
+              <img src={`http://localhost:4444${currentImage.pictureUrl}`} className={styles.carouselImage} alt={currentImage.title}></img>
             </div>
             <div className={styles.carouselDescription}>
               <div className={styles.carouselText}>{`Title: ${currentImage.title}`}</div>
@@ -113,8 +112,7 @@ export const GalleryTemplate = ({url}) => {
    <Container key={index1}>
    <div className={universalStyles.blockContainer}>
    <div className={universalStyles.blockTitle}>{`Series: ${series}`}</div>
-   <>{descriptions[series]?.length>0 ? <div className={universalStyles.blockText} >{descriptions[series]}</div> : <></>}</>
-   
+   <>{descriptions[series]?.length>0 ? <div className={universalStyles.blockText} >{descriptions[series]}</div> : <></>}</>  
    <ImageList sx={{'margin':'15px 0', "padding":'2px'}} cols={5} variant={'standard'} gap={6}>
     {images[series].map((item) => (
       <ImageListItem key={item.id} rows={1} cols={1} 
@@ -134,15 +132,7 @@ export const GalleryTemplate = ({url}) => {
     ))}
     </ImageList>
     </div>
-    
     </Container>
-    
-    )
-    
-
-  }
-  )
-  }
-  
+    )})}
   </>)
 };

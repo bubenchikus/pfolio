@@ -117,27 +117,4 @@
 .helloImage {
     height: 100%;
   }
-
-.linkBox {
-    display: flex;
-    color:rgb(0, 0, 140);
-    margin-top: 25px;
-    justify-content: center;
-    text-decoration: underline 2px;
-    gap: 15px;
-    font-size: 20px;
-}
-
-.link {
-    color: inherit;
-    text-decoration: inherit;
-    min-width: 120px;
-    text-align: center;
-    transition:1s;
-}
-
-.link:hover {
-    transition:1s;
-    font-size: 22px;
-}
   

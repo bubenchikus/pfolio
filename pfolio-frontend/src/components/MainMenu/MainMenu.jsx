@@ -55,9 +55,9 @@ export const MainMenu = () => {
               </Link>
             </div>
           </div>
-          <div className={styles.linkBox}>
-            <Link to="/about" className={styles.link}>About+links</Link>
-            <Link to="/journal" className={styles.link}>Action journal</Link>
+          <div className={universalStyles.linkBox}>
+            <Link to="/about" className={universalStyles.link}>About+links</Link>
+            <Link to="/journal" className={universalStyles.link}>Action journal</Link>
             {/* <Link to="/" className={styles.link}>To do</Link> */}
           </div>
       </Container>

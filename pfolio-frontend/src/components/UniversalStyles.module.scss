@@ -1,3 +1,52 @@
+.linkBox {
+    display: flex;
+    margin: 25px;
+    justify-content: center;
+    gap: 15px;
+    font-size: 20px;
+}
+
+.buttonBox {
+    @extend .linkBox;
+    justify-content: start;
+    align-items: center;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+
+.link {
+    color:rgb(0, 0, 140);
+    text-decoration: underline 2px;
+    min-width: 120px;
+    text-align: center;
+    transition:1s;
+}
+
+.button{
+    @extend .link;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    min-height: 40px;
+    padding: 0 20px;
+    background-color: rgb(148, 205, 171);
+    border-radius: 5px;
+}
+
+.buttonPressed {     
+    @extend .button;
+    background-color: rgb(54, 124, 82);  
+}
+
+
+.link:hover, button:hover {
+    transition:1s;
+    font-size: 22px;
+    cursor: pointer;
+}
+
 .blockContainer {
     margin-bottom:20px;
     border:black 2px solid;
@@ -30,7 +79,7 @@
     color: rgb(119, 119, 119);
     border-bottom: solid rgb(119, 119, 119) 3px;
     letter-spacing: -2px;
-    margin: 5px 0 25px 0;
+    margin: 5px 0 30px 0;
     font-family: 'Marcellus SC', serif;
     line-height: 98%;
     text-transform: uppercase;
