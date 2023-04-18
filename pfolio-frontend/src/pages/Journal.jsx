@@ -61,15 +61,9 @@ export const Journal = () => {
     journalIndex++;
   })
 
-  function pressButton(id)
-  {
-    document.getElementById(id)?.setAttribute("class", universalStyles.buttonPressed);
-  }
+  function pressButton(id){document.getElementById(id)?.setAttribute("class", universalStyles.buttonPressed)}
 
-  function unpressButton(id)
-  {
-    document.getElementById(id)?.setAttribute("class", universalStyles.button);
-  }
+  function unpressButton(id){document.getElementById(id)?.setAttribute("class", universalStyles.button)}
 
   return (
   <>

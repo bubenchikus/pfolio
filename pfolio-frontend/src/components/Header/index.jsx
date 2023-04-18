@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom'; // href ->da to, a -> Link
+import {Link} from 'react-router-dom';
 import styles from './Header.module.scss';
 import Container from '@mui/material/Container';
 

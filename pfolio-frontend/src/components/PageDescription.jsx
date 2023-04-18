@@ -8,7 +8,9 @@ export const PageDescription = ({descriptionData}) => {
     <>
     {descriptionData?.length > 0 ? (
     <Container>
-    <div className={universalStyles.pageDescription}>{descriptionData[0].txt}</div>
+    <div className={universalStyles.pageDescription}>
+      {descriptionData[0].txt.length > 0 ? descriptionData[0].txt : "Description isn't added yet..."}
+      </div>
     </Container>
     ) : <></>}
    </>
