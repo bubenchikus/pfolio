@@ -18,7 +18,7 @@ export const Journal = () => {
 
   React.useEffect(()=>{
     axios
-    .get("journal")
+    .get("posts")
     .then((response) => {
       setData(response?.data)})
     .catch((err) => {
@@ -29,12 +29,12 @@ export const Journal = () => {
 
   React.useEffect(()=>{
     axios
-    .get("journal/description")
+    .get("/pages-descriptions/journal")
     .then((response) => {
       setDescription(response?.data)})
     .catch((err) => {
       console.warn(err);
-      alert('Error occured while getting journal!');
+      alert('Error occured while getting Journal page description!');
     });
   }, [])
 

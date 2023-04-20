@@ -9,12 +9,12 @@ export const Art = () => {
 
   React.useEffect(()=>{
       axios
-      .get("art")
+      .get("/pages-descriptions/art")
       .then((response) => {
         setDescription(response.data)})
       .catch((err) => {
         console.warn(err);
-        alert('Error occured while getting Art page!');
+        alert('Error occured while getting Art page description!');
       });
     }, [])
 

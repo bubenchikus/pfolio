@@ -6,14 +6,28 @@ async function getPicturesByCategory(category, res) {
     const pictures = await databaseFunctions.getPicturesByCategory(category);
 
     if (!pictures) {
+      res.status(404).json({ message: "Pictures by category not found!" });
+    }
+    res.json(pictures);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Getting pictures by category failed!" });
+  }
+}
+
+export const getAllPictures = async (_, res) => {
+  try {
+    const pictures = await databaseFunctions.getAllPictures();
+
+    if (!pictures) {
       res.status(404).json({ message: "Pictures not found!" });
     }
     res.json(pictures);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Getting post failed!" });
+    res.status(500).json({ message: "Getting pictures failed!" });
   }
-}
+};
 
 export const getCGPaintLeft = async (_, res) => {
   getPicturesByCategory("cg-paint-left", res);
@@ -35,6 +49,58 @@ export const getComics = async (_, res) => {
   getPicturesByCategory("comics", res);
 };
 
+export const uploadPicture = async (req, res) => {
+  try {
+    await databaseFunctions.uploadPicture(
+      req.body.pictureUrl,
+      req.body.title,
+      req.body.created,
+      req.body.category,
+      req.body.series,
+      req.body.about,
+      req.body.redraw,
+      req.body.previewUrl
+    );
+
+    res.json({ message: "Picture successfully uploaded!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Picture uploading failed!" });
+  }
+};
+
+export const updatePicture = async (req, res) => {
+  try {
+    const updated = await databaseFunctions.updatePicture(
+      req.body.pictureUrl,
+      req.body.title,
+      req.body.created,
+      req.body.category,
+      req.body.series,
+      req.body.about,
+      req.body.redraw,
+      req.body.previewUrl,
+      req.params.id
+    );
+
+    res.json({ message: "Picture successfully updated!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Picture updating process failed!" });
+  }
+};
+
+export const deletePicture = async (req, res) => {
+  try {
+    await databaseFunctions.deletePictureById(req.params.id);
+
+    res.json({ message: "Picture successfully deleted!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Picture deletion process failed!" });
+  }
+};
+
 function addPicturesToDB() {
   try {
     fs.readdir(`${process.cwd()}/pictures`, (err, subdirs) => {
@@ -45,11 +111,15 @@ function addPicturesToDB() {
               `/pictures/${dir}/${file}`
             );
             if (pic?.length == 0) {
-              await databaseFunctions.insertPicture(
+              await databaseFunctions.uploadPicture(
                 `/pictures/${dir}/${file}`,
                 file.substring(8, file.length - 4),
                 `${file.substring(0, 7)}-01`,
-                dir
+                dir,
+                "stand-alone",
+                null,
+                "0",
+                null
               );
             }
           });

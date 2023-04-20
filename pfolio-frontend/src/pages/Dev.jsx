@@ -9,14 +9,14 @@ export const Dev = () => {
 
   React.useEffect(()=>{
       axios
-      .get("dev")
+      .get("/pages-descriptions/dev")
       .then((response) => {
         setDescription(response.data)})
       .catch((err) => {
         console.warn(err);
-        alert('Error occured while getting Dev page!');
+        alert('Error occured while getting Dev page description!');
       });
-    })
+    }, [])
 
   return (
   <>

@@ -7,7 +7,6 @@ import {
   EditJournal,
   EditPagesDescriptions,
   EditSeriesDescriptions,
-  UploadImages,
 } from "./pages";
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
     <>
       <SideBar />
       <Routes>
-        <Route path="/upload-images" element={<UploadImages />} />
         <Route path="/edit-images" element={<EditImages />} />
         <Route path="/edit-journal" element={<EditJournal />} />
         <Route

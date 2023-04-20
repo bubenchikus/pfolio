@@ -1,67 +1,141 @@
 import * as databaseFunctions from "../db/descriptionDatabaseQueries.js";
 
-async function getDescriptionsByCategory(category, res) {
-  try {
-    const descriptions = await databaseFunctions.getDescriptionsByCategory(
-      category
-    );
-
-    if (!descriptions) {
-      res.status(404).json({ message: "Pictures not found!" });
-    }
-    res.json(descriptions);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Getting post failed!" });
-  }
-}
-
 async function getPageDescription(page, res) {
   try {
     const descriptions = await databaseFunctions.getPageDescription(page);
 
     if (!descriptions) {
-      res.status(404).json({ message: "Pictures not found!" });
+      res.status(404).json({ message: "Page description not found!" });
     }
     res.json(descriptions);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Getting post failed!" });
+    res.status(500).json({ message: "Getting page description failed!" });
   }
 }
 
-export const getAboutDescription = async (_, res) => {
-  getPageDescription("about", res);
+export const getAllPagesDescriptions = async (_, res) => {
+  getDescriptionsByCategory("page", res);
 };
 
-export const getJournalDescription = async (_, res) => {
-  getPageDescription("journal", res);
+export const getPageDescriptionByTitle = async (req, res) => {
+  getPageDescription(req.params.page, res);
 };
 
-export const getArtDescription = async (_, res) => {
-  getPageDescription("art", res);
+export const uploadPageDescription = async (req, res) => {
+  try {
+    await databaseFunctions.uploadDescription(
+      req.body.txt,
+      "page",
+      req.body.page
+    );
+
+    res.json({ message: "Page description successfully uploaded!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Page description uploading failed!" });
+  }
 };
 
-export const getDevDescription = async (_, res) => {
-  getPageDescription("dev", res);
+export const updatePageDescription = async (req, res) => {
+  try {
+    await databaseFunctions.updateDescription(
+      req.body.txt,
+      "page",
+      req.params.page
+    );
+
+    res.json({ message: "Page description successfully updated!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Page description updating failed!" });
+  }
 };
 
-export const getCGPaintRightDescription = async (_, res) => {
-  getDescriptionsByCategory("cg-paint-right", res);
+export const deletePageDescription = async (req, res) => {
+  try {
+    await databaseFunctions.deleteDescription("page", req.params.page);
+
+    res.json({ message: "Page description successfully deleted!" });
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ message: "Page description deletion process failed!" });
+  }
 };
 
-export const getCGPaintLeftDescription = async (_, res) => {
-  getDescriptionsByCategory("cg-paint-left", res);
+export const getAllSeriesDescriptions = async (_, res) => {
+  try {
+    const descriptions = await databaseFunctions.getAllSeriesDescriptions();
+
+    res.json(descriptions);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Getting series descriptions failed!" });
+  }
 };
 
-export const getCGGraphDescription = async (_, res) => {
-  getDescriptionsByCategory("cg-graph", res);
+export const getSeriesDescriptionsByCategory = async (req, res) => {
+  try {
+    const descriptions = await databaseFunctions.getDescriptionsByCategory(
+      req.params.category
+    );
+
+    var processedDescriptions = {};
+    descriptions.forEach((el) => (processedDescriptions[el.series] = el.txt));
+
+    res.json(processedDescriptions);
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ message: "Getting descriptions by category failed!" });
+  }
 };
 
-export const getTradDescription = async (_, res) => {
-  getDescriptionsByCategory("trad", res);
+export const uploadSeriesDescription = async (req, res) => {
+  try {
+    await databaseFunctions.uploadDescription(
+      req.body.txt,
+      req.body.category,
+      req.body.series
+    );
+
+    res.json({ message: "Series description successfully uploaded!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Series description uploading failed!" });
+  }
 };
 
-export const getComicsDescription = async (_, res) => {
-  getDescriptionsByCategory("comics", res);
+export const updateSeriesDescription = async (req, res) => {
+  try {
+    await databaseFunctions.updateDescription(
+      req.body.txt,
+      req.params.category,
+      req.params.series
+    );
+
+    res.json({ message: "Series description successfully updated!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Series description updating failed!" });
+  }
+};
+
+export const deleteSeriesDescription = async (req, res) => {
+  try {
+    await databaseFunctions.deleteDescription(
+      req.params.category,
+      req.params.series
+    );
+
+    res.json({ message: "Series description successfully deleted!" });
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ message: "Series description deletion process failed!" });
+  }
 };

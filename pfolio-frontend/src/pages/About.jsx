@@ -9,14 +9,14 @@ export const About = () => {
 
     React.useEffect(()=>{
         axios
-        .get("about")
+        .get("/pages-descriptions/about")
         .then((response) => {
           setDescription(response.data)})
         .catch((err) => {
           console.warn(err);
-          alert('Error occured while getting images!');
+          alert('Error occured while getting About page description!');
         });
-      })
+      }, [])
 
     return (
     <>

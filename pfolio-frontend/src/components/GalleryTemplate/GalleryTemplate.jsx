@@ -10,11 +10,13 @@ import styles from './GalleryTemplate.module.scss';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
+import { PageDescription } from '../PageDescription';
 
 export const GalleryTemplate = ({url}) => {
 
   const [imagesData, setData] = React.useState();
   const [descriptionData, setDescription] = React.useState();
+  const [seriesDescriptions, setSeriesDescriptions] = React.useState();
 
   const [currentImage, setCurrentImage] = React.useState();
   const[viewerIsOpen, setViewerIsOpen] = React.useState(false);
@@ -42,9 +44,20 @@ export const GalleryTemplate = ({url}) => {
 
   React.useEffect(()=>{
     axios
-    .get(`${url}/description`)
+    .get(`/pages-descriptions/${url.substring(4)}`)
     .then((response) => {
       setDescription(response.data)})
+    .catch((err) => {
+      console.warn(err);
+      alert('Error occured while getting descriptions!');
+    })
+  }, [url])
+
+  React.useEffect(()=>{
+    axios
+    .get(`/series-descriptions/${url.substring(4)}`)
+    .then((response) => {
+      setSeriesDescriptions(response.data)})
     .catch((err) => {
       console.warn(err);
       alert('Error occured while getting descriptions!');
@@ -60,12 +73,6 @@ export const GalleryTemplate = ({url}) => {
     {images[element.series].push(element)}
     else
     {images[element.series] = [element]}
-  })
-
-  var descriptions = {};
-
-  descriptionData?.forEach((element) => {
-    descriptions[element.series]=element.txt
   })
 
   const iconStyle = {"color":"white", "fontSize":"60px", "padding":"10px", "cursor":"pointer"};
@@ -107,12 +114,15 @@ export const GalleryTemplate = ({url}) => {
       </>
       : <></>
       }</div>
+  <PageDescription descriptionData={descriptionData}/>
   {Object.keys(images).map((series, index1)=> {
    return ( 
    <Container key={index1}>
    <div className={universalStyles.blockContainer}>
    <div className={universalStyles.blockTitle}>{`Series: ${series}`}</div>
-   <>{descriptions[series]?.length>0 ? <div className={universalStyles.blockText} >{descriptions[series]}</div> : <></>}</>  
+   <>{(seriesDescriptions && seriesDescriptions[series])
+   ? <div className={universalStyles.blockText} >{seriesDescriptions[series]}</div> 
+   : <></>}</>  
    <ImageList sx={{'margin':'15px 0', "padding":'2px'}} cols={5} variant={'standard'} gap={6}>
     {images[series].map((item) => (
       <ImageListItem key={item.id} rows={1} cols={1} 
