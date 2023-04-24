@@ -7,6 +7,7 @@ import {
   AdminController,
 } from "./controllers/index.js";
 import { checkAuth } from "./auth.js";
+import { validationResultStatus, pictureValidation } from "./valid.js";
 
 const app = express();
 app.use(express.json());
@@ -64,7 +65,13 @@ app.delete(
 );
 
 app.get("/pictures", PictureController.getAllPictures);
-app.post("/pictures", checkAuth, PictureController.uploadPicture);
+app.post(
+  "/pictures",
+  pictureValidation,
+  validationResultStatus,
+  checkAuth,
+  PictureController.uploadPicture
+);
 app.patch("/pictures/:id", checkAuth, PictureController.updatePicture);
 app.delete("/pictures/:id", checkAuth, PictureController.deletePicture);
 

@@ -20,6 +20,12 @@ export const getSeriesDescriptionsByCategory = async (req, res) => {
       req.params.category
     );
 
+    if (!descriptions) {
+      return res
+        .status(404)
+        .json({ message: "Descriptions not found (by category)!" });
+    }
+
     var processedDescriptions = {};
     descriptions.forEach((el) => (processedDescriptions[el.series] = el.txt));
 
@@ -28,12 +34,12 @@ export const getSeriesDescriptionsByCategory = async (req, res) => {
     console.log(err);
     res
       .status(500)
-      .json({ message: "Getting descriptions by category failed!" });
+      .json({ message: "Getting descriptions failed (by category)!" });
   }
 };
 
 export const getAllPagesDescriptions = async (_, res) => {
-  getDescriptionsByCategory("page", res);
+  getSeriesDescriptionsByCategory("page", res);
 };
 
 export const getPageDescriptionByTitle = async (req, res) => {
@@ -57,11 +63,17 @@ export const uploadPageDescription = async (req, res) => {
 
 export const updatePageDescription = async (req, res) => {
   try {
-    await databaseFunctions.updateDescription(
+    const updated = await databaseFunctions.updateDescription(
       req.body.txt,
       "page",
       req.params.page
     );
+
+    if (!updated.affectedRows) {
+      return res
+        .status(404)
+        .json({ message: "Description not found (by page title)!" });
+    }
 
     res.json({ message: "Page description successfully updated!" });
   } catch (err) {
@@ -72,7 +84,16 @@ export const updatePageDescription = async (req, res) => {
 
 export const deletePageDescription = async (req, res) => {
   try {
-    await databaseFunctions.deleteDescription("page", req.params.page);
+    const deleted = await databaseFunctions.deleteDescription(
+      "page",
+      req.params.page
+    );
+
+    if (!deleted.affectedRows) {
+      return res
+        .status(404)
+        .json({ message: "Description not found (by page title)!" });
+    }
 
     res.json({ message: "Page description successfully deleted!" });
   } catch (err) {
@@ -86,6 +107,12 @@ export const deletePageDescription = async (req, res) => {
 export const getAllSeriesDescriptions = async (_, res) => {
   try {
     const descriptions = await databaseFunctions.getAllSeriesDescriptions();
+
+    if (!descriptions) {
+      return res
+        .status(404)
+        .json({ message: "Description not found (by series)!" });
+    }
 
     res.json(descriptions);
   } catch (err) {
@@ -111,11 +138,17 @@ export const uploadSeriesDescription = async (req, res) => {
 
 export const updateSeriesDescription = async (req, res) => {
   try {
-    await databaseFunctions.updateDescription(
+    const updated = await databaseFunctions.updateDescription(
       req.body.txt,
       req.params.category,
       req.params.series
     );
+
+    if (!updated.affectedRows) {
+      return res
+        .status(404)
+        .json({ message: "Description not found (by series)!" });
+    }
 
     res.json({ message: "Series description successfully updated!" });
   } catch (err) {
@@ -126,10 +159,16 @@ export const updateSeriesDescription = async (req, res) => {
 
 export const deleteSeriesDescription = async (req, res) => {
   try {
-    await databaseFunctions.deleteDescription(
+    const deleted = await databaseFunctions.deleteDescription(
       req.params.category,
       req.params.series
     );
+
+    if (!deleted.affectedRows) {
+      return res
+        .status(404)
+        .json({ message: "Description not found (by series)!" });
+    }
 
     res.json({ message: "Series description successfully deleted!" });
   } catch (err) {

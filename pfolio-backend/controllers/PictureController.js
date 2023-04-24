@@ -6,12 +6,17 @@ async function getPicturesByCategory(category, res) {
     const pictures = await databaseFunctions.getPicturesByCategory(category);
 
     if (!pictures) {
-      res.status(404).json({ message: "Pictures by category not found!" });
+      return res
+        .status(404)
+        .json({ message: "Pictures not found (by category)!" });
     }
+
     res.json(pictures);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Getting pictures by category failed!" });
+    res
+      .status(500)
+      .json({ message: "Getting pictures failed (by category )!" });
   }
 }
 
@@ -20,7 +25,7 @@ export const getAllPictures = async (_, res) => {
     const pictures = await databaseFunctions.getAllPictures();
 
     if (!pictures) {
-      res.status(404).json({ message: "Pictures not found!" });
+      return res.status(404).json({ message: "Pictures not found (all)!" });
     }
     res.json(pictures);
   } catch (err) {
@@ -83,6 +88,10 @@ export const updatePicture = async (req, res) => {
       req.params.id
     );
 
+    if (!updated.affectedRows) {
+      return res.status(404).json({ message: "Picture id not found!" });
+    }
+
     res.json({ message: "Picture successfully updated!" });
   } catch (err) {
     console.log(err);
@@ -92,7 +101,11 @@ export const updatePicture = async (req, res) => {
 
 export const deletePicture = async (req, res) => {
   try {
-    await databaseFunctions.deletePictureById(req.params.id);
+    const deleted = await databaseFunctions.deletePictureById(req.params.id);
+
+    if (!deleted.affectedRows) {
+      return res.status(404).json({ message: "Picture id not found!" });
+    }
 
     res.json({ message: "Picture successfully deleted!" });
   } catch (err) {
