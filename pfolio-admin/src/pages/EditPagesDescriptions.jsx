@@ -5,7 +5,7 @@ export const EditPagesDescriptions = () => {
 
   React.useEffect(()=>{
     axios
-    .get("all-pages-descriptions")
+    .get("pages-descriptions")
     .then((response) => {})
     .catch((err) => {
       console.warn(err);

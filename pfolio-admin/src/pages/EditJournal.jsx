@@ -5,7 +5,7 @@ export const EditJournal = () => {
 
   React.useEffect(()=>{
     axios
-    .get("journal")
+    .get("posts")
     .then((response) => {})
     .catch((err) => {
       console.warn(err);

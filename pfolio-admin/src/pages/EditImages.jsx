@@ -5,7 +5,7 @@ export const EditImages = () => {
 
   React.useEffect(()=>{
     axios
-    .get("all-pictures")
+    .get("pictures")
     .then((response) => {})
     .catch((err) => {
       console.warn(err);

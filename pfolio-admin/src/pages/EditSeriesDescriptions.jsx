@@ -5,7 +5,7 @@ export const EditSeriesDescriptions = () => {
 
   React.useEffect(()=>{
     axios
-    .get("all-series-descriptions")
+    .get("series-descriptions")
     .then((response) => {})
     .catch((err) => {
       console.warn(err);

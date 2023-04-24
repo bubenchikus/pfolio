@@ -14,6 +14,24 @@ async function getPageDescription(page, res) {
   }
 }
 
+export const getSeriesDescriptionsByCategory = async (req, res) => {
+  try {
+    const descriptions = await databaseFunctions.getDescriptionsByCategory(
+      req.params.category
+    );
+
+    var processedDescriptions = {};
+    descriptions.forEach((el) => (processedDescriptions[el.series] = el.txt));
+
+    res.json(processedDescriptions);
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ message: "Getting descriptions by category failed!" });
+  }
+};
+
 export const getAllPagesDescriptions = async (_, res) => {
   getDescriptionsByCategory("page", res);
 };
@@ -73,24 +91,6 @@ export const getAllSeriesDescriptions = async (_, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Getting series descriptions failed!" });
-  }
-};
-
-export const getSeriesDescriptionsByCategory = async (req, res) => {
-  try {
-    const descriptions = await databaseFunctions.getDescriptionsByCategory(
-      req.params.category
-    );
-
-    var processedDescriptions = {};
-    descriptions.forEach((el) => (processedDescriptions[el.series] = el.txt));
-
-    res.json(processedDescriptions);
-  } catch (err) {
-    console.log(err);
-    res
-      .status(500)
-      .json({ message: "Getting descriptions by category failed!" });
   }
 };
 
