@@ -18,19 +18,21 @@ function App() {
   }
   return (
     <>
-      <SideBar />
-      <Routes>
-        <Route path="/edit-images" element={<EditImages />} />
-        <Route path="/edit-journal" element={<EditJournal />} />
-        <Route
-          path="/edit-pages-descriptions"
-          element={<EditPagesDescriptions />}
-        />
-        <Route
-          path="/edit-series-descriptions"
-          element={<EditSeriesDescriptions />}
-        />
-      </Routes>
+      <div style={{ display: "flex" }}>
+        <SideBar />
+        <Routes>
+          <Route path="/edit-images" element={<EditImages />} />
+          <Route path="/edit-journal" element={<EditJournal />} />
+          <Route
+            path="/edit-pages-descriptions"
+            element={<EditPagesDescriptions />}
+          />
+          <Route
+            path="/edit-series-descriptions"
+            element={<EditSeriesDescriptions />}
+          />
+        </Routes>
+      </div>
     </>
   );
 }

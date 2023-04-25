@@ -20,21 +20,18 @@ export const SideBar = () => {
     function unpressButton(id){document.getElementById(id)?.setAttribute("class", styles.button)}
 
     return (
-    <Sidebar style={{ height: "100vh", width: "400px", backgroundColor : "rgb(180,180,180)", borderTop: "solid black 2px"}}>
+    
+    <Sidebar style={{ height: "100vh", minWidth: "400px", backgroundColor : "rgb(180,180,180)", borderTop: "solid black 2px"}}>
         <Menu>
             <div className={styles.button}>
-            <MenuItem>
                 <LogoBar/>
-            </MenuItem>
             </div>
             {["edit-images", "edit-series-descriptions", "edit-journal", "edit-pages-descriptions"]
             .map((page)=> {return (
-                <div id={page} className={styles.button} onClick={() => {unpressButton(currentPage);pressButton(page);  setCurrentPage(page)}}>
-                <MenuItem>
-                    <Link to={`/${page}`}>
-                        <div className={styles.sideBarLink}>{capitalize(page)}</div>
-                    </Link>
-                </MenuItem>
+                <div id={page} key={page} className={styles.button} onClick={() => {unpressButton(currentPage);pressButton(page);  setCurrentPage(page)}}>
+                        <Link to={`/${page}`}>
+                            <div className={styles.sideBarLink}>{capitalize(page)}</div>
+                        </Link>
                 </div>)})}
         </Menu>
         </Sidebar>

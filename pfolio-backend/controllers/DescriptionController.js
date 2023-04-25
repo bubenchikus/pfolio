@@ -26,10 +26,15 @@ export const getSeriesDescriptionsByCategory = async (req, res) => {
         .json({ message: "Descriptions not found (by category)!" });
     }
 
-    var processedDescriptions = {};
-    descriptions.forEach((el) => (processedDescriptions[el.series] = el.txt));
+    if (req.params.category == "page") {
+      var processedDescriptions = [];
+      descriptions.forEach((el) =>
+        processedDescriptions.push({ id: el.id, page: el.series, txt: el.txt })
+      );
+      return res.json(processedDescriptions);
+    }
 
-    res.json(processedDescriptions);
+    res.json(descriptions);
   } catch (err) {
     console.log(err);
     res

@@ -18,7 +18,11 @@ a {
     border: solid rgb(80,80,80) 2px;
     border-top: none;
     box-sizing: "content-box";
-    background-color : rgb(200,200,200)
+    background-color : rgb(200,200,200);
+    min-height: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 .buttonPressed {

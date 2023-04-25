@@ -120,8 +120,8 @@ export const GalleryTemplate = ({url}) => {
    <Container key={index1}>
    <div className={universalStyles.blockContainer}>
    <div className={universalStyles.blockTitle}>{`Series: ${series}`}</div>
-   <>{(seriesDescriptions && seriesDescriptions[series])
-   ? <div className={universalStyles.blockText} >{seriesDescriptions[series]}</div> 
+   <>{(seriesDescriptions)
+   ? <div className={universalStyles.blockText} >{seriesDescriptions.filter((el)=>el.series === series)[0]?.txt}</div> 
    : <></>}</>  
    <ImageList sx={{'margin':'15px 0', "padding":'2px'}} cols={5} variant={'standard'} gap={6}>
     {images[series].map((item) => (
