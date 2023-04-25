@@ -38,8 +38,9 @@ export const getSeriesDescriptionsByCategory = async (req, res) => {
   }
 };
 
-export const getAllPagesDescriptions = async (_, res) => {
-  getSeriesDescriptionsByCategory("page", res);
+export const getAllPagesDescriptions = async (req, res) => {
+  req.params.category = "page";
+  getSeriesDescriptionsByCategory(req, res);
 };
 
 export const getPageDescriptionByTitle = async (req, res) => {

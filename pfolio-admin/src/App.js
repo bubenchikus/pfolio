@@ -1,15 +1,21 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { SideBar } from "./components/SideBar";
-
 import {
   EditImages,
   EditJournal,
   EditPagesDescriptions,
   EditSeriesDescriptions,
+  Login,
 } from "./pages";
+import useToken from "./useToken";
 
 function App() {
+  const { token, setToken } = useToken();
+
+  if (!token) {
+    return <Login setToken={setToken} />;
+  }
   return (
     <>
       <SideBar />

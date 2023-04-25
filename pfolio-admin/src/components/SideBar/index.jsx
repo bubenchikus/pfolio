@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import logo from './../../uiPictures/logo-web.svg';
 import styles from './SideBar.module.scss';
+import { LogoBar } from '../LogoBar/LogoBar';
 
 
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
@@ -24,15 +24,12 @@ export const SideBar = () => {
         <Menu>
             <div className={styles.button}>
             <MenuItem>
-            <div className={styles.logoBox}>
-                <img className={styles.imageLogo} src={logo} alt="Not found" />
-                <div className={styles.textLogo}>Admin panel</div>
-            </div>
+                <LogoBar/>
             </MenuItem>
             </div>
             {["edit-images", "edit-series-descriptions", "edit-journal", "edit-pages-descriptions"]
             .map((page)=> {return (
-                <div id={page} className={styles.button} onClick={() => {pressButton(page); unpressButton(currentPage); setCurrentPage(page)}}>
+                <div id={page} className={styles.button} onClick={() => {unpressButton(currentPage);pressButton(page);  setCurrentPage(page)}}>
                 <MenuItem>
                     <Link to={`/${page}`}>
                         <div className={styles.sideBarLink}>{capitalize(page)}</div>
