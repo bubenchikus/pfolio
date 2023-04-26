@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { SideBar } from "./components/SideBar";
 import {
   EditImages,
@@ -21,7 +21,7 @@ function App() {
       <div style={{ display: "flex" }}>
         <SideBar />
         <Routes>
-          <Route path="/edit-images" element={<EditImages />} />
+          <Route exact path="/edit-images" element={<EditImages />} />
           <Route path="/edit-journal" element={<EditJournal />} />
           <Route
             path="/edit-pages-descriptions"
@@ -31,6 +31,7 @@ function App() {
             path="/edit-series-descriptions"
             element={<EditSeriesDescriptions />}
           />
+          <Route path="*" element={<Navigate to={"/edit-images"} />} />
         </Routes>
       </div>
     </>

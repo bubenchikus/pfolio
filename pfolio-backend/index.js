@@ -8,13 +8,29 @@ import {
 } from "./controllers/index.js";
 import { checkAuth } from "./auth.js";
 import { validationResultStatus, pictureValidation } from "./valid.js";
+import multer from "multer";
 
 const app = express();
 app.use(express.json());
 
 app.use(cors());
 
+const storage = multer.diskStorage({
+  destination: (_, __, cb) => {
+    cb(null, `pictures/temporary`);
+  },
+  filename: (_, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+
 app.use("/pictures", express.static("pictures"));
+
+app.post(`/upload`, checkAuth, upload.array("images"), (req, res) => {
+  res.json({ message: "Images succesfully uploaded" });
+});
 
 app.get("/art/cg-paint-left", PictureController.getCGPaintLeft);
 app.get("/art/cg-paint-right", PictureController.getCGPaintRight);
@@ -33,12 +49,12 @@ app.post(
   DescriptionController.uploadPageDescription
 );
 app.patch(
-  "/pages-descriptions/:page",
+  "/pages-descriptions/:id",
   checkAuth,
   DescriptionController.updatePageDescription
 );
 app.delete(
-  "/pages-descriptions/:page",
+  "/pages-descriptions/:id",
   checkAuth,
   DescriptionController.deletePageDescription
 );
@@ -54,12 +70,12 @@ app.get(
   DescriptionController.getSeriesDescriptionsByCategory
 );
 app.patch(
-  "/series-descriptions/:category/:series",
+  "/series-descriptions/:id",
   checkAuth,
   DescriptionController.updateSeriesDescription
 );
 app.delete(
-  "/series-descriptions/:category/:series",
+  "/series-descriptions/:id",
   checkAuth,
   DescriptionController.deleteSeriesDescription
 );
@@ -82,7 +98,7 @@ app.delete("/posts/:id", checkAuth, PostController.deletePost);
 
 app.post("/login", AdminController.login);
 
-PictureController.updatePictureDB();
+// PictureController.updatePictureDB();
 
 app.listen(4444, (err) => {
   if (err) return console.log(err);

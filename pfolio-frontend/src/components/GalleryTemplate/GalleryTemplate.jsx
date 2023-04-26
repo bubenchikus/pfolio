@@ -82,7 +82,6 @@ export const GalleryTemplate = ({url}) => {
   <>
   <div>{
     viewerIsOpen ? 
-      <>
       <div className={styles.dark}>
       <div className={styles.carouselBox}>
           <div className={styles.carouselSidePanel}>
@@ -111,7 +110,6 @@ export const GalleryTemplate = ({url}) => {
           </div>
       </div>
       </div>
-      </>
       : <></>
       }</div>
   <PageDescription descriptionData={descriptionData}/>

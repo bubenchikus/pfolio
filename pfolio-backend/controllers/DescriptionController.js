@@ -72,13 +72,14 @@ export const updatePageDescription = async (req, res) => {
     const updated = await databaseFunctions.updateDescription(
       req.body.txt,
       "page",
-      req.params.page
+      req.body.page,
+      req.params.id
     );
 
     if (!updated.affectedRows) {
       return res
         .status(404)
-        .json({ message: "Description not found (by page title)!" });
+        .json({ message: "Description not found (by id)!" });
     }
 
     res.json({ message: "Page description successfully updated!" });
@@ -90,15 +91,12 @@ export const updatePageDescription = async (req, res) => {
 
 export const deletePageDescription = async (req, res) => {
   try {
-    const deleted = await databaseFunctions.deleteDescription(
-      "page",
-      req.params.page
-    );
+    const deleted = await databaseFunctions.deleteDescription(req.params.id);
 
     if (!deleted.affectedRows) {
       return res
         .status(404)
-        .json({ message: "Description not found (by page title)!" });
+        .json({ message: "Description not found (by id)!" });
     }
 
     res.json({ message: "Page description successfully deleted!" });
@@ -146,14 +144,15 @@ export const updateSeriesDescription = async (req, res) => {
   try {
     const updated = await databaseFunctions.updateDescription(
       req.body.txt,
-      req.params.category,
-      req.params.series
+      req.body.category,
+      req.body.series,
+      req.params.id
     );
 
     if (!updated.affectedRows) {
       return res
         .status(404)
-        .json({ message: "Description not found (by series)!" });
+        .json({ message: "Description not found (by id)!" });
     }
 
     res.json({ message: "Series description successfully updated!" });
@@ -165,15 +164,12 @@ export const updateSeriesDescription = async (req, res) => {
 
 export const deleteSeriesDescription = async (req, res) => {
   try {
-    const deleted = await databaseFunctions.deleteDescription(
-      req.params.category,
-      req.params.series
-    );
+    const deleted = await databaseFunctions.deleteDescription(req.params.id);
 
     if (!deleted.affectedRows) {
       return res
         .status(404)
-        .json({ message: "Description not found (by series)!" });
+        .json({ message: "Description not found (by id)!" });
     }
 
     res.json({ message: "Series description successfully deleted!" });

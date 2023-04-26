@@ -1,0 +1,96 @@
+$accent: rgb(58, 154, 114);
+$smooth-accent: rgb(161, 204, 180);
+
+.tableWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.linkBox {
+    display: flex;
+    margin-top: 20px;
+    gap: 15px;
+    font-size: 20px;
+    width: 100%;
+}
+
+.buttonBox {
+    @extend .linkBox;
+    justify-content: start;
+    align-items: center;
+}
+
+.button{
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    min-height: 40px;
+    padding: 0 20px;
+    background-color: $smooth-accent;
+    border-radius: 5px;
+    transition: .5s;
+}
+
+.buttonPressed {     
+    @extend .button;
+    background-color: $accent;  
+}
+
+
+.button:hover {
+    transition:1s;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.uploaderBox{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    background-color: $smooth-accent;
+    top: 0;
+    bottom:0;
+    margin: auto 0;
+    padding: 10px 50px;
+    max-height: 800px;
+    min-width: 800px;
+    z-index: 1;
+    border: solid black 2px;
+    border-radius: 20px;
+}
+
+.closeIconWrapper{
+    display: flex;
+    justify-content: end;
+    margin: 20px 0;
+}
+
+.formWrapper{
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.formBlock{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.submitButton{
+    @extend .button;
+    background-color: none;
+    border: solid black 1px;
+    width: 200px;
+    margin-top: 20px;
+}

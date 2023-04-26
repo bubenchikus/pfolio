@@ -47,28 +47,28 @@ export async function uploadDescription(txt, category, series) {
   return res;
 }
 
-export async function updateDescription(txt, category, series) {
+export async function updateDescription(txt, category, series, id) {
   const res = await userQuery(
     `
       UPDATE description
       SET
       txt=COALESCE(?, txt)
-      WHERE category=?
-      AND series=?
+      category=COALESCE(?, category)
+      series=COALESCE(?, series)
+      WHERE id=?
   `,
-    [txt, category, series]
+    [txt, category, series, id]
   );
   return res;
 }
 
-export async function deleteDescription(category, series) {
+export async function deleteDescription(id) {
   const res = await userQuery(
     `
       DELETE FROM description
-      WHERE category=?
-      AND series=?
+      WHERE id=?
   `,
-    [category, series]
+    [id]
   );
   return res;
 }

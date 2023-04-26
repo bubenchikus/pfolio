@@ -28,11 +28,11 @@ export const SideBar = () => {
             </div>
             {["edit-images", "edit-series-descriptions", "edit-journal", "edit-pages-descriptions"]
             .map((page)=> {return (
-                <div id={page} key={page} className={styles.button} onClick={() => {unpressButton(currentPage);pressButton(page);  setCurrentPage(page)}}>
-                        <Link to={`/${page}`}>
-                            <div className={styles.sideBarLink}>{capitalize(page)}</div>
-                        </Link>
-                </div>)})}
+                <Link to={`/${page}`} key={page}>
+                    <div id={page} className={styles.button} onClick={() => {unpressButton(currentPage);pressButton(page);  setCurrentPage(page)}}>
+                        <div className={styles.sideBarLink}>{capitalize(page)}</div>
+                    </div>
+                </Link>)})}
         </Menu>
         </Sidebar>
     );
