@@ -1,14 +1,12 @@
-import React from 'react';
-import {GalleryTemplate} from '../components/GalleryTemplate/GalleryTemplate';
-import { PageTitle } from '../components/PageTitle';
+import React from "react";
+import { GalleryTemplate } from "../components/GalleryTemplate/GalleryTemplate";
+import { PageTitle } from "../components/PageTitle";
 
 export const Comics = () => {
-
   return (
-  <>
-  <PageTitle pageTitle="Comics materials"/>
-  <GalleryTemplate  url="art/comics" />
-  </>
+    <>
+      <PageTitle pageTitle="Comics materials" />
+      <GalleryTemplate url="art/comics" />
+    </>
   );
-
 };

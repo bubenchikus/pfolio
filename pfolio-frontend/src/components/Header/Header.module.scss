@@ -1,33 +1,31 @@
- .root {
-    align-items: center;
-    justify-content: center;
-    margin:0;
-    padding: 0;
-    text-decoration: none; 
-  }
+.root {
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
 
-  .logoBox {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    text-decoration: none; 
-    padding: 20px 0 35px 0;
-  }
+.logoBox {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  text-decoration: none;
+  padding: 20px 0 35px 0;
+}
 
-  .imageLogo {
-    height: 80px;
-  }
+.imageLogo {
+  height: 80px;
+}
 
-  .textLogo {
-    align-items: center;
-    font-size: 55px;
-    font-weight: 400;
-    letter-spacing: -5px;
-    line-height: 44px;
-    padding: 0 5px;
-    text-transform: uppercase;
-    color: black;
-    font-family: 'Titillium Web', sans-serif;
-  }
-
-  
+.textLogo {
+  align-items: center;
+  font-size: 55px;
+  font-weight: 400;
+  letter-spacing: -5px;
+  line-height: 44px;
+  padding: 0 5px;
+  text-transform: uppercase;
+  color: black;
+  font-family: "Titillium Web", sans-serif;
+}

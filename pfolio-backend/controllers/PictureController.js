@@ -135,6 +135,17 @@ export const deletePicture = async (req, res) => {
   }
 };
 
+export const deletePictureByUrl = async (req, res) => {
+  try {
+    fs.unlink(`${process.cwd()}/${req.body.oldPictureUrl}`, function (err) {});
+
+    res.json({ message: "Picture successfully deleted!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Picture deletion process failed!" });
+  }
+};
+
 function addPicturesToDB() {
   try {
     fs.readdir(`${process.cwd()}/pictures`, (err, subdirs) => {

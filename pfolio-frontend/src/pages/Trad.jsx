@@ -1,14 +1,12 @@
-import React from 'react';
-import {GalleryTemplate} from '../components/GalleryTemplate/GalleryTemplate';
-import {PageTitle} from '../components/PageTitle'
+import React from "react";
+import { GalleryTemplate } from "../components/GalleryTemplate/GalleryTemplate";
+import { PageTitle } from "../components/PageTitle";
 
 export const Trad = () => {
-
   return (
-  <>
-  <PageTitle pageTitle="Traditional"/>
-  <GalleryTemplate  url="art/trad" />
-  </>
+    <>
+      <PageTitle pageTitle="Traditional" />
+      <GalleryTemplate url="art/trad" />
+    </>
   );
-
 };

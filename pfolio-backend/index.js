@@ -90,6 +90,7 @@ app.post(
 );
 app.patch("/pictures/:id", checkAuth, PictureController.updatePicture);
 app.delete("/pictures/:id", checkAuth, PictureController.deletePicture);
+app.post("/pictures/deleteByUrl", PictureController.deletePictureByUrl);
 
 app.get("/posts", PostController.getAllPosts);
 app.post("/posts", checkAuth, PostController.uploadPost);

@@ -1,5 +1,5 @@
 * {
-  font-family: 'Hind Madurai', sans-serif;
+  font-family: "Hind Madurai", sans-serif;
   text-decoration-skip-ink: none;
 }
 
@@ -7,11 +7,12 @@ body {
   margin: 0;
   padding: 0;
   position: fixed;
-  font-family: -apple-system, BlinkMacSystemFont, 'Hind Madurai', 'Titillium Web';
+  font-family: -apple-system, BlinkMacSystemFont, "Hind Madurai",
+    "Titillium Web";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height:100vh;
-  width:100%;
+  height: 100vh;
+  width: 100%;
   background: white;
 }
 
@@ -28,7 +29,7 @@ body {
 .centralWrapper {
   min-height: 100vh;
   display: flex;
-  top:40%;
+  top: 40%;
   align-items: center;
   justify-content: center;
 }
