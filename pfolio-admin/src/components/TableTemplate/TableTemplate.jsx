@@ -53,10 +53,6 @@ export const TableTemplate = ({ route }) => {
     []
   );
 
-  if (!data) {
-    return <></>;
-  }
-
   async function reloadPage() {
     axios
       .get(route)
@@ -76,36 +72,39 @@ export const TableTemplate = ({ route }) => {
     reloadPage();
   }
 
-  const columnsTitles = Object.keys(data[0]);
-  var columns =
-    route === "pictures"
-      ? [
-          {
-            field: "preview",
-            flex: 1,
-            renderCell: (params) => {
-              return (
-                <>
-                  <Avatar
-                    src={`http://localhost:4444${params.row.pictureUrl}`}
-                    variant="square"
-                  />
-                </>
-              );
+  var columnsTitles;
+  if (data) {
+    columnsTitles = Object.keys(data[0]);
+    var columns =
+      route === "pictures"
+        ? [
+            {
+              field: "preview",
+              flex: 1,
+              renderCell: (params) => {
+                return (
+                  <>
+                    <Avatar
+                      src={`http://localhost:4444${params.row.pictureUrl}`}
+                      variant="square"
+                    />
+                  </>
+                );
+              },
             },
-          },
-        ]
-      : [];
-  columnsTitles.forEach((el) => {
-    var flex = 1;
-    if (["id", "redraw"].includes(el)) {
-      flex = 0.5;
-    }
-    if (["about", "pictureUrl", "txt"].includes(el)) {
-      flex = 2.5;
-    }
-    columns.push({ field: el, flex: flex });
-  });
+          ]
+        : [];
+    columnsTitles.forEach((el) => {
+      var flex = 1;
+      if (["id", "redraw"].includes(el)) {
+        flex = 0.5;
+      }
+      if (["about", "pictureUrl", "txt"].includes(el)) {
+        flex = 2.5;
+      }
+      columns.push({ field: el, flex: flex });
+    });
+  }
 
   function pictureNameToUrl() {
     if (Object.keys(requestBody).includes("pictureName")) {
@@ -196,6 +195,7 @@ export const TableTemplate = ({ route }) => {
         "trad",
         "comics",
         "no-category",
+        "site",
       ];
       if (route === "posts") {
         defaultCategory = "misc";
@@ -274,6 +274,7 @@ export const TableTemplate = ({ route }) => {
           sx={formStyle}
           defaultValue={editorMode === "upload" ? "" : currentRowInfo[`${el}`]}
           key={el}
+          inputProps={route === "pictures" ? { maxLength: 255 } : {}}
           onChange={(e) => {
             setRequestBody((prev) => ({ ...prev, [el]: e.target.value }));
           }}
@@ -366,13 +367,17 @@ export const TableTemplate = ({ route }) => {
                     ...prev,
                     txt: e,
                   }));
-                  console.log(requestBody);
                 }}
                 options={options}
               />
               <div
                 className={styles.submitButton}
                 onClick={() => {
+                  setCurrentRowInfo((prev) => ({
+                    ...prev,
+                    txt: requestBody.txt,
+                  }));
+                  console.log("RB txt: ", requestBody.txt);
                   setTextEditorIsOpen(false);
                   setEditorIsOpen(true);
                 }}
@@ -385,19 +390,25 @@ export const TableTemplate = ({ route }) => {
           )}
         </>
       )}
-      <Box sx={{ height: "800px", width: "100%" }}>
-        <DataGrid
-          sx={{ width: "100%", cursor: "pointer" }}
-          columns={columns}
-          rows={data}
-          disableRowSelectionOnClick
-          onRowClick={(rowInfo) => {
-            setCurrentRowInfo(rowInfo.row);
-            setEditorMode("edit");
-            setEditorIsOpen(true);
-          }}
-        />
-      </Box>
+      {data ? (
+        <>
+          <Box sx={{ height: "800px", width: "100%" }}>
+            <DataGrid
+              sx={{ width: "100%", cursor: "pointer" }}
+              columns={columns}
+              rows={data}
+              disableRowSelectionOnClick
+              onRowClick={(rowInfo) => {
+                setCurrentRowInfo(rowInfo.row);
+                setEditorMode("edit");
+                setEditorIsOpen(true);
+              }}
+            />
+          </Box>
+        </>
+      ) : (
+        <></>
+      )}
       <div className={styles.buttonBox}>
         <div
           className={styles.button}

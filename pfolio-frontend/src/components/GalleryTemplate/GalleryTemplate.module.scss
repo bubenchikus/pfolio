@@ -71,11 +71,12 @@
   padding-top: 10px;
   margin-bottom: 20px;
   color: white;
-  width: 400px;
+  width: 800px;
 }
 
 .carouselText {
-  font-size: 20px;
-  z-index: 2;
+  max-width: 100%;
+  font-size: 16px;
+  // z-index: 2;
   text-align: center;
 }
