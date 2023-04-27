@@ -52,8 +52,8 @@ export async function updateDescription(txt, category, series, id) {
     `
       UPDATE description
       SET
-      txt=COALESCE(?, txt)
-      category=COALESCE(?, category)
+      txt=COALESCE(?, txt),
+      category=COALESCE(?, category),
       series=COALESCE(?, series)
       WHERE id=?
   `,

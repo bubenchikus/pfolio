@@ -24,6 +24,18 @@ export async function getPictureByUrl(pictureUrl) {
   return res;
 }
 
+export async function getPictureById(id) {
+  const res = await userQuery(
+    `
+        SELECT *
+        FROM picture
+        WHERE id=?;
+    `,
+    [id]
+  );
+  return res;
+}
+
 export async function uploadPicture(
   pictureUrl,
   title,

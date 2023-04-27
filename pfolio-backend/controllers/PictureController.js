@@ -67,6 +67,14 @@ export const uploadPicture = async (req, res) => {
       req.body.previewUrl
     );
 
+    fs.rename(
+      `${process.cwd()}/${req.body?.oldPictureUrl}`,
+      `${process.cwd()}/pictures/${req.body?.category}/${
+        req.body?.pictureName
+      }`,
+      function (err) {}
+    );
+
     res.json({ message: "Picture successfully uploaded!" });
   } catch (err) {
     console.log(err);
@@ -88,6 +96,16 @@ export const updatePicture = async (req, res) => {
       req.params.id
     );
 
+    fs.rename(
+      `${process.cwd()}/${req.body?.oldPictureUrl}`,
+      `${process.cwd()}/pictures/${req.body?.category}/${
+        req.body?.pictureName
+      }`,
+      function (err) {}
+    );
+
+    req.body.pictureName;
+
     if (!updated.affectedRows) {
       return res.status(404).json({ message: "Picture id not found!" });
     }
@@ -101,7 +119,10 @@ export const updatePicture = async (req, res) => {
 
 export const deletePicture = async (req, res) => {
   try {
+    const file = await databaseFunctions.getPictureById(req.params.id);
     const deleted = await databaseFunctions.deletePictureById(req.params.id);
+
+    fs.unlink(`${process.cwd()}/${file[0].pictureUrl}`, function (err) {});
 
     if (!deleted.affectedRows) {
       return res.status(404).json({ message: "Picture id not found!" });

@@ -17,7 +17,7 @@ app.use(cors());
 
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
-    cb(null, `pictures/temporary`);
+    cb(null, `pictures/no-category`);
   },
   filename: (_, file, cb) => {
     cb(null, file.originalname);
@@ -28,8 +28,8 @@ const upload = multer({ storage });
 
 app.use("/pictures", express.static("pictures"));
 
-app.post(`/upload`, checkAuth, upload.array("images"), (req, res) => {
-  res.json({ message: "Images succesfully uploaded" });
+app.post(`/upload`, checkAuth, upload.single("image"), (req, res) => {
+  res.json({ message: "Image succesfully uploaded" });
 });
 
 app.get("/art/cg-paint-left", PictureController.getCGPaintLeft);
