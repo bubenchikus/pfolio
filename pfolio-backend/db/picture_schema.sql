@@ -1,6 +1,6 @@
 CREATE TABLE picture (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL DEFAULT 'Untitled',
+    title VARCHAR(255) DEFAULT 'Untitled',
     about TEXT,
     category ENUM(
         'cg-paint-left',
@@ -10,9 +10,10 @@ CREATE TABLE picture (
         'comics',
         'no-category'
     ) DEFAULT 'no-category',
-    series VARCHAR(255) NOT NULL DEFAULT 'stand-alone',
-    UNIQUE pictureUrl VARCHAR(255),
-    UNIQUE previewUrl VARCHAR(255),
+    series VARCHAR(255) DEFAULT 'stand-alone',
+    pictureUrl VARCHAR(255),
+    previewUrl VARCHAR(255),
     created DATE,
-    redraw BOOLEAN DEFAULT false
+    redraw BOOLEAN DEFAULT false,
+    UNIQUE (pictureUrl)
 );

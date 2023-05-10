@@ -133,6 +133,11 @@ export const GalleryTemplate = ({ url }) => {
                     {currentImage.redraw ? `Redraw: yes` : `Redraw: no`}
                   </div>
                   <div className={styles.carouselText}>
+                    {currentImage.created
+                      ? `Created: ${currentImage.created}`
+                      : `Created: unknown`}
+                  </div>
+                  <div className={styles.carouselText}>
                     {currentImage.about ? (
                       `About: ${currentImage.about}`
                     ) : (

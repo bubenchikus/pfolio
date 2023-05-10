@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
+import logo from "../../uiPictures/logo-web.svg";
 
 export const TableTemplate = ({ route }) => {
   const [data, setData] = React.useState();
@@ -24,6 +25,7 @@ export const TableTemplate = ({ route }) => {
   const [editorMode, setEditorMode] = React.useState("upload"); //or 'edit'
   const [currentRowInfo, setCurrentRowInfo] = React.useState({});
   const [requestBody, setRequestBody] = React.useState({});
+  const [columnsTitles, setColumnsTitles] = React.useState([]);
 
   React.useEffect(() => {
     axios
@@ -37,21 +39,33 @@ export const TableTemplate = ({ route }) => {
       });
   }, [route]);
 
-  const options = React.useMemo(
-    () => ({
-      spellChecker: false,
-      maxHeight: "600px",
-      autofocus: true,
-      placeholder: "Введите текст...",
-      status: false,
-      styledSelectedText: false,
-      autosave: {
-        enabled: true,
-        delay: 1000,
-      },
-    }),
-    []
-  );
+  React.useEffect(() => {
+    axios
+      .get("columns", { headers: headers })
+      .then((response) => {
+        setColumnsTitles(response.data);
+      })
+      .catch((err) => {
+        console.warn(err);
+        alert(`Error occured while getting columns!`);
+      });
+  }, []);
+
+  // const options = React.useMemo(
+  //   () => ({
+  //     spellChecker: false,
+  //     maxHeight: "600px",
+  //     autofocus: true,
+  //     placeholder: "Введите текст...",
+  //     status: false,
+  //     styledSelectedText: false,
+  //     autosave: {
+  //       enabled: true,
+  //       delay: 1000,
+  //     },
+  //   }),
+  //   []
+  // );
 
   async function reloadPage() {
     axios
@@ -72,39 +86,42 @@ export const TableTemplate = ({ route }) => {
     reloadPage();
   }
 
-  var columnsTitles;
-  if (data) {
-    columnsTitles = Object.keys(data[0]);
-    var columns =
-      route === "pictures"
-        ? [
-            {
-              field: "preview",
-              flex: 1,
-              renderCell: (params) => {
-                return (
-                  <>
-                    <Avatar
-                      src={`http://localhost:4444${params.row.pictureUrl}`}
-                      variant="square"
-                    />
-                  </>
-                );
-              },
-            },
-          ]
-        : [];
-    columnsTitles.forEach((el) => {
-      var flex = 1;
-      if (["id", "redraw"].includes(el)) {
-        flex = 0.5;
-      }
-      if (["about", "pictureUrl", "txt"].includes(el)) {
-        flex = 2.5;
-      }
-      columns.push({ field: el, flex: flex });
-    });
+  var columns = [];
+
+  if (data && data.length > 0 && route === "pictures") {
+    columns = [
+      {
+        field: "preview",
+        flex: 1,
+        renderCell: (params) => {
+          return (
+            <>
+              <Avatar
+                src={
+                  params.row.pictureUrl
+                    ? `http://localhost:4444${params.row.pictureUrl}`
+                    : logo
+                }
+                variant="square"
+                alt="Source unavailable!"
+              />
+            </>
+          );
+        },
+      },
+    ];
   }
+
+  columnsTitles[route]?.forEach((el) => {
+    var flex = 1;
+    if (["id", "redraw"].includes(el)) {
+      flex = 0.5;
+    }
+    if (["about", "pictureUrl", "txt"].includes(el)) {
+      flex = 2.5;
+    }
+    columns.push({ field: el, flex: flex });
+  });
 
   function pictureNameToUrl() {
     if (Object.keys(requestBody).includes("pictureName")) {
@@ -163,7 +180,7 @@ export const TableTemplate = ({ route }) => {
   async function deleteFromTable() {
     try {
       await axios.delete(`${route}/${currentRowInfo.id}`, { headers: headers });
-      setData(data.filter((row) => row.id !== currentRowInfo.id));
+      setData(data?.filter((row) => row.id !== currentRowInfo.id));
       resetEditor();
     } catch (err) {
       console.warn(err);
@@ -183,20 +200,12 @@ export const TableTemplate = ({ route }) => {
     }
   }
 
-  const formStyle = { color: "black", "border-color": "black" };
+  const formStyle = { color: "black", borderColor: "black" };
 
   function returnJsxFormElement(el) {
     if (el === "category") {
       var defaultCategory = "no-category";
-      var categories = [
-        "cg-paint-left",
-        "cg-paint-right",
-        "cg-graph",
-        "trad",
-        "comics",
-        "no-category",
-        "site",
-      ];
+      var categories = columnsTitles["pictures-categories"];
       if (route === "posts") {
         defaultCategory = "misc";
         categories = ["misc", "dev", "art", "comics"];
@@ -211,9 +220,11 @@ export const TableTemplate = ({ route }) => {
           <Select
             sx={formStyle}
             defaultValue={
-              editorMode === "upload"
-                ? defaultCategory
-                : currentRowInfo?.category
+              requestBody.category
+                ? requestBody.category
+                : currentRowInfo.category
+                ? currentRowInfo.category
+                : defaultCategory
             }
             key={el}
             onChange={(e) =>
@@ -272,7 +283,11 @@ export const TableTemplate = ({ route }) => {
         <div className={styles.formLabel}>{`${el}:`}</div>
         <TextField
           sx={formStyle}
-          defaultValue={editorMode === "upload" ? "" : currentRowInfo[`${el}`]}
+          defaultValue={
+            currentRowInfo[`${el}`]
+              ? currentRowInfo[`${el}`]
+              : requestBody[`${el}`]
+          }
           key={el}
           inputProps={route === "pictures" ? { maxLength: 255 } : {}}
           onChange={(e) => {
@@ -292,7 +307,7 @@ export const TableTemplate = ({ route }) => {
   return (
     <div className={styles.tableWrapper}>
       {editorIsOpen ? (
-        <div className={styles.uploaderEditorBox}>
+        <div className={styles.uploaderEditorBox} id="uploaderEditorBox">
           <div className={styles.closeIconWrapper}>
             <CloseIcon
               onClick={() => {
@@ -318,15 +333,23 @@ export const TableTemplate = ({ route }) => {
             <></>
           )}
           <div className={styles.formWrapper}>
-            {columnsTitles
+            {columnsTitles[route]
               .filter((el) => !["id", "created", "modified"].includes(el))
               .map((el) => returnJsxFormElement(el))}
             <>
               <div
                 className={styles.submitButton}
                 onClick={() => {
-                  editorMode === "upload" ? uploadToTable() : updateTable();
-                  resetEditor();
+                  if (
+                    route === "pictures" &&
+                    editorMode === "upload" &&
+                    !requestBody.pictureName
+                  ) {
+                    alert("Picture name should not be empty!!!");
+                  } else {
+                    editorMode === "upload" ? uploadToTable() : updateTable();
+                    resetEditor();
+                  }
                 }}
               >
                 Submit row
@@ -368,7 +391,7 @@ export const TableTemplate = ({ route }) => {
                     txt: e,
                   }));
                 }}
-                options={options}
+                // options={options}
               />
               <div
                 className={styles.submitButton}
@@ -377,12 +400,11 @@ export const TableTemplate = ({ route }) => {
                     ...prev,
                     txt: requestBody.txt,
                   }));
-                  console.log("RB txt: ", requestBody.txt);
                   setTextEditorIsOpen(false);
                   setEditorIsOpen(true);
                 }}
               >
-                Submit row
+                Submit text
               </div>
             </div>
           ) : (
@@ -394,7 +416,7 @@ export const TableTemplate = ({ route }) => {
         <>
           <Box sx={{ height: "800px", width: "100%" }}>
             <DataGrid
-              sx={{ width: "100%", cursor: "pointer" }}
+              sx={{ width: "100%", cursor: "pointer", zIndex: "0" }}
               columns={columns}
               rows={data}
               disableRowSelectionOnClick

@@ -26,7 +26,8 @@ export const MainMenu = () => {
         <div className={styles.middleBlock}>
           <img
             className={styles.helloImage}
-            src="https://arthive.net/res/media/img/orig/article/cc0/7567038@2x.jpg"
+            // src="https://arthive.net/res/media/img/orig/article/cc0/7567038@2x.jpg"
+            src={helloImage}
             alt="Not found"
           />
         </div>

@@ -99,7 +99,9 @@ app.delete("/posts/:id", checkAuth, PostController.deletePost);
 
 app.post("/login", AdminController.login);
 
-// PictureController.updatePictureDB();
+app.get("/columns", checkAuth, AdminController.getColumns);
+
+PictureController.updatePictureDB();
 
 app.listen(4444, (err) => {
   if (err) return console.log(err);

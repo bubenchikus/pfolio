@@ -1,6 +1,9 @@
 import fs from "fs";
 import * as databaseFunctions from "../db/pictureDatabaseQueries.js";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 async function getPicturesByCategory(category, res) {
   try {
     const pictures = await databaseFunctions.getPicturesByCategory(category);
@@ -193,7 +196,29 @@ async function removeDeletedPicturesFromDB() {
   });
 }
 
+function createStorage() {
+  var storageName = `${process.cwd()}/pictures/`;
+
+  if (!fs.existsSync(storageName)) {
+    fs.mkdirSync(storageName);
+  }
+
+  storageName = `${storageName}/no-category`;
+
+  if (!fs.existsSync(storageName)) {
+    fs.mkdirSync(storageName);
+  }
+
+  JSON.parse(process.env.DB_CATEGORIES_PICTURES).forEach((dir) => {
+    storageName = `${process.cwd()}/pictures/${dir}`;
+    if (!fs.existsSync(storageName)) {
+      fs.mkdirSync(storageName);
+    }
+  });
+}
+
 export function updatePictureDB() {
-  addPicturesToDB();
+  // addPicturesToDB();
   removeDeletedPicturesFromDB();
+  createStorage();
 }
