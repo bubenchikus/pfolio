@@ -60,10 +60,10 @@ export const getComics = async (_, res) => {
 export const uploadPicture = async (req, res) => {
   try {
     await databaseFunctions.uploadPicture(
-      req.body.pictureUrl,
       req.body.title,
       req.body.created,
       req.body.category,
+      req.body.pictureName,
       req.body.series,
       req.body.about,
       req.body.redraw,
@@ -71,14 +71,25 @@ export const uploadPicture = async (req, res) => {
     );
 
     fs.rename(
-      `${process.cwd()}/${req.body?.oldPictureUrl}`,
-      `${process.cwd()}/pictures/${req.body?.category}/${
-        req.body?.pictureName
+      `${process.cwd()}/pictures/${req.body.oldCategory}/${
+        req.body.oldPictureName
       }`,
+      `${process.cwd()}/pictures/${req.body.category}/${req.body.pictureName}`,
       function (err) {}
     );
 
-    res.json({ message: "Picture successfully uploaded!" });
+    const picture = await databaseFunctions.getPictureByCategoryAndPictureName(
+      req.body.category,
+      req.body.pictureName
+    );
+
+    if (!picture) {
+      return res
+        .status(404)
+        .json({ message: "Uploaded picture not found in db!" });
+    }
+
+    res.json(picture);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Picture uploading failed!" });
@@ -88,10 +99,10 @@ export const uploadPicture = async (req, res) => {
 export const updatePicture = async (req, res) => {
   try {
     const updated = await databaseFunctions.updatePicture(
-      req.body.pictureUrl,
       req.body.title,
       req.body.created,
       req.body.category,
+      req.body.pictureName,
       req.body.series,
       req.body.about,
       req.body.redraw,
@@ -100,10 +111,10 @@ export const updatePicture = async (req, res) => {
     );
 
     fs.rename(
-      `${process.cwd()}/${req.body?.oldPictureUrl}`,
-      `${process.cwd()}/pictures/${req.body?.category}/${
-        req.body?.pictureName
+      `${process.cwd()}/pictures/${req.body.oldCategory}/${
+        req.body.oldPictureName
       }`,
+      `${process.cwd()}/pictures/${req.body.category}/${req.body?.pictureName}`,
       function (err) {}
     );
 
@@ -125,7 +136,10 @@ export const deletePicture = async (req, res) => {
     const file = await databaseFunctions.getPictureById(req.params.id);
     const deleted = await databaseFunctions.deletePictureById(req.params.id);
 
-    fs.unlink(`${process.cwd()}/${file[0].pictureUrl}`, function (err) {});
+    fs.unlink(
+      `${process.cwd()}/pictures/${file[0].category}/${file[0].pictureName}`,
+      function (err) {}
+    );
 
     if (!deleted.affectedRows) {
       return res.status(404).json({ message: "Picture id not found!" });
@@ -138,57 +152,18 @@ export const deletePicture = async (req, res) => {
   }
 };
 
-export const deletePictureByUrl = async (req, res) => {
-  try {
-    fs.unlink(`${process.cwd()}/${req.body.oldPictureUrl}`, function (err) {});
-
-    res.json({ message: "Picture successfully deleted!" });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Picture deletion process failed!" });
-  }
-};
-
-function addPicturesToDB() {
-  try {
-    fs.readdir(`${process.cwd()}/pictures`, (err, subdirs) => {
-      subdirs?.forEach((dir) => {
-        fs.readdir(`${process.cwd()}/pictures/${dir}`, (err, files) => {
-          files?.forEach(async (file) => {
-            const pic = await databaseFunctions.getPictureByUrl(
-              `/pictures/${dir}/${file}`
-            );
-            if (pic?.length == 0) {
-              await databaseFunctions.uploadPicture(
-                `/pictures/${dir}/${file}`,
-                file.substring(8, file.length - 4),
-                `${file.substring(0, 7)}-01`,
-                dir,
-                "stand-alone",
-                null,
-                "0",
-                null
-              );
-            }
-          });
-        });
-      });
-    });
-  } catch (err) {
-    console.log("Something went wrong while updating picture DB!");
-    console.log(err);
-  }
-}
-
 async function removeDeletedPicturesFromDB() {
   const pictures = await databaseFunctions.getAllPictures();
   pictures.forEach((pic) => {
     try {
-      fs.readFile(`${process.cwd()}${pic.pictureUrl}`, (err, data) => {
-        if (err?.code === "ENOENT") {
-          databaseFunctions.deletePictureByUrl(pic.pictureUrl);
+      fs.readFile(
+        `${process.cwd()}/pictures/${pic.category}/${pic.pictureName}`,
+        (err, data) => {
+          if (err?.code === "ENOENT") {
+            databaseFunctions.deletePictureById(pic.id);
+          }
         }
-      });
+      );
     } catch (err) {
       console.log("Something went wrong while deleting image data from DB!");
       console.log(err);
@@ -217,8 +192,7 @@ function createStorage() {
   });
 }
 
-export function updatePictureDB() {
-  // addPicturesToDB();
+export function maintainPictureDB() {
   removeDeletedPicturesFromDB();
   createStorage();
 }

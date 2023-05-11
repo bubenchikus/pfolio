@@ -120,7 +120,7 @@ export const GalleryTemplate = ({ url }) => {
               <div className={styles.carouselMiddleBox}>
                 <div className={styles.carouselImageBox}>
                   <img
-                    src={`http://localhost:4444${currentImage.pictureUrl}`}
+                    src={`http://localhost:4444/pictures/${currentImage.category}/${currentImage.pictureName}`}
                     className={styles.carouselImage}
                     alt={currentImage.title}
                   ></img>
@@ -180,9 +180,9 @@ export const GalleryTemplate = ({ url }) => {
         return (
           <Container key={index1}>
             <div className={universalStyles.blockContainer}>
-              <div
-                className={universalStyles.blockTitle}
-              >{`Series: ${series}`}</div>
+              <div className={universalStyles.blockTitle}>{`Series: ${
+                series ? series : "no-series"
+              }`}</div>
               <>
                 {seriesDescriptions ? (
                   <div className={universalStyles.blockText}>
@@ -220,8 +220,8 @@ export const GalleryTemplate = ({ url }) => {
                   >
                     <img
                       className={styles.img}
-                      src={`http://localhost:4444${item.pictureUrl}`}
-                      srcSet={`http://localhost:4444${item.pictureUrl}`}
+                      src={`http://localhost:4444/pictures/${item.category}/${item.pictureName}`}
+                      srcSet={`http://localhost:4444/pictures/${item.category}/${item.pictureName}`}
                       alt={item.title}
                       loading="lazy"
                     />

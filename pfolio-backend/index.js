@@ -90,7 +90,6 @@ app.post(
 );
 app.patch("/pictures/:id", checkAuth, PictureController.updatePicture);
 app.delete("/pictures/:id", checkAuth, PictureController.deletePicture);
-app.post("/pictures/deleteByUrl", PictureController.deletePictureByUrl);
 
 app.get("/posts", PostController.getAllPosts);
 app.post("/posts", checkAuth, PostController.uploadPost);
@@ -101,7 +100,7 @@ app.post("/login", AdminController.login);
 
 app.get("/columns", checkAuth, AdminController.getColumns);
 
-PictureController.updatePictureDB();
+PictureController.maintainPictureDB();
 
 app.listen(4444, (err) => {
   if (err) return console.log(err);

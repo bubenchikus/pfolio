@@ -11,7 +11,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import logo from "../../uiPictures/logo-web.svg";
 
 export const TableTemplate = ({ route }) => {
   const [data, setData] = React.useState();
@@ -51,22 +50,6 @@ export const TableTemplate = ({ route }) => {
       });
   }, []);
 
-  // const options = React.useMemo(
-  //   () => ({
-  //     spellChecker: false,
-  //     maxHeight: "600px",
-  //     autofocus: true,
-  //     placeholder: "Введите текст...",
-  //     status: false,
-  //     styledSelectedText: false,
-  //     autosave: {
-  //       enabled: true,
-  //       delay: 1000,
-  //     },
-  //   }),
-  //   []
-  // );
-
   async function reloadPage() {
     axios
       .get(route)
@@ -81,9 +64,9 @@ export const TableTemplate = ({ route }) => {
 
   function resetEditor() {
     setEditorMode("upload");
+    setCurrentRowInfo({});
     setRequestBody({});
     setEditorIsOpen(false);
-    reloadPage();
   }
 
   var columns = [];
@@ -97,11 +80,7 @@ export const TableTemplate = ({ route }) => {
           return (
             <>
               <Avatar
-                src={
-                  params.row.pictureUrl
-                    ? `http://localhost:4444${params.row.pictureUrl}`
-                    : logo
-                }
+                src={`http://localhost:4444/pictures/${params.row.category}/${params.row.pictureName}`}
                 variant="square"
                 alt="Source unavailable!"
               />
@@ -117,24 +96,16 @@ export const TableTemplate = ({ route }) => {
     if (["id", "redraw"].includes(el)) {
       flex = 0.5;
     }
-    if (["about", "pictureUrl", "txt"].includes(el)) {
+    if (["about", "txt"].includes(el)) {
       flex = 2.5;
     }
     columns.push({ field: el, flex: flex });
   });
 
-  function pictureNameToUrl() {
-    if (Object.keys(requestBody).includes("pictureName")) {
-      const pictureUrl = `/pictures/${requestBody.category}/${requestBody.pictureName}`;
-      requestBody["pictureUrl"] = pictureUrl;
-    }
-  }
-
   async function uploadToTable() {
     try {
-      pictureNameToUrl();
       await axios.post(`${route}`, requestBody, { headers: headers });
-      resetEditor();
+      reloadPage();
     } catch (err) {
       console.warn(err);
       alert("Something went wrong while uploading!");
@@ -148,13 +119,22 @@ export const TableTemplate = ({ route }) => {
 
       formData.append("image", file);
 
-      setCurrentRowInfo((prev) => ({
-        ...prev,
-        pictureUrl: `/pictures/no-category/${file.name}`,
-      }));
-      requestBody.oldPictureUrl = `/pictures/no-category/${file.name}`;
+      currentRowInfo.category =
+        requestBody.category =
+        requestBody.oldCategory =
+          "no-category";
+      currentRowInfo.pictureName =
+        requestBody.pictureName =
+        requestBody.oldPictureName =
+          file.name;
 
       await axios.post("/upload", formData, { headers: headers });
+
+      const res = await axios.post("pictures", requestBody, {
+        headers: headers,
+      });
+
+      currentRowInfo.id = res.data[0].id;
 
       setEditorIsOpen(true);
     } catch (err) {
@@ -165,12 +145,15 @@ export const TableTemplate = ({ route }) => {
 
   async function updateTable() {
     try {
-      pictureNameToUrl();
-      requestBody.oldPictureUrl = currentRowInfo.pictureUrl;
+      if (route === "pictures") {
+        requestBody.oldCategory = currentRowInfo.category;
+        requestBody.oldPictureName = currentRowInfo.pictureName;
+      }
       await axios.patch(`${route}/${currentRowInfo.id}`, requestBody, {
         headers: headers,
       });
-      resetEditor();
+
+      reloadPage();
     } catch (err) {
       console.warn(err);
       alert("Something went wrong while uploading!");
@@ -181,22 +164,10 @@ export const TableTemplate = ({ route }) => {
     try {
       await axios.delete(`${route}/${currentRowInfo.id}`, { headers: headers });
       setData(data?.filter((row) => row.id !== currentRowInfo.id));
-      resetEditor();
+      reloadPage();
     } catch (err) {
       console.warn(err);
       alert("Something went wrong while deleting!");
-    }
-  }
-
-  async function deletePictureFromFs() {
-    try {
-      await axios.post("pictures/deleteByUrl", requestBody, {
-        headers: headers,
-      });
-      resetEditor();
-    } catch (err) {
-      console.warn(err);
-      alert("Something went wrong while deleting picture from fs!");
     }
   }
 
@@ -206,6 +177,7 @@ export const TableTemplate = ({ route }) => {
     if (el === "category") {
       var defaultCategory = "no-category";
       var categories = columnsTitles["pictures-categories"];
+
       if (route === "posts") {
         defaultCategory = "misc";
         categories = ["misc", "dev", "art", "comics"];
@@ -214,21 +186,23 @@ export const TableTemplate = ({ route }) => {
       if (editorMode === "upload" && !requestBody["category"]) {
         setRequestBody((prev) => ({ ...prev, category: defaultCategory }));
       }
+
       return (
         <div className={styles.formBlock}>
           <div className={styles.formLabel}>category:</div>
           <Select
             sx={formStyle}
             defaultValue={
-              requestBody.category
-                ? requestBody.category
-                : currentRowInfo.category
+              currentRowInfo.category
                 ? currentRowInfo.category
                 : defaultCategory
             }
             key={el}
             onChange={(e) =>
-              setRequestBody((prev) => ({ ...prev, [el]: e.target.value }))
+              setRequestBody((prev) => ({
+                ...prev,
+                [el]: e.target.value,
+              }))
             }
           >
             {categories.map((el) => (
@@ -237,27 +211,6 @@ export const TableTemplate = ({ route }) => {
               </MenuItem>
             ))}
           </Select>
-        </div>
-      );
-    } else if (el === "pictureUrl") {
-      return (
-        <div className={styles.formBlock}>
-          <div className={styles.formLabel}>pictureName:</div>
-          <TextField
-            sx={formStyle}
-            defaultValue={
-              editorMode === "upload"
-                ? ""
-                : /([^/]*)$/g.exec(currentRowInfo[el])[0]
-            }
-            key={el}
-            onChange={(e) => {
-              setRequestBody((prev) => ({
-                ...prev,
-                pictureName: e.target.value,
-              }));
-            }}
-          ></TextField>
         </div>
       );
     } else if (el === "txt") {
@@ -284,9 +237,11 @@ export const TableTemplate = ({ route }) => {
         <TextField
           sx={formStyle}
           defaultValue={
-            currentRowInfo[`${el}`]
-              ? currentRowInfo[`${el}`]
-              : requestBody[`${el}`]
+            requestBody[el]
+              ? requestBody[el]
+              : currentRowInfo[el]
+              ? currentRowInfo[el]
+              : ""
           }
           key={el}
           inputProps={route === "pictures" ? { maxLength: 255 } : {}}
@@ -311,14 +266,10 @@ export const TableTemplate = ({ route }) => {
           <div className={styles.closeIconWrapper}>
             <CloseIcon
               onClick={() => {
-                route === "pictures" && editorMode === "upload" ? (
-                  deletePictureFromFs()
-                ) : (
-                  <></>
-                );
-                setEditorMode("upload");
-                setRequestBody({});
-                setEditorIsOpen(false);
+                resetEditor();
+                if (editorMode === "upload" && route === "pictures") {
+                  deleteFromTable();
+                }
               }}
               sx={closeIconStyle}
             />
@@ -326,7 +277,7 @@ export const TableTemplate = ({ route }) => {
           {route === "pictures" ? (
             <img
               className={styles.picturePreview}
-              src={`http://localhost:4444${currentRowInfo.pictureUrl}`}
+              src={`http://localhost:4444/pictures/${currentRowInfo.category}/${currentRowInfo.pictureName}`}
               alt="Preview"
             />
           ) : (
@@ -347,25 +298,31 @@ export const TableTemplate = ({ route }) => {
                   ) {
                     alert("Picture name should not be empty!!!");
                   } else {
-                    editorMode === "upload" ? uploadToTable() : updateTable();
+                    if (editorMode === "upload" && route !== "pictures") {
+                      uploadToTable();
+                    } else {
+                      updateTable();
+                    }
                     resetEditor();
+                    reloadPage();
                   }
                 }}
               >
                 Submit row
               </div>
-              {editorMode === "upload" ? (
-                <></>
-              ) : (
+              {editorMode === "edit" ? (
                 <div
                   className={styles.submitButton}
                   onClick={() => {
                     deleteFromTable();
                     resetEditor();
+                    reloadPage();
                   }}
                 >
                   Delete row
                 </div>
+              ) : (
+                <></>
               )}
             </>
           </div>
@@ -391,7 +348,6 @@ export const TableTemplate = ({ route }) => {
                     txt: e,
                   }));
                 }}
-                // options={options}
               />
               <div
                 className={styles.submitButton}
@@ -422,6 +378,7 @@ export const TableTemplate = ({ route }) => {
               disableRowSelectionOnClick
               onRowClick={(rowInfo) => {
                 setCurrentRowInfo(rowInfo.row);
+                setRequestBody(rowInfo.row);
                 setEditorMode("edit");
                 setEditorIsOpen(true);
               }}

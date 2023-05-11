@@ -8,12 +8,13 @@ CREATE TABLE picture (
         'cg-graph',
         'trad',
         'comics',
-        'no-category'
+        'no-category',
+        'page'
     ) DEFAULT 'no-category',
+    pictureName VARCHAR(255) NOT NULL,
     series VARCHAR(255) DEFAULT 'stand-alone',
-    pictureUrl VARCHAR(255),
     previewUrl VARCHAR(255),
     created DATE,
     redraw BOOLEAN DEFAULT false,
-    UNIQUE (pictureUrl)
+    UNIQUE(category, pictureName)
 );
