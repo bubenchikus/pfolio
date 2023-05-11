@@ -171,6 +171,33 @@ async function removeDeletedPicturesFromDB() {
   });
 }
 
+function removeDeletedPicturesFromFS() {
+  try {
+    fs.readdir(`${process.cwd()}/pictures`, (err, subdirs) => {
+      subdirs?.forEach((dir) => {
+        fs.readdir(`${process.cwd()}/pictures/${dir}`, (err, files) => {
+          files?.forEach(async (file) => {
+            const pic =
+              await databaseFunctions.getPictureByCategoryAndPictureName(
+                dir,
+                file
+              );
+            if (pic?.length == 0) {
+              fs.unlink(
+                `${process.cwd()}/pictures/${dir}/${file}`,
+                function (err) {}
+              );
+            }
+          });
+        });
+      });
+    });
+  } catch (err) {
+    console.log("Something went wrong while updating picture DB!");
+    console.log(err);
+  }
+}
+
 function createStorage() {
   var storageName = `${process.cwd()}/pictures/`;
 
@@ -194,5 +221,6 @@ function createStorage() {
 
 export function maintainPictureDB() {
   removeDeletedPicturesFromDB();
+  removeDeletedPicturesFromFS();
   createStorage();
 }

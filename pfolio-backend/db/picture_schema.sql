@@ -14,7 +14,7 @@ CREATE TABLE picture (
     pictureName VARCHAR(255) NOT NULL,
     series VARCHAR(255) DEFAULT 'stand-alone',
     previewUrl VARCHAR(255),
-    created DATE,
+    created VARCHAR(255),
     redraw BOOLEAN DEFAULT false,
     UNIQUE(category, pictureName)
 );

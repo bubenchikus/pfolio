@@ -29,6 +29,7 @@ const upload = multer({ storage });
 app.use("/pictures", express.static("pictures"));
 
 app.post(`/upload`, checkAuth, upload.single("image"), (req, res) => {
+  console.log(req);
   res.json({ message: "Image succesfully uploaded" });
 });
 

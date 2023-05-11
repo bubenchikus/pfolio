@@ -10,18 +10,21 @@ $smooth-accent: rgb(161, 204, 180);
   padding: 0 20px;
 }
 
-.linkBox {
+.buttonBox {
   display: flex;
-  margin-top: 20px;
+  flex-direction: row;
+  padding-top: 20px;
   gap: 15px;
   font-size: 20px;
   width: 100%;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.buttonBox {
-  @extend .linkBox;
-  justify-content: start;
-  align-items: center;
+.editorButtonBox {
+  @extend .buttonBox;
+  padding: 10px 0;
+  justify-content: center;
 }
 
 .button {
@@ -89,7 +92,6 @@ $smooth-accent: rgb(161, 204, 180);
   background-color: none;
   border: solid black 1px;
   width: 200px;
-  margin-top: 20px;
 }
 
 .picturePreview {

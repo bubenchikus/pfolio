@@ -191,6 +191,7 @@ export const TableTemplate = ({ route }) => {
         <div className={styles.formBlock}>
           <div className={styles.formLabel}>category:</div>
           <Select
+            size="small"
             sx={formStyle}
             defaultValue={
               currentRowInfo.category
@@ -235,6 +236,7 @@ export const TableTemplate = ({ route }) => {
       <div className={styles.formBlock}>
         <div className={styles.formLabel}>{`${el}:`}</div>
         <TextField
+          size="small"
           sx={formStyle}
           defaultValue={
             requestBody[el]
@@ -285,17 +287,13 @@ export const TableTemplate = ({ route }) => {
           )}
           <div className={styles.formWrapper}>
             {columnsTitles[route]
-              .filter((el) => !["id", "created", "modified"].includes(el))
+              .filter((el) => !["id", "modified"].includes(el))
               .map((el) => returnJsxFormElement(el))}
-            <>
+            <div className={styles.editorButtonBox}>
               <div
                 className={styles.submitButton}
                 onClick={() => {
-                  if (
-                    route === "pictures" &&
-                    editorMode === "upload" &&
-                    !requestBody.pictureName
-                  ) {
+                  if (route === "pictures" && !requestBody.pictureName) {
                     alert("Picture name should not be empty!!!");
                   } else {
                     if (editorMode === "upload" && route !== "pictures") {
@@ -324,7 +322,7 @@ export const TableTemplate = ({ route }) => {
               ) : (
                 <></>
               )}
-            </>
+            </div>
           </div>
         </div>
       ) : (
@@ -372,6 +370,9 @@ export const TableTemplate = ({ route }) => {
         <>
           <Box sx={{ height: "800px", width: "100%" }}>
             <DataGrid
+              initialState={{
+                sorting: { sortModel: [{ field: "id", sort: "desc" }] },
+              }}
               sx={{ width: "100%", cursor: "pointer", zIndex: "0" }}
               columns={columns}
               rows={data}
