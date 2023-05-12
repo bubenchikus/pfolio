@@ -9,6 +9,9 @@ import {
 import { checkAuth } from "./auth.js";
 import { validationResultStatus, pictureValidation } from "./valid.js";
 import multer from "multer";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -26,7 +29,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.use("/pictures", express.static("pictures"));
+app.use("/api/pictures", express.static("pictures"));
 
 app.post(`/api/upload`, checkAuth, upload.single("image"), (req, res) => {
   console.log(req);
@@ -39,7 +42,10 @@ app.get("/api/art/cg-graph", PictureController.getCGGraph);
 app.get("/api/art/trad", PictureController.getTrad);
 app.get("/api/art/comics", PictureController.getComics);
 
-app.get("/api/pages-descriptions", DescriptionController.getAllPagesDescriptions);
+app.get(
+  "/api/pages-descriptions",
+  DescriptionController.getAllPagesDescriptions
+);
 app.get(
   "/api/pages-descriptions/:page",
   DescriptionController.getPageDescriptionByTitle
@@ -60,7 +66,10 @@ app.delete(
   DescriptionController.deletePageDescription
 );
 
-app.get("/api/series-descriptions", DescriptionController.getAllSeriesDescriptions);
+app.get(
+  "/api/series-descriptions",
+  DescriptionController.getAllSeriesDescriptions
+);
 app.post(
   "/api/series-descriptions",
   checkAuth,
@@ -103,7 +112,7 @@ app.get("/api/columns", checkAuth, AdminController.getColumns);
 
 PictureController.maintainPictureDB();
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT, (err) => {
   if (err) return console.log(err);
   console.log("Server OK");
 });

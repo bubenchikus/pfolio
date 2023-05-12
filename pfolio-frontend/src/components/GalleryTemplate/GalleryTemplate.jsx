@@ -120,7 +120,7 @@ export const GalleryTemplate = ({ url }) => {
               <div className={styles.carouselMiddleBox}>
                 <div className={styles.carouselImageBox}>
                   <img
-                    src={`http://localhost:4444/pictures/${currentImage.category}/${currentImage.pictureName}`}
+                    src={`${process.env.REACT_APP_API_URL}/pictures/${currentImage.category}/${currentImage.pictureName}`}
                     className={styles.carouselImage}
                     alt={currentImage.title}
                   ></img>
@@ -220,8 +220,8 @@ export const GalleryTemplate = ({ url }) => {
                   >
                     <img
                       className={styles.img}
-                      src={`http://localhost:4444/pictures/${item.category}/${item.pictureName}`}
-                      srcSet={`http://localhost:4444/pictures/${item.category}/${item.pictureName}`}
+                      src={`${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`}
+                      srcSet={`${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`}
                       alt={item.title}
                       loading="lazy"
                     />

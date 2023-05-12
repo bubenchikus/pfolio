@@ -80,7 +80,7 @@ export const TableTemplate = ({ route }) => {
           return (
             <>
               <Avatar
-                src={`http://localhost:4444/pictures/${params.row.category}/${params.row.pictureName}`}
+                src={`${process.env.REACT_APP_API_URL}/pictures/${params.row.category}/${params.row.pictureName}`}
                 variant="square"
                 alt="Source unavailable!"
               />
@@ -279,7 +279,7 @@ export const TableTemplate = ({ route }) => {
           {route === "pictures" ? (
             <img
               className={styles.picturePreview}
-              src={`http://localhost:4444/pictures/${currentRowInfo.category}/${currentRowInfo.pictureName}`}
+              src={`${process.env.REACT_APP_API_URL}/pictures/${currentRowInfo.category}/${currentRowInfo.pictureName}`}
               alt="Preview"
             />
           ) : (
