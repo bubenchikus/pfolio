@@ -28,78 +28,78 @@ const upload = multer({ storage });
 
 app.use("/pictures", express.static("pictures"));
 
-app.post(`/upload`, checkAuth, upload.single("image"), (req, res) => {
+app.post(`/api/upload`, checkAuth, upload.single("image"), (req, res) => {
   console.log(req);
   res.json({ message: "Image succesfully uploaded" });
 });
 
-app.get("/art/cg-paint-left", PictureController.getCGPaintLeft);
-app.get("/art/cg-paint-right", PictureController.getCGPaintRight);
-app.get("/art/cg-graph", PictureController.getCGGraph);
-app.get("/art/trad", PictureController.getTrad);
-app.get("/art/comics", PictureController.getComics);
+app.get("/api/art/cg-paint-left", PictureController.getCGPaintLeft);
+app.get("/api/art/cg-paint-right", PictureController.getCGPaintRight);
+app.get("/api/art/cg-graph", PictureController.getCGGraph);
+app.get("/api/art/trad", PictureController.getTrad);
+app.get("/api/art/comics", PictureController.getComics);
 
-app.get("/pages-descriptions", DescriptionController.getAllPagesDescriptions);
+app.get("/api/pages-descriptions", DescriptionController.getAllPagesDescriptions);
 app.get(
-  "/pages-descriptions/:page",
+  "/api/pages-descriptions/:page",
   DescriptionController.getPageDescriptionByTitle
 );
 app.post(
-  "/pages-descriptions",
+  "/api/pages-descriptions",
   checkAuth,
   DescriptionController.uploadPageDescription
 );
 app.patch(
-  "/pages-descriptions/:id",
+  "/api/pages-descriptions/:id",
   checkAuth,
   DescriptionController.updatePageDescription
 );
 app.delete(
-  "/pages-descriptions/:id",
+  "/api/pages-descriptions/:id",
   checkAuth,
   DescriptionController.deletePageDescription
 );
 
-app.get("/series-descriptions", DescriptionController.getAllSeriesDescriptions);
+app.get("/api/series-descriptions", DescriptionController.getAllSeriesDescriptions);
 app.post(
-  "/series-descriptions",
+  "/api/series-descriptions",
   checkAuth,
   DescriptionController.uploadSeriesDescription
 );
 app.get(
-  "/series-descriptions/:category",
+  "/api/series-descriptions/:category",
   DescriptionController.getSeriesDescriptionsByCategory
 );
 app.patch(
-  "/series-descriptions/:id",
+  "/api/series-descriptions/:id",
   checkAuth,
   DescriptionController.updateSeriesDescription
 );
 app.delete(
-  "/series-descriptions/:id",
+  "/api/series-descriptions/:id",
   checkAuth,
   DescriptionController.deleteSeriesDescription
 );
 
-app.get("/pictures", PictureController.getAllPictures);
+app.get("/api/pictures", PictureController.getAllPictures);
 app.post(
-  "/pictures",
+  "/api/pictures",
   pictureValidation,
   validationResultStatus,
   checkAuth,
   PictureController.uploadPicture
 );
-app.patch("/pictures/:id", checkAuth, PictureController.updatePicture);
-app.delete("/pictures/:id", checkAuth, PictureController.deletePicture);
+app.patch("/api/pictures/:id", checkAuth, PictureController.updatePicture);
+app.delete("/api/pictures/:id", checkAuth, PictureController.deletePicture);
 
-app.get("/posts", PostController.getAllPosts);
-app.post("/posts", checkAuth, PostController.uploadPost);
-app.patch("/posts/:id", checkAuth, PostController.updatePost);
-app.delete("/posts/:id", checkAuth, PostController.deletePost);
+app.get("/api/posts", PostController.getAllPosts);
+app.post("/api/posts", checkAuth, PostController.uploadPost);
+app.patch("/api/posts/:id", checkAuth, PostController.updatePost);
+app.delete("/api/posts/:id", checkAuth, PostController.deletePost);
 
-app.post("/login", AdminController.login);
+app.post("/api/login", AdminController.login);
 
-app.get("/columns", checkAuth, AdminController.getColumns);
+app.get("/api/columns", checkAuth, AdminController.getColumns);
 
 PictureController.maintainPictureDB();
 
