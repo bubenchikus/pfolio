@@ -5,7 +5,7 @@ dotenv.config();
 
 const instance = axios.create({
   // baseURL: "http://localhost:4444",
-  baseUrl: process.env.REACT_APP_BACK_URL,
+  baseUrl: process.env.REACT_APP_API_URL,
 });
 
 export default instance;
