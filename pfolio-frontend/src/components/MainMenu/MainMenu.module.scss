@@ -134,6 +134,10 @@
   .blockSubblockText {
     font-size: 5vw;
   }
+
+  .blockSubblock:hover .blockSubblockText {
+    font-size: 5.5vw;
+  }
 }
 
 @media (max-width: 850px) {
@@ -143,8 +147,12 @@
   }
 }
 
-@media (max-height: 500px) {
-  .blockSubblockText {
-    font-size: 2vw;
-  }
-}
+// @media (max-height: 500px) {
+//   .blockSubblockText {
+//     font-size: 2vw;
+//   }
+
+//   .blockSubblockText:hover {
+//     font-size: 2.2vw;
+//   }
+// }
