@@ -10,7 +10,6 @@
 * {
   font-family: "Hind Madurai", sans-serif;
   text-decoration-skip-ink: none;
-  // animation: smooth-appear 0.25s;
 }
 
 .wrapper {
@@ -35,4 +34,5 @@ body {
     rgba(253, 255, 253, 1) 65%,
     rgba(255, 255, 255, 1) 100%
   );
+  background-repeat: no-repeat;
 }

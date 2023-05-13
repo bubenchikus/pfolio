@@ -2,7 +2,6 @@ import React from "react";
 
 import styles from "./MainMenu.module.scss";
 import universalStyles from "../UniversalStyles.module.scss";
-import Container from "@mui/material/Container";
 
 import { Link } from "react-router-dom";
 
@@ -12,10 +11,10 @@ export const MainMenu = () => {
   const placeholder = "In process...";
 
   return (
-    <Container className={styles.root}>
+    <>
       <div className={styles.grid}>
-        <div className={styles.leftBlock}>
-          <Link to="/dev" className={universalStyles.pageSubtitle}>
+        <div className={styles.menuBlock}>
+          <Link to="/dev" className={styles.pageSubtitle}>
             Dev works
           </Link>
           <Link to="/" className={styles.blockSubblock}>
@@ -24,15 +23,10 @@ export const MainMenu = () => {
           </Link>
         </div>
         <div className={styles.middleBlock}>
-          <img
-            className={styles.helloImage}
-            // src="https://arthive.net/res/media/img/orig/article/cc0/7567038@2x.jpg"
-            src={helloImage}
-            alt="Not found"
-          />
+          <img className={styles.helloImage} src={helloImage} alt="Not found" />
         </div>
-        <div className={styles.rightBlock}>
-          <Link to="/art" className={universalStyles.pageSubtitle}>
+        <div className={styles.menuBlock}>
+          <Link to="/art" className={styles.pageSubtitle}>
             Art works
           </Link>
 
@@ -70,6 +64,6 @@ export const MainMenu = () => {
           Action journal
         </Link>
       </div>
-    </Container>
+    </>
   );
 };

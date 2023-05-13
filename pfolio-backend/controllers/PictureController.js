@@ -165,7 +165,6 @@ async function removeDeletedPicturesFromDB() {
         }
       );
     } catch (err) {
-      console.log("Something went wrong while deleting image data from DB!");
       console.log(err);
     }
   });
@@ -193,7 +192,6 @@ function removeDeletedPicturesFromFS() {
       });
     });
   } catch (err) {
-    console.log("Something went wrong while updating picture DB!");
     console.log(err);
   }
 }

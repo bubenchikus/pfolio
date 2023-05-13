@@ -69,7 +69,6 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   try {
-    console.log(req.params);
     const deleted = await databaseFunctions.deletePost(req.params.id);
 
     if (!deleted.affectedRows) {

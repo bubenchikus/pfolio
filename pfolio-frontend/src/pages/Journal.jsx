@@ -130,7 +130,7 @@ export const Journal = () => {
               );
             })
         : []}
-      <div className={universalStyles.linkBox}>
+      <div className={universalStyles.paginationBox}>
         <Pagination
           count={Math.ceil(
             Object.keys(categories[currentCategory] || {}).length / postsPerPage

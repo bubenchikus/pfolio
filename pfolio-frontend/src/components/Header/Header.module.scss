@@ -29,3 +29,13 @@
   color: black;
   font-family: "Titillium Web", sans-serif;
 }
+
+@media (max-width: 500px) {
+  .logoBox {
+    padding: 20px 0;
+  }
+  .textLogo {
+    font-size: 0;
+    opacity: 0;
+  }
+}

@@ -1,41 +1,44 @@
 .root {
-  align-items: center;
-  justify-content: center;
   margin: 0;
   padding: 0;
-  height: 90vh;
 }
 
 .grid {
   text-decoration: none;
   justify-content: center;
   display: grid;
-  grid-template-columns: 200px auto 200px;
-  gap: 20px;
-  margin: 0 auto;
+  grid-template-columns: 14vw auto 14vw;
+  gap: 0.7vw;
 }
 
 .menuBlock {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 0.6vh;
+  min-height: 500px;
 }
 
-.leftBlock {
-  @extend .menuBlock;
-  color: black;
-}
-
-.rightBlock {
-  @extend .menuBlock;
-  color: black;
+.pageSubtitle {
+  display: flex;
+  align-items: center;
+  font-family: "Marcellus SC", serif;
+  font-size: 1.7vw;
+  letter-spacing: -2px;
+  padding: 2vh 0;
+  color: rgb(85, 85, 85);
+  text-decoration: underline 2px;
+  transition: 1s;
+  text-transform: uppercase;
+  font-weight: 400;
+  mix-blend-mode: multiply;
 }
 
 .blockSubblock {
   display: flex;
   width: 100%;
   height: 100%;
+
   background-color: rgb(120, 113, 120);
   align-items: center;
   justify-content: center;
@@ -45,12 +48,11 @@
 
 .blockSubblockText {
   position: absolute;
-  display: inline;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 1.3vw;
   color: white;
   text-shadow: 0 0 2px black, 0 0 5px black, 0 0 10px black;
-  z-index: 1;
+  white-space: nowrap;
   transition: 1s;
 }
 
@@ -106,11 +108,43 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  background-color: rgb(36, 36, 36);
-  height: 700px;
+  justify-content: flex-end;
 }
 
 .helloImage {
-  height: 100%;
+  display: flex;
+  max-width: 30vw;
+  max-height: 75vh;
+}
+
+@media (max-width: 850px), (max-height: 500px) {
+  .grid {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 0 1fr;
+    gap: 5px;
+    padding: 0 10px;
+  }
+
+  .helloImage {
+    height: 0px;
+    opacity: 0;
+  }
+
+  .blockSubblockText {
+    font-size: 5vw;
+  }
+}
+
+@media (max-width: 850px) {
+  .pageSubtitle {
+    font-size: 6vw;
+    padding: 1vh 0;
+  }
+}
+
+@media (max-height: 500px) {
+  .blockSubblockText {
+    font-size: 2vw;
+  }
 }

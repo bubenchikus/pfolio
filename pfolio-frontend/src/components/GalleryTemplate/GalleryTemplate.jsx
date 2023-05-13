@@ -78,15 +78,23 @@ export const GalleryTemplate = ({ url }) => {
     }
   });
 
+  const clientWidth = document.documentElement.clientWidth;
+
+  const iconFontStyle = `${
+    clientWidth > 850
+      ? Math.floor(clientWidth / 30)
+      : Math.floor(clientWidth / 10)
+  }px`;
+
   const iconStyle = {
     color: "white",
-    fontSize: "60px",
+    fontSize: iconFontStyle,
     padding: "10px",
     cursor: "pointer",
   };
   const disabledIconStyle = {
     color: "rgb(60,60,60)",
-    fontSize: "60px",
+    fontSize: iconFontStyle,
     padding: "10px",
   };
 
@@ -197,7 +205,7 @@ export const GalleryTemplate = ({ url }) => {
               </>
               <ImageList
                 sx={{ margin: "15px 0", padding: "2px" }}
-                cols={5}
+                cols={`${Math.floor(clientWidth / 350)}`}
                 variant={"standard"}
                 gap={6}
               >
