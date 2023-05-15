@@ -37,6 +37,22 @@ export const getAllPictures = async (_, res) => {
   }
 };
 
+export const getUnhiddenPictures = async (_, res) => {
+  try {
+    const pictures = await databaseFunctions.getUnhiddenPictures();
+
+    if (!pictures) {
+      return res
+        .status(404)
+        .json({ message: "Pictures not found (unhidden)!" });
+    }
+    res.json(pictures);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Getting unhidden pictures failed!" });
+  }
+};
+
 export const getCGPaintLeft = async (_, res) => {
   getPicturesByCategory("cg-paint-left", res);
 };
@@ -67,7 +83,7 @@ export const uploadPicture = async (req, res) => {
       req.body.series,
       req.body.about,
       req.body.redraw,
-      req.body.previewUrl
+      req.body.hide
     );
 
     fs.rename(
@@ -106,7 +122,7 @@ export const updatePicture = async (req, res) => {
       req.body.series,
       req.body.about,
       req.body.redraw,
-      req.body.previewUrl,
+      req.body.hide,
       req.params.id
     );
 

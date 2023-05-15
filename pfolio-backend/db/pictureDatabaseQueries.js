@@ -10,6 +10,17 @@ export async function getAllPictures() {
   return res;
 }
 
+export async function getUnhiddenPictures() {
+  const res = await userQuery(
+    `
+        SELECT * 
+        FROM picture
+        WHERE hide=false;
+    `
+  );
+  return res;
+}
+
 export async function getPictureByCategoryAndPictureName(
   category,
   pictureName
@@ -31,7 +42,8 @@ export async function getPicturesByCategory(category) {
     `
       SELECT * 
       FROM picture
-      WHERE category=?;
+      WHERE category=?
+      AND hide=false;
   `,
     [category]
   );
@@ -58,7 +70,7 @@ export async function uploadPicture(
   series,
   about,
   redraw,
-  previewUrl
+  hide
 ) {
   const res = await userQuery(
     `
@@ -70,7 +82,7 @@ export async function uploadPicture(
           series, 
           about, 
           redraw, 
-          previewUrl)
+          hide)
         VALUE (
           COALESCE(?, DEFAULT(title)),
           ?,
@@ -81,7 +93,7 @@ export async function uploadPicture(
           ?,
           ?);
       `,
-    [title, created, category, pictureName, series, about, redraw, previewUrl]
+    [title, created, category, pictureName, series, about, redraw, hide]
   );
   return res;
 }
@@ -94,7 +106,7 @@ export async function updatePicture(
   series,
   about,
   redraw,
-  previewUrl,
+  hide,
   id
 ) {
   const res = await userQuery(
@@ -108,20 +120,10 @@ export async function updatePicture(
         series = COALESCE(?, series),
         about= COALESCE(?, about),
         redraw = COALESCE(?, redraw),
-        previewUrl = COALESCE(?, previewUrl)
+        hide = COALESCE(?, hide)
         WHERE id=?;
       `,
-    [
-      title,
-      created,
-      category,
-      pictureName,
-      series,
-      about,
-      redraw,
-      previewUrl,
-      id,
-    ]
+    [title, created, category, pictureName, series, about, redraw, hide, id]
   );
   return res;
 }

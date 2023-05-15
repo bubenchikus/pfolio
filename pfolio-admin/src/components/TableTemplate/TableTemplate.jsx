@@ -28,7 +28,7 @@ export const TableTemplate = ({ route }) => {
 
   React.useEffect(() => {
     axios
-      .get(route)
+      .get(route === "pictures" ? "all-pictures" : route, { headers: headers })
       .then((response) => {
         setData(response.data);
       })
@@ -52,7 +52,7 @@ export const TableTemplate = ({ route }) => {
 
   async function reloadPage() {
     axios
-      .get(route)
+      .get(route === "pictures" ? "all-pictures" : route, { headers: headers })
       .then((response) => {
         setData(response.data);
       })
@@ -279,7 +279,7 @@ export const TableTemplate = ({ route }) => {
           {route === "pictures" ? (
             <img
               className={styles.picturePreview}
-              src={`${process.env.REACT_APP_API_URL}/pictures/${currentRowInfo.category}/${currentRowInfo.pictureName}`}
+              src={`${process.env.REACT_APP_API_URL}/all-pictures/${currentRowInfo.category}/${currentRowInfo.pictureName}`}
               alt="Preview"
             />
           ) : (

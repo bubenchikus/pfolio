@@ -13,8 +13,8 @@ CREATE TABLE picture (
     ) DEFAULT 'no-category',
     pictureName VARCHAR(255) NOT NULL,
     series VARCHAR(255) DEFAULT 'stand-alone',
-    previewUrl VARCHAR(255),
     created VARCHAR(255),
     redraw BOOLEAN DEFAULT false,
+    hide BOOLEAN DEFAULT false,
     UNIQUE(category, pictureName)
 );

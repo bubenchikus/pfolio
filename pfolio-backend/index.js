@@ -90,7 +90,7 @@ app.delete(
   DescriptionController.deleteSeriesDescription
 );
 
-app.get("/api/pictures", PictureController.getAllPictures);
+app.get("/api/pictures", PictureController.getUnhiddenPictures);
 app.post(
   "/api/pictures",
   pictureValidation,
@@ -100,6 +100,8 @@ app.post(
 );
 app.patch("/api/pictures/:id", checkAuth, PictureController.updatePicture);
 app.delete("/api/pictures/:id", checkAuth, PictureController.deletePicture);
+
+app.get("/api/all-pictures", checkAuth, PictureController.getAllPictures);
 
 app.get("/api/posts", PostController.getAllPosts);
 app.post("/api/posts", checkAuth, PostController.uploadPost);
