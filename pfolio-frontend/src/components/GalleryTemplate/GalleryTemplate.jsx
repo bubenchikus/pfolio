@@ -34,7 +34,7 @@ export const GalleryTemplate = ({ url }) => {
     axios
       .get(url)
       .then((response) => {
-        setData(response.data);
+        setData(response?.data);
       })
       .catch((err) => {
         console.warn(err);
@@ -66,6 +66,22 @@ export const GalleryTemplate = ({ url }) => {
       });
   }, [url]);
 
+  imagesData?.sort(function (a, b) {
+    const a_month = a.created?.split("-")[0] || "0";
+    const a_year = a.created?.split("-")[1] || "0";
+    const b_month = b.created?.split("-")[0] || "0";
+    const b_year = b.created?.split("-")[1] || "0";
+    return a_year > b_year
+      ? 1
+      : a_year < b_year
+      ? -1
+      : a_month > b_month
+      ? 1
+      : a_month < b_month
+      ? -1
+      : 0;
+  });
+
   var images = {};
   var galleryIndex = 0;
   imagesData?.forEach((element) => {
@@ -92,11 +108,30 @@ export const GalleryTemplate = ({ url }) => {
     padding: "10px",
     cursor: "pointer",
   };
+
   const disabledIconStyle = {
     color: "rgb(60,60,60)",
     fontSize: iconFontStyle,
     padding: "10px",
   };
+
+  function numToMonth(num) {
+    const months = [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december",
+    ];
+    return months[num - 1];
+  }
 
   return (
     <>
@@ -141,8 +176,15 @@ export const GalleryTemplate = ({ url }) => {
                     {currentImage.redraw ? `Redraw: yes` : `Redraw: no`}
                   </div>
                   <div className={styles.carouselText}>
-                    {currentImage.created
-                      ? `Created: ${currentImage.created}`
+                    {currentImage.created &&
+                    currentImage.created.split("-")[1] !== "0"
+                      ? `Created: ${
+                          currentImage.created[0] === "0"
+                            ? currentImage.created.split("-")[1]
+                            : `${numToMonth(
+                                currentImage.created.split("-")[0]
+                              )} ${currentImage.created.split("-")[1]}`
+                        }`
                       : `Created: unknown`}
                   </div>
                   <div className={styles.carouselText}>
@@ -213,7 +255,7 @@ export const GalleryTemplate = ({ url }) => {
                   <ImageListItem
                     key={item.id}
                     rows={1}
-                    cols={1}
+                    columns={1}
                     onClick={() =>
                       openLightbox(
                         imagesData.find(

@@ -155,6 +155,11 @@ export const updateSeriesDescription = async (req, res) => {
         .json({ message: "Description not found (by id)!" });
     }
 
+    await databaseFunctions.updatePicturesSeries(
+      req.body.oldSeries,
+      req.body.series
+    );
+
     res.json({ message: "Series description successfully updated!" });
   } catch (err) {
     console.log(err);

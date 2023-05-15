@@ -119,7 +119,7 @@ export const updatePicture = async (req, res) => {
       req.body.created,
       req.body.category,
       req.body.pictureName,
-      req.body.series,
+      req.body.series === "" ? null : req.body.series,
       req.body.about,
       req.body.redraw,
       req.body.hide,

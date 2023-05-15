@@ -72,3 +72,15 @@ export async function deleteDescription(id) {
   );
   return res;
 }
+
+export async function updatePicturesSeries(oldSeries, newSeries) {
+  const res = await userQuery(
+    `
+      UPDATE picture
+      SET series=COALESCE(?, DEFAULT(series))
+      WHERE series=?;
+        `,
+    [newSeries, oldSeries]
+  );
+  return res;
+}

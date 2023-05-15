@@ -19,7 +19,11 @@ export const Journal = () => {
     axios
       .get("posts")
       .then((response) => {
-        setData(response?.data);
+        setData(
+          response?.data.sort(function (a, b) {
+            return new Date(b.created) - new Date(a.created);
+          })
+        );
       })
       .catch((err) => {
         console.warn(err);

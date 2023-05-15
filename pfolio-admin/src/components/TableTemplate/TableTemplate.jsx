@@ -93,7 +93,7 @@ export const TableTemplate = ({ route }) => {
 
   columnsTitles[route]?.forEach((el) => {
     var flex = 1;
-    if (["id", "redraw"].includes(el)) {
+    if (["id", "redraw", "hide"].includes(el)) {
       flex = 0.5;
     }
     if (["about", "txt"].includes(el)) {
@@ -148,6 +148,8 @@ export const TableTemplate = ({ route }) => {
       if (route === "pictures") {
         requestBody.oldCategory = currentRowInfo.category;
         requestBody.oldPictureName = currentRowInfo.pictureName;
+      } else if (route === "series-descriptions") {
+        requestBody.oldSeries = currentRowInfo.series;
       }
       await axios.patch(`${route}/${currentRowInfo.id}`, requestBody, {
         headers: headers,
@@ -163,7 +165,6 @@ export const TableTemplate = ({ route }) => {
   async function deleteFromTable() {
     try {
       await axios.delete(`${route}/${currentRowInfo.id}`, { headers: headers });
-      setData(data?.filter((row) => row.id !== currentRowInfo.id));
       reloadPage();
     } catch (err) {
       console.warn(err);
@@ -172,6 +173,8 @@ export const TableTemplate = ({ route }) => {
   }
 
   const formStyle = { color: "black", borderColor: "black" };
+  const months = Array.from({ length: 13 }, (_, i) => i);
+  const years = [0].concat(Array.from({ length: 20 }, (_, i) => i + 2017));
 
   function returnJsxFormElement(el) {
     if (el === "category") {
@@ -212,6 +215,105 @@ export const TableTemplate = ({ route }) => {
               </MenuItem>
             ))}
           </Select>
+        </div>
+      );
+    } else if (el === "redraw" || el === "hide") {
+      return (
+        <div className={styles.formBlock}>
+          <div className={styles.formLabel}>{el}</div>
+          <Select
+            size="small"
+            sx={formStyle}
+            key={el}
+            onChange={(e) =>
+              setRequestBody((prev) => ({
+                ...prev,
+                [el]: e.target.value,
+              }))
+            }
+          >
+            {["0", "1"].map((el) => (
+              <MenuItem value={el} key={el}>
+                {el}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
+      );
+    } else if (el === "created") {
+      return (
+        <div className={styles.formBlock}>
+          <div className={styles.formLabel}>{el}</div>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Select
+              size="small"
+              sx={formStyle}
+              defaultValue={
+                currentRowInfo[el]
+                  ? parseInt(currentRowInfo[el].split("-")[0])
+                  : 0
+              }
+              onChange={(e) => {
+                const newData = `${
+                  currentRowInfo[el]
+                    ? "" +
+                      e.target.value +
+                      "-" +
+                      currentRowInfo[el].split("-")[1]
+                    : "" + e.target.value + "-0"
+                }`;
+                setRequestBody((prev) => ({
+                  ...prev,
+                  created: newData,
+                }));
+                setCurrentRowInfo((prev) => ({
+                  ...prev,
+                  created: newData,
+                }));
+              }}
+              key={el}
+            >
+              {months.map((el) => (
+                <MenuItem value={el} key={el}>
+                  {el}
+                </MenuItem>
+              ))}
+            </Select>
+            <Select
+              size="small"
+              sx={formStyle}
+              defaultValue={
+                currentRowInfo[el]
+                  ? parseInt(currentRowInfo[el].split("-")[1])
+                  : 0
+              }
+              key={el}
+              onChange={(e) => {
+                const newData = `${
+                  currentRowInfo[el]
+                    ? "" +
+                      currentRowInfo[el].split("-")[0] +
+                      "-" +
+                      e.target.value
+                    : "0-" + e.target.value
+                }`;
+                setRequestBody((prev) => ({
+                  ...prev,
+                  created: newData,
+                }));
+                setCurrentRowInfo((prev) => ({
+                  ...prev,
+                  created: newData,
+                }));
+              }}
+            >
+              {years.map((el) => (
+                <MenuItem value={el} key={el}>
+                  {el}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
         </div>
       );
     } else if (el === "txt") {
@@ -279,7 +381,7 @@ export const TableTemplate = ({ route }) => {
           {route === "pictures" ? (
             <img
               className={styles.picturePreview}
-              src={`${process.env.REACT_APP_API_URL}/all-pictures/${currentRowInfo.category}/${currentRowInfo.pictureName}`}
+              src={`${process.env.REACT_APP_API_URL}/pictures/${currentRowInfo.category}/${currentRowInfo.pictureName}`}
               alt="Preview"
             />
           ) : (
