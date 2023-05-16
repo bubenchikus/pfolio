@@ -100,11 +100,14 @@ export const GalleryTemplate = ({ url }) => {
   });
 
   const arrangement = Object.keys(images).sort(function (a, b) {
-    return seriesDescriptions?.filter((e) => e?.series === b)[0]?.arrangement
-      ? seriesDescriptions?.filter((e) => e?.series === b)[0]?.arrangement
-      : 0 - seriesDescriptions?.filter((e) => e?.series === a)[0]?.arrangement
-      ? seriesDescriptions?.filter((e) => e?.series === a)[0]?.arrangement
-      : 0;
+    return (
+      (seriesDescriptions?.filter((e) => e?.series === b)[0]?.arrangement
+        ? seriesDescriptions?.filter((e) => e?.series === b)[0]?.arrangement
+        : 0) -
+      (seriesDescriptions?.filter((e) => e?.series === a)[0]?.arrangement
+        ? seriesDescriptions?.filter((e) => e?.series === a)[0]?.arrangement
+        : 0)
+    );
   });
 
   const clientWidth = document.documentElement.clientWidth;
