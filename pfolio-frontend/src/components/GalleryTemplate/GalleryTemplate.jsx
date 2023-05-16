@@ -82,6 +82,7 @@ export const GalleryTemplate = ({ url }) => {
 
   var images = {};
   var galleryIndexes = {};
+
   imagesData?.forEach((element) => {
     if (galleryIndexes[element.series]) {
       element.galleryIndex = galleryIndexes[element.series];
@@ -96,6 +97,13 @@ export const GalleryTemplate = ({ url }) => {
     } else {
       images[element.series] = [element];
     }
+  });
+
+  const arrangement = Object.keys(images).sort(function (a, b) {
+    return (
+      seriesDescriptions?.filter((e) => e?.series === b)[0]?.arrangement -
+      seriesDescriptions?.filter((e) => e?.series === a)[0]?.arrangement
+    );
   });
 
   const clientWidth = document.documentElement.clientWidth;
@@ -233,7 +241,7 @@ export const GalleryTemplate = ({ url }) => {
         )}
       </div>
       <PageDescription descriptionData={descriptionData} />
-      {Object.keys(images).map((series, index1) => {
+      {arrangement.map((series, index1) => {
         return (
           <Container key={index1}>
             <div className={universalStyles.blockContainer}>
@@ -254,7 +262,7 @@ export const GalleryTemplate = ({ url }) => {
               </>
               <ImageList
                 sx={{ margin: "15px 0", padding: "2px" }}
-                cols={`${Math.floor(clientWidth / 350)}`}
+                cols={Math.max(Math.floor(clientWidth / 350), 2)}
                 variant={"standard"}
                 gap={6}
               >
@@ -262,7 +270,7 @@ export const GalleryTemplate = ({ url }) => {
                   <ImageListItem
                     key={item.id}
                     rows={1}
-                    columns={1}
+                    cols={1}
                     onClick={() =>
                       openLightbox(
                         imagesData.find(

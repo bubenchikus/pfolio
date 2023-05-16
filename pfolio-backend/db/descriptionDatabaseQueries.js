@@ -35,29 +35,35 @@ export async function getAllSeriesDescriptions() {
   return res;
 }
 
-export async function uploadDescription(txt, category, series) {
+export async function uploadDescription(txt, category, series, arrangement) {
   const res = await userQuery(
     `
-      INSERT INTO description(txt, category, series)
-      VALUE (?,?,?)
-
+      INSERT INTO description(txt, category, series, arrangement)
+      VALUE (?,COALESCE(?, DEFAULT(category)),?,COALESCE(?, DEFAULT(arrangement)));
   `,
-    [txt, category, series]
+    [txt, category, series, arrangement]
   );
   return res;
 }
 
-export async function updateDescription(txt, category, series, id) {
+export async function updateDescription(
+  txt,
+  category,
+  series,
+  arrangement,
+  id
+) {
   const res = await userQuery(
     `
       UPDATE description
       SET
       txt=COALESCE(?, txt),
-      category=COALESCE(?, category),
-      series=COALESCE(?, series)
+      category=COALESCE(?, DEFAULT(category)),
+      series=COALESCE(?, DEFAULT(series)),
+      arrangement=COALESCE(?,DEFAULT(arrangement))
       WHERE id=?
   `,
-    [txt, category, series, id]
+    [txt, category, series, arrangement, id]
   );
   return res;
 }

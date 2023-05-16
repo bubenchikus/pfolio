@@ -84,11 +84,11 @@ export async function uploadPicture(
           redraw, 
           hide)
         VALUE (
-          COALESCE(?, DEFAULT(title)),
           ?,
-          COALESCE(?, DEFAULT(category)),
           ?,
-          COALESCE(?, DEFAULT(series)),
+          ?,
+          ?,
+          ?,
           ?,
           COALESCE(?, DEFAULT(redraw)),
           COALESCE(?, DEFAULT(hide)));
@@ -115,7 +115,7 @@ export async function updatePicture(
         SET
         title = COALESCE(?, title),
         created = COALESCE(?, created),
-        category = COALESCE(?, category),
+        category = COALESCE(?, DEFAULT(category)),
         pictureName = COALESCE(?, pictureName),
         series = COALESCE(?, DEFAULT(series)),
         about= COALESCE(?, about),

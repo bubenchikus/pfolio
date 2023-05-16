@@ -8,9 +8,10 @@ CREATE TABLE description (
         'trad',
         'comics',
         'page',
-        ''
-    ) default '',
-    series VARCHAR(255) NOT NULL DEFAULT 'stand-alone',
+        'no-category'
+    ) NOT NULL DEFAULT 'no-category',
+    series VARCHAR(255) DEFAULT 'stand-alone',
+    arrangement INT DEFAULT 0,
     UNIQUE (category, series)
 );
 INSERT INTO description(category)

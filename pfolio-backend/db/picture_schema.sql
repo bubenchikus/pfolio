@@ -10,7 +10,7 @@ CREATE TABLE picture (
         'comics',
         'no-category',
         'page'
-    ) DEFAULT 'no-category',
+    ) NOT NULL DEFAULT 'no-category',
     pictureName VARCHAR(255) NOT NULL,
     series VARCHAR(255) DEFAULT 'stand-alone',
     created VARCHAR(255),

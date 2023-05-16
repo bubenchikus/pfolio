@@ -333,6 +333,30 @@ export const TableTemplate = ({ route }) => {
           </Button>
         </div>
       );
+    } else if (el === "arrangement") {
+      return (
+        <div className={styles.formBlock}>
+          <div className={styles.formLabel}>{`${el}:`}</div>
+          <TextField
+            size="small"
+            type="number"
+            InputProps={{
+              inputProps: {
+                min: 0,
+              },
+            }}
+            sx={formStyle}
+            defaultValue={currentRowInfo[el] ? currentRowInfo[el] : 0}
+            key={el}
+            onChange={(e) => {
+              setRequestBody((prev) => ({
+                ...prev,
+                [el]: parseInt(e.target.value),
+              }));
+            }}
+          ></TextField>
+        </div>
+      );
     }
     return (
       <div className={styles.formBlock}>
@@ -397,6 +421,13 @@ export const TableTemplate = ({ route }) => {
                 onClick={() => {
                   if (route === "pictures" && !requestBody.pictureName) {
                     alert("Picture name should not be empty!!!");
+                  } else if (
+                    route === "posts" &&
+                    (!requestBody.title ||
+                      requestBody.title === "" ||
+                      !requestBody.txt)
+                  ) {
+                    alert("Post title and text should not be empty!!!");
                   } else {
                     if (editorMode === "upload" && route !== "pictures") {
                       uploadToTable();

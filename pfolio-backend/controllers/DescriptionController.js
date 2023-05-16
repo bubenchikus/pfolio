@@ -130,7 +130,8 @@ export const uploadSeriesDescription = async (req, res) => {
     await databaseFunctions.uploadDescription(
       req.body.txt,
       req.body.category,
-      req.body.series
+      req.body.series,
+      req.body.arrangement
     );
 
     res.json({ message: "Series description successfully uploaded!" });
@@ -146,6 +147,7 @@ export const updateSeriesDescription = async (req, res) => {
       req.body.txt,
       req.body.category,
       req.body.series,
+      req.body.arrangement,
       req.params.id
     );
 
