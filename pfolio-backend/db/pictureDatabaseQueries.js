@@ -15,7 +15,7 @@ export async function getUnhiddenPictures() {
     `
         SELECT * 
         FROM picture
-        WHERE hide IS 'NULL';
+        WHERE hide=false;
     `
   );
   return res;
@@ -90,7 +90,7 @@ export async function uploadPicture(
           ?,
           COALESCE(?, DEFAULT(series)),
           ?,
-          ?,
+          COALESCE(?, DEFAULT(redraw)),
           COALESCE(?, DEFAULT(hide)));
       `,
     [title, created, category, pictureName, series, about, redraw, hide]
@@ -119,7 +119,7 @@ export async function updatePicture(
         pictureName = COALESCE(?, pictureName),
         series = COALESCE(?, DEFAULT(series)),
         about= COALESCE(?, about),
-        redraw = ?,
+        redraw = COALESCE(?, DEFAULT(redraw)),
         hide = COALESCE(?, DEFAULT(hide))
         WHERE id=?;
       `,

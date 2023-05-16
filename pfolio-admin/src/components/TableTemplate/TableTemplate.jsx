@@ -14,10 +14,10 @@ import "easymde/dist/easymde.min.css";
 
 export const TableTemplate = ({ route }) => {
   const [data, setData] = React.useState();
-  const headers = {
+  const [headers] = React.useState({
     Authentication:
       "Bearer " + JSON.parse(sessionStorage.getItem("token")).token,
-  };
+  });
   const inputFileRef = React.useRef(null);
   const [editorIsOpen, setEditorIsOpen] = React.useState(false);
   const [textEditorIsOpen, setTextEditorIsOpen] = React.useState(false);
@@ -36,7 +36,7 @@ export const TableTemplate = ({ route }) => {
         console.warn(err);
         alert(`Error occured while getting ${route}!`);
       });
-  }, [route]);
+  }, [route, headers]);
 
   React.useEffect(() => {
     axios
@@ -48,7 +48,7 @@ export const TableTemplate = ({ route }) => {
         console.warn(err);
         alert(`Error occured while getting columns!`);
       });
-  }, []);
+  }, [headers]);
 
   async function reloadPage() {
     axios
@@ -183,7 +183,7 @@ export const TableTemplate = ({ route }) => {
 
       if (route === "posts") {
         defaultCategory = "misc";
-        categories = ["misc", "dev", "art", "comics"];
+        categories = columnsTitles["posts-categories"];
       }
 
       if (editorMode === "upload" && !requestBody["category"]) {

@@ -4,9 +4,7 @@ import Container from "@mui/material/Container";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import universalStyles from "../UniversalStyles.module.scss";
-
 import styles from "./GalleryTemplate.module.scss";
-
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
@@ -34,7 +32,23 @@ export const GalleryTemplate = ({ url }) => {
     axios
       .get(url)
       .then((response) => {
-        setData(response?.data);
+        setData(
+          response?.data?.sort(function (a, b) {
+            const a_month = a.created?.split("-")[0] || "0";
+            const a_year = a.created?.split("-")[1] || "0";
+            const b_month = b.created?.split("-")[0] || "0";
+            const b_year = b.created?.split("-")[1] || "0";
+            return a_year > b_year
+              ? 1
+              : a_year < b_year
+              ? -1
+              : a_month > b_month
+              ? 1
+              : a_month < b_month
+              ? -1
+              : 0;
+          })
+        );
       })
       .catch((err) => {
         console.warn(err);
@@ -66,27 +80,17 @@ export const GalleryTemplate = ({ url }) => {
       });
   }, [url]);
 
-  imagesData?.sort(function (a, b) {
-    const a_month = a.created?.split("-")[0] || "0";
-    const a_year = a.created?.split("-")[1] || "0";
-    const b_month = b.created?.split("-")[0] || "0";
-    const b_year = b.created?.split("-")[1] || "0";
-    return a_year > b_year
-      ? 1
-      : a_year < b_year
-      ? -1
-      : a_month > b_month
-      ? 1
-      : a_month < b_month
-      ? -1
-      : 0;
-  });
-
   var images = {};
-  var galleryIndex = 0;
+  var galleryIndexes = {};
   imagesData?.forEach((element) => {
-    element.galleryIndex = galleryIndex;
-    galleryIndex++;
+    if (galleryIndexes[element.series]) {
+      element.galleryIndex = galleryIndexes[element.series];
+      galleryIndexes[element.series] += 1;
+    } else {
+      element.galleryIndex = 0;
+      galleryIndexes[element.series] = 1;
+    }
+
     if (element.series in images) {
       images[element.series].push(element);
     } else {
@@ -149,8 +153,9 @@ export const GalleryTemplate = ({ url }) => {
                         setCurrentImage(
                           imagesData.find(
                             (image) =>
-                              image.galleryIndex ===
-                              currentImage?.galleryIndex - 1
+                              image?.galleryIndex ===
+                                currentImage?.galleryIndex - 1 &&
+                              image?.series === currentImage?.series
                           )
                         )
                       }
@@ -201,15 +206,17 @@ export const GalleryTemplate = ({ url }) => {
                   <CloseIcon sx={iconStyle} onClick={closeLightbox} />
                 </div>
                 <div className={styles.carouselSidePanelBox}>
-                  {currentImage.galleryIndex < imagesData.length - 1 ? (
+                  {currentImage.galleryIndex <
+                  images[currentImage.series].length - 1 ? (
                     <ArrowForwardIcon
                       sx={iconStyle}
                       onClick={() =>
                         setCurrentImage(
                           imagesData.find(
                             (image) =>
-                              image.galleryIndex ===
-                              currentImage?.galleryIndex + 1
+                              image?.galleryIndex ===
+                                currentImage?.galleryIndex + 1 &&
+                              image?.series === currentImage?.series
                           )
                         )
                       }
@@ -259,7 +266,9 @@ export const GalleryTemplate = ({ url }) => {
                     onClick={() =>
                       openLightbox(
                         imagesData.find(
-                          (image) => image.galleryIndex === item.galleryIndex
+                          (image) =>
+                            image.galleryIndex === item.galleryIndex &&
+                            image.series === item.series
                         )
                       )
                     }

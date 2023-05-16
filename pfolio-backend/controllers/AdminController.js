@@ -32,6 +32,7 @@ export const getColumns = async (_, res) => {
     res.json({
       pictures: JSON.parse(process.env.DB_COLUMNS_PICTURES),
       "pictures-categories": JSON.parse(process.env.DB_CATEGORIES_PICTURES),
+      "posts-categories": JSON.parse(process.env.DB_CATEGORIES_POSTS),
       posts: JSON.parse(process.env.DB_COLUMNS_POSTS),
       "series-descriptions": JSON.parse(
         process.env.DB_COLUMNS_SERIES_DESCRIPTIONS
