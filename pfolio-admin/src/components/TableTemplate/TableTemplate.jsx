@@ -11,20 +11,40 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
+import { getRandomString } from "../../utils/RandomString";
 
 export const TableTemplate = ({ route }) => {
-  const [data, setData] = React.useState();
   const [headers] = React.useState({
     Authentication:
       "Bearer " + JSON.parse(sessionStorage.getItem("token")).token,
   });
-  const inputFileRef = React.useRef(null);
-  const [editorIsOpen, setEditorIsOpen] = React.useState(false);
-  const [textEditorIsOpen, setTextEditorIsOpen] = React.useState(false);
-  const [editorMode, setEditorMode] = React.useState("upload"); //or 'edit'
+  const [data, setData] = React.useState();
   const [currentRowInfo, setCurrentRowInfo] = React.useState({});
   const [requestBody, setRequestBody] = React.useState({});
   const [columnsTitles, setColumnsTitles] = React.useState([]);
+
+  const [editorMode, setEditorMode] = React.useState("upload"); //or 'edit'
+  const [editorIsOpen, setEditorIsOpen] = React.useState(false);
+  const [textEditorIsOpen, setTextEditorIsOpen] = React.useState(false);
+  const [cropperIsOpen, setCropperIsOpen] = React.useState(false);
+
+  const inputFileRef = React.useRef(null);
+  const cropperRef = React.useRef(null);
+  const [croppedImage, setCroppedImage] = React.useState("");
+  const onCrop = () => {
+    const cropper = cropperRef.current?.cropper;
+
+    cropper
+      .getCroppedCanvas({
+        width: 350,
+        height: 350,
+      })
+      .toBlob((blob) => {
+        setCroppedImage(blob);
+      });
+  };
 
   React.useEffect(() => {
     axios
@@ -80,7 +100,11 @@ export const TableTemplate = ({ route }) => {
           return (
             <>
               <Avatar
-                src={`${process.env.REACT_APP_API_URL}/pictures/${params.row.category}/${params.row.pictureName}`}
+                src={
+                  params.row.previewName
+                    ? `${process.env.REACT_APP_API_URL}/pictures/previews/${params.row.previewName}.png`
+                    : `${process.env.REACT_APP_API_URL}/pictures/${params.row.category}/${params.row.pictureName}`
+                }
                 variant="square"
                 alt="Source unavailable!"
               />
@@ -127,6 +151,7 @@ export const TableTemplate = ({ route }) => {
         requestBody.pictureName =
         requestBody.oldPictureName =
           file.name;
+      currentRowInfo.previewName = requestBody.previewName = getRandomString();
 
       await axios.post("/upload", formData, { headers: headers });
 
@@ -158,7 +183,7 @@ export const TableTemplate = ({ route }) => {
       reloadPage();
     } catch (err) {
       console.warn(err);
-      alert("Something went wrong while uploading!");
+      alert("Something went wrong while updating table!");
     }
   }
 
@@ -168,7 +193,32 @@ export const TableTemplate = ({ route }) => {
       reloadPage();
     } catch (err) {
       console.warn(err);
-      alert("Something went wrong while deleting!");
+      alert("Something went wrong while deleting data from table!");
+    }
+  }
+
+  async function postPreview(blob) {
+    try {
+      const formData = new FormData();
+
+      const pictureName = currentRowInfo.previewName
+        ? currentRowInfo.previewName
+        : getRandomString();
+
+      requestBody.previewName = currentRowInfo.previewName = pictureName;
+
+      formData.append("image", blob, `${pictureName}.png`);
+
+      await axios.post("/upload-preview", formData, {
+        headers: {
+          Authentication:
+            "Bearer " + JSON.parse(sessionStorage.getItem("token")).token,
+          enctype: "multipart/form-data",
+        },
+      });
+    } catch (err) {
+      console.warn(err);
+      alert("Something went wrong while uploading preview!");
     }
   }
 
@@ -225,6 +275,7 @@ export const TableTemplate = ({ route }) => {
             size="small"
             sx={formStyle}
             key={el}
+            defaultValue={currentRowInfo.el ? currentRowInfo.el : 0}
             onChange={(e) =>
               setRequestBody((prev) => ({
                 ...prev,
@@ -253,6 +304,7 @@ export const TableTemplate = ({ route }) => {
                   ? parseInt(currentRowInfo[el].split("-")[0])
                   : 0
               }
+              key={"months"}
               onChange={(e) => {
                 const newData = `${
                   currentRowInfo[el]
@@ -271,7 +323,6 @@ export const TableTemplate = ({ route }) => {
                   created: newData,
                 }));
               }}
-              key={el}
             >
               {months.map((el) => (
                 <MenuItem value={el} key={el}>
@@ -287,7 +338,7 @@ export const TableTemplate = ({ route }) => {
                   ? parseInt(currentRowInfo[el].split("-")[1])
                   : 0
               }
-              key={el}
+              key={"years"}
               onChange={(e) => {
                 const newData = `${
                   currentRowInfo[el]
@@ -455,6 +506,19 @@ export const TableTemplate = ({ route }) => {
               ) : (
                 <></>
               )}
+              {route === "pictures" ? (
+                <div
+                  className={styles.submitButton}
+                  onClick={() => {
+                    setEditorIsOpen(false);
+                    setCropperIsOpen(true);
+                  }}
+                >
+                  Edit preview
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
@@ -494,6 +558,41 @@ export const TableTemplate = ({ route }) => {
                 Submit text
               </div>
             </div>
+          ) : cropperIsOpen ? (
+            <div className={styles.textEditorBox}>
+              <div className={styles.closeIconWrapper}>
+                <CloseIcon
+                  onClick={() => {
+                    setCropperIsOpen(false);
+                    setEditorIsOpen(true);
+                  }}
+                  sx={closeIconStyle}
+                />
+              </div>
+              <Cropper
+                src={`${process.env.REACT_APP_API_URL}/pictures/${currentRowInfo.category}/${currentRowInfo.pictureName}`}
+                style={{ height: "600px" }}
+                aspectRatio={1 / 1}
+                guides={true}
+                background={false}
+                autoCropArea={1}
+                viewMode={2}
+                crop={onCrop}
+                ref={cropperRef}
+              />
+              <div className={styles.editorButtonBox}>
+                <div
+                  className={styles.submitButton}
+                  onClick={() => {
+                    postPreview(croppedImage);
+                    setCropperIsOpen(false);
+                    setEditorIsOpen(true);
+                  }}
+                >
+                  Submit preview
+                </div>
+              </div>
+            </div>
           ) : (
             <></>
           )}
@@ -506,6 +605,8 @@ export const TableTemplate = ({ route }) => {
               initialState={{
                 sorting: { sortModel: [{ field: "id", sort: "desc" }] },
               }}
+              sortingMode="client"
+              throttleRowsMs={2000}
               sx={{ width: "100%", cursor: "pointer", zIndex: "0" }}
               columns={columns}
               rows={data}

@@ -12,6 +12,7 @@ CREATE TABLE picture (
         'page'
     ) NOT NULL DEFAULT 'no-category',
     pictureName VARCHAR(255) NOT NULL,
+    previewName VARCHAR(255) DEFAULT NULL,
     series VARCHAR(255) DEFAULT 'stand-alone',
     created VARCHAR(255),
     redraw BOOLEAN DEFAULT false,

@@ -17,6 +17,7 @@
     "easymde": "^2.18.0",
     "fs": "*",
     "react": "^18.2.0",
+    "react-cropper": "^2.3.3",
     "react-dom": "^18.2.0",
     "react-fetch-hook": "^1.9.5",
     "react-hook-form": "^7.43.9",

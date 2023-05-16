@@ -80,6 +80,7 @@ export const uploadPicture = async (req, res) => {
       req.body.created,
       req.body.category,
       req.body.pictureName,
+      req.body.previewName,
       req.body.series,
       req.body.about,
       req.body.redraw,
@@ -115,10 +116,11 @@ export const uploadPicture = async (req, res) => {
 export const updatePicture = async (req, res) => {
   try {
     const updated = await databaseFunctions.updatePicture(
-      req.body.title,
+      req.body.title === "" ? null : req.body.title,
       req.body.created,
       req.body.category,
       req.body.pictureName,
+      req.body.previewName,
       req.body.series === "" ? null : req.body.series,
       req.body.about,
       req.body.redraw,
@@ -157,6 +159,13 @@ export const deletePicture = async (req, res) => {
       function (err) {}
     );
 
+    if (file[0].previewName) {
+      fs.unlink(
+        `${process.cwd()}/pictures/previews/${file[0].previewName}.png`,
+        function (err) {}
+      );
+    }
+
     if (!deleted.affectedRows) {
       return res.status(404).json({ message: "Picture id not found!" });
     }
@@ -167,6 +176,25 @@ export const deletePicture = async (req, res) => {
     res.status(500).json({ message: "Picture deletion process failed!" });
   }
 };
+
+export function placePreview(pictureName) {
+  try {
+    console.log(
+      `${process.cwd()}/pictures/no-category/${pictureName}`,
+      `${process.cwd()}/pictures/previews/${pictureName}`
+    );
+    fs.rename(
+      `${process.cwd()}/pictures/no-category/${pictureName}`,
+      `${process.cwd()}/pictures/previews/${pictureName}`,
+      function (err) {}
+    );
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ message: "Something went wrong while moving preview!" });
+  }
+}
 
 async function removeDeletedPicturesFromDB() {
   const pictures = await databaseFunctions.getAllPictures();
@@ -215,15 +243,11 @@ function removeDeletedPicturesFromFS() {
 function createStorage() {
   var storageName = `${process.cwd()}/pictures/`;
 
-  if (!fs.existsSync(storageName)) {
-    fs.mkdirSync(storageName);
-  }
-
-  storageName = `${storageName}/no-category`;
-
-  if (!fs.existsSync(storageName)) {
-    fs.mkdirSync(storageName);
-  }
+  [storageName, `${storageName}/previews`].forEach((path) => {
+    if (!fs.existsSync(path)) {
+      fs.mkdirSync(path);
+    }
+  });
 
   JSON.parse(process.env.DB_CATEGORIES_PICTURES).forEach((dir) => {
     storageName = `${process.cwd()}/pictures/${dir}`;

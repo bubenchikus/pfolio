@@ -67,6 +67,7 @@ export async function uploadPicture(
   created,
   category,
   pictureName,
+  previewName,
   series,
   about,
   redraw,
@@ -79,6 +80,7 @@ export async function uploadPicture(
           created, 
           category, 
           pictureName,
+          previewName,
           series, 
           about, 
           redraw, 
@@ -90,10 +92,21 @@ export async function uploadPicture(
           ?,
           ?,
           ?,
+          ?,
           COALESCE(?, DEFAULT(redraw)),
           COALESCE(?, DEFAULT(hide)));
       `,
-    [title, created, category, pictureName, series, about, redraw, hide]
+    [
+      title,
+      created,
+      category,
+      pictureName,
+      previewName,
+      series,
+      about,
+      redraw,
+      hide,
+    ]
   );
   return res;
 }
@@ -103,6 +116,7 @@ export async function updatePicture(
   created,
   category,
   pictureName,
+  previewName,
   series,
   about,
   redraw,
@@ -113,17 +127,29 @@ export async function updatePicture(
     `
         UPDATE picture
         SET
-        title = COALESCE(?, title),
-        created = COALESCE(?, created),
+        title = COALESCE(?, DEFAULT(title)),
+        created = ?,
         category = COALESCE(?, DEFAULT(category)),
         pictureName = COALESCE(?, pictureName),
+        previewName = ?,
         series = COALESCE(?, DEFAULT(series)),
-        about= COALESCE(?, about),
+        about= ?,
         redraw = COALESCE(?, DEFAULT(redraw)),
         hide = COALESCE(?, DEFAULT(hide))
         WHERE id=?;
       `,
-    [title, created, category, pictureName, series, about, redraw, hide, id]
+    [
+      title,
+      created,
+      category,
+      pictureName,
+      previewName,
+      series,
+      about,
+      redraw,
+      hide,
+      id,
+    ]
   );
   return res;
 }

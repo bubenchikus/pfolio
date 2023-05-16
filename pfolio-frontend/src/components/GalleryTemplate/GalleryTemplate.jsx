@@ -100,10 +100,11 @@ export const GalleryTemplate = ({ url }) => {
   });
 
   const arrangement = Object.keys(images).sort(function (a, b) {
-    return (
-      seriesDescriptions?.filter((e) => e?.series === b)[0]?.arrangement -
-      seriesDescriptions?.filter((e) => e?.series === a)[0]?.arrangement
-    );
+    return seriesDescriptions?.filter((e) => e?.series === b)[0]?.arrangement
+      ? seriesDescriptions?.filter((e) => e?.series === b)[0]?.arrangement
+      : 0 - seriesDescriptions?.filter((e) => e?.series === a)[0]?.arrangement
+      ? seriesDescriptions?.filter((e) => e?.series === a)[0]?.arrangement
+      : 0;
   });
 
   const clientWidth = document.documentElement.clientWidth;
@@ -287,8 +288,11 @@ export const GalleryTemplate = ({ url }) => {
                   >
                     <img
                       className={styles.img}
-                      src={`${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`}
-                      srcSet={`${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`}
+                      src={
+                        item.previewName
+                          ? `${process.env.REACT_APP_API_URL}/pictures/previews/${item.previewName}.png`
+                          : `${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`
+                      }
                       alt={item.title}
                       loading="lazy"
                     />
