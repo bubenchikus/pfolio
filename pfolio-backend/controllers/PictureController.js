@@ -179,10 +179,6 @@ export const deletePicture = async (req, res) => {
 
 export function placePreview(pictureName) {
   try {
-    console.log(
-      `${process.cwd()}/pictures/no-category/${pictureName}`,
-      `${process.cwd()}/pictures/previews/${pictureName}`
-    );
     fs.rename(
       `${process.cwd()}/pictures/no-category/${pictureName}`,
       `${process.cwd()}/pictures/previews/${pictureName}`,
@@ -218,21 +214,37 @@ function removeDeletedPicturesFromFS() {
   try {
     fs.readdir(`${process.cwd()}/pictures`, (err, subdirs) => {
       subdirs?.forEach((dir) => {
-        fs.readdir(`${process.cwd()}/pictures/${dir}`, (err, files) => {
-          files?.forEach(async (file) => {
-            const pic =
-              await databaseFunctions.getPictureByCategoryAndPictureName(
-                dir,
-                file
-              );
-            if (pic?.length == 0) {
-              fs.unlink(
-                `${process.cwd()}/pictures/${dir}/${file}`,
-                function (err) {}
-              );
-            }
+        if (dir !== "previews") {
+          fs.readdir(`${process.cwd()}/pictures/${dir}`, (err, files) => {
+            files?.forEach(async (file) => {
+              const pic =
+                await databaseFunctions.getPictureByCategoryAndPictureName(
+                  dir,
+                  file
+                );
+              if (pic?.length == 0) {
+                fs.unlink(
+                  `${process.cwd()}/pictures/${dir}/${file}`,
+                  function (err) {}
+                );
+              }
+            });
           });
-        });
+        } else {
+          fs.readdir(`${process.cwd()}/pictures/previews`, (err, files) => {
+            files?.forEach(async (file) => {
+              const pic = await databaseFunctions.getPictureByPreviewName(
+                file.slice(0, file.length - 4)
+              );
+              if (pic?.length == 0) {
+                fs.unlink(
+                  `${process.cwd()}/pictures/previews/${file}`,
+                  function (err) {}
+                );
+              }
+            });
+          });
+        }
       });
     });
   } catch (err) {

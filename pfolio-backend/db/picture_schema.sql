@@ -17,5 +17,6 @@ CREATE TABLE picture (
     created VARCHAR(255),
     redraw BOOLEAN DEFAULT false,
     hide BOOLEAN DEFAULT false,
-    UNIQUE(category, pictureName)
+    UNIQUE(category, pictureName),
+    UNIQUE(previewName)
 );

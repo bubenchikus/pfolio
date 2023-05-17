@@ -73,6 +73,7 @@ export const updatePageDescription = async (req, res) => {
       req.body.txt,
       "page",
       req.body.page,
+      req.body.arrangement,
       req.params.id
     );
 

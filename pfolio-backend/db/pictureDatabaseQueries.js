@@ -21,6 +21,7 @@ export async function getUnhiddenPictures() {
   return res;
 }
 
+// Category + PictureName combo is unique
 export async function getPictureByCategoryAndPictureName(
   category,
   pictureName
@@ -33,6 +34,19 @@ export async function getPictureByCategoryAndPictureName(
       AND pictureName=?;
   `,
     [category, pictureName]
+  );
+  return res;
+}
+
+// previewName is unique
+export async function getPictureByPreviewName(previewName) {
+  const res = await userQuery(
+    `
+      SELECT * 
+      FROM picture
+      WHERE previewName=?;
+  `,
+    [previewName]
   );
   return res;
 }
@@ -86,12 +100,12 @@ export async function uploadPicture(
           redraw, 
           hide)
         VALUE (
+          COALESCE(?, DEFAULT(title)), 
+          ?,
+          COALESCE(?, DEFAULT(category)),
           ?,
           ?,
-          ?,
-          ?,
-          ?,
-          ?,
+          COALESCE(?, DEFAULT(series)),
           ?,
           COALESCE(?, DEFAULT(redraw)),
           COALESCE(?, DEFAULT(hide)));
@@ -128,10 +142,10 @@ export async function updatePicture(
         UPDATE picture
         SET
         title = COALESCE(?, DEFAULT(title)),
-        created = ?,
+        created = COALESCE(?, created),
         category = COALESCE(?, DEFAULT(category)),
         pictureName = COALESCE(?, pictureName),
-        previewName = ?,
+        previewName = COALESCE(?, previewName),
         series = COALESCE(?, DEFAULT(series)),
         about= ?,
         redraw = COALESCE(?, DEFAULT(redraw)),
