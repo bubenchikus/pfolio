@@ -35,7 +35,7 @@ export const SideBar = () => {
         </div>
         {[
           "edit-images",
-          "edit-series-descriptions",
+          "edit-series",
           "edit-journal",
           "edit-pages-descriptions",
         ].map((page) => {

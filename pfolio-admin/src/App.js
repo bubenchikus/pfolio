@@ -27,10 +27,7 @@ function App() {
             path="/edit-pages-descriptions"
             element={<EditPagesDescriptions />}
           />
-          <Route
-            path="/edit-series-descriptions"
-            element={<EditSeriesDescriptions />}
-          />
+          <Route path="/edit-series" element={<EditSeriesDescriptions />} />
           <Route path="*" element={<Navigate to={"/edit-images"} />} />
         </Routes>
       </div>

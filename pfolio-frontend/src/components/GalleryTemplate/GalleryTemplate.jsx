@@ -18,16 +18,6 @@ export const GalleryTemplate = ({ url }) => {
   const [currentImage, setCurrentImage] = React.useState();
   const [viewerIsOpen, setViewerIsOpen] = React.useState(false);
 
-  const openLightbox = (image) => {
-    setCurrentImage(image);
-    setViewerIsOpen(true);
-  };
-
-  const closeLightbox = () => {
-    setCurrentImage();
-    setViewerIsOpen(false);
-  };
-
   React.useEffect(() => {
     axios
       .get(url)
@@ -80,6 +70,29 @@ export const GalleryTemplate = ({ url }) => {
       });
   }, [url]);
 
+  function useWindowWidth() {
+    const [width, setWidth] = React.useState(0);
+    React.useLayoutEffect(() => {
+      function updateWidth() {
+        setWidth(window.innerWidth);
+      }
+      window.addEventListener("resize", updateWidth);
+      updateWidth();
+      return () => window.removeEventListener("resize", updateWidth);
+    }, []);
+    return width;
+  }
+
+  const openLightbox = (image) => {
+    setCurrentImage(image);
+    setViewerIsOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setCurrentImage();
+    setViewerIsOpen(false);
+  };
+
   var images = {};
   var galleryIndexes = {};
 
@@ -110,7 +123,7 @@ export const GalleryTemplate = ({ url }) => {
     );
   });
 
-  const clientWidth = document.documentElement.clientWidth;
+  const clientWidth = useWindowWidth();
 
   const iconFontStyle = `${
     clientWidth > 850
@@ -146,7 +159,10 @@ export const GalleryTemplate = ({ url }) => {
       "november",
       "december",
     ];
-    return months[num - 1];
+    if (months[num - 1]) {
+      return months[num - 1];
+    }
+    return "";
   }
 
   return (
@@ -194,6 +210,7 @@ export const GalleryTemplate = ({ url }) => {
                   </div>
                   <div className={styles.carouselText}>
                     {currentImage.created &&
+                    currentImage.created.split("-")[1] &&
                     currentImage.created.split("-")[1] !== "0"
                       ? `Created: ${
                           currentImage.created[0] === "0"

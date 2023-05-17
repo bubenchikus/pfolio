@@ -159,7 +159,8 @@ export const updateSeriesDescription = async (req, res) => {
 
     await databaseFunctions.updatePicturesSeries(
       req.body.oldSeries,
-      req.body.series
+      req.body.series,
+      req.body.category
     );
 
     res.json({ message: "Series description successfully updated!" });

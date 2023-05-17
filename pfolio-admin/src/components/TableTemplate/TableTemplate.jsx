@@ -100,11 +100,12 @@ export const TableTemplate = ({ route }) => {
           return (
             <>
               <Avatar
-                src={
-                  params.row.previewName
-                    ? `${process.env.REACT_APP_API_URL}/pictures/previews/${params.row.previewName}.png`
-                    : `${process.env.REACT_APP_API_URL}/pictures/${params.row.category}/${params.row.pictureName}`
-                }
+                // src={
+                //   params.row.previewName
+                //     ? `${process.env.REACT_APP_API_URL}/pictures/previews/${params.row.previewName}.png`
+                //     : `${process.env.REACT_APP_API_URL}/pictures/${params.row.category}/${params.row.pictureName}`
+                // }
+                src={`${process.env.REACT_APP_API_URL}/pictures/previews/${params.row.previewName}.png`}
                 variant="square"
                 alt="Source unavailable!"
               />
