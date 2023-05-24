@@ -17,6 +17,9 @@ export const CreatedSelect = ({
       <div className={styles.formLabel}>created:</div>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <Select
+          MenuProps={{
+            sx: { maxHeight: "400px" },
+          }}
           size="small"
           sx={formStyle}
           defaultValue={
@@ -53,6 +56,9 @@ export const CreatedSelect = ({
           ))}
         </Select>
         <Select
+          MenuProps={{
+            sx: { maxHeight: "400px" },
+          }}
           size="small"
           sx={formStyle}
           defaultValue={

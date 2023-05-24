@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import {
   Home,
   Dev,
@@ -13,7 +13,7 @@ import {
   Journal,
 } from "./pages";
 
-import { Header } from "./components/Header";
+import { Header } from "./components/Header/Header";
 
 function App() {
   return (
@@ -31,6 +31,7 @@ function App() {
           <Route path="/art/comics" element={<Comics />} />
           <Route path="/about" element={<About />} />
           <Route path="/journal" element={<Journal />} />
+          <Route path="*" element={<Navigate to={"/"} />} />
         </Routes>
       </div>
     </>

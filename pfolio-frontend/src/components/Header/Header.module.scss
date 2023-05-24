@@ -15,19 +15,19 @@
 }
 
 .imageLogo {
-  height: 80px;
+  height: calc(max(35px + 2vw, 80px));
 }
 
 .textLogo {
   align-items: center;
-  font-size: 55px;
+  font-size: calc(35px + 1vw);
   font-weight: 400;
-  letter-spacing: -5px;
-  line-height: 44px;
+  letter-spacing: calc(-3px - 0.1vw);
+  line-height: calc(25px + 1vw);
+  margin: 0;
   padding: 0 5px;
   text-transform: uppercase;
   color: black;
-  font-family: "Titillium Web", sans-serif;
 }
 
 @media (max-width: 500px) {

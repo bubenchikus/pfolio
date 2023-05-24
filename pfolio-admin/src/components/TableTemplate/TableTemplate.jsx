@@ -14,9 +14,11 @@ export const TableTemplate = ({ route }) => {
       "Bearer " + JSON.parse(sessionStorage.getItem("token")).token,
   });
   const [data, setData] = React.useState();
+  const [columnsTitles, setColumnsTitles] = React.useState([]);
+  const [series, setSeries] = React.useState();
+
   const [currentRowInfo, setCurrentRowInfo] = React.useState({});
   const [requestBody, setRequestBody] = React.useState({});
-  const [columnsTitles, setColumnsTitles] = React.useState([]);
 
   const [editorMode, setEditorMode] = React.useState("upload"); //or 'edit'
   const [editorIsOpen, setEditorIsOpen] = React.useState(false);
@@ -40,6 +42,30 @@ export const TableTemplate = ({ route }) => {
         console.warn(err);
         alert(`Error occured while getting ${route}!`);
       });
+
+    if (route === "pictures") {
+      axios
+        .get("series-descriptions", { headers: headers })
+        .then((response) => {
+          let temp = {};
+          if (response.data) {
+            Object.values(response.data).forEach((el) => {
+              if (!temp.hasOwnProperty(el.category)) {
+                temp[el.category] = [el.series];
+              } else {
+                if (!temp[el.category].includes(el.series)) {
+                  temp[el.category].push(el.series);
+                }
+              }
+            });
+          }
+          setSeries(temp);
+        })
+        .catch((err) => {
+          console.warn(err);
+          alert(`Error occured while getting series!`);
+        });
+    }
   }, [route, headers, dataChanged]);
 
   React.useEffect(() => {
@@ -78,6 +104,7 @@ export const TableTemplate = ({ route }) => {
           columnsTitles={columnsTitles}
           closeIconStyle={closeIconStyle}
           setDataChanged={setDataChanged}
+          series={series}
         />
       ) : (
         <>

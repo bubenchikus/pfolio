@@ -8,7 +8,7 @@ export const SideBar = () => {
   const [currentPage, setCurrentPage] = React.useState();
 
   const capitalize = (s) => {
-    var replaced = s.replace(/(-.)/g, (x) => " " + x[1]);
+    const replaced = s.replace(/(-.)/g, (x) => " " + x[1]);
     return replaced.charAt(0).toUpperCase() + replaced.slice(1);
   };
 

@@ -1,6 +1,6 @@
 export const sortImagesBySeries = (imagesData) => {
-  var images = {};
-  var galleryIndexes = {};
+  const images = {};
+  const galleryIndexes = {};
 
   imagesData?.forEach((element) => {
     if (galleryIndexes[element.series]) {

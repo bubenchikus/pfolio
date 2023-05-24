@@ -7,7 +7,6 @@ export const CategorySelect = ({
   currentRowInfo,
   route,
   columnsTitles,
-  editorMode,
   requestBody,
   setRequestBody,
 }) => {
@@ -44,7 +43,7 @@ export const CategorySelect = ({
           }
         }}
       >
-        {categories.map((el) => (
+        {categories?.map((el) => (
           <MenuItem value={el} key={el}>
             {el}
           </MenuItem>

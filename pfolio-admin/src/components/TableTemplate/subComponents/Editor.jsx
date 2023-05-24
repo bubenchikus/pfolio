@@ -19,6 +19,7 @@ export const Editor = ({
   columnsTitles,
   closeIconStyle,
   setDataChanged,
+  series,
 }) => {
   function resetEditor() {
     setEditorMode("upload");
@@ -50,8 +51,8 @@ export const Editor = ({
       )}
       <div className={styles.formWrapper}>
         {columnsTitles[route]
-          .filter((el) => !["id", "modified"].includes(el))
-          .map((el) => (
+          ?.filter((el) => !["id", "modified"].includes(el))
+          ?.map((el) => (
             <FormComponent
               el={el}
               currentRowInfo={currentRowInfo}
@@ -63,6 +64,7 @@ export const Editor = ({
               editorMode={editorMode}
               setEditorIsOpen={setEditorIsOpen}
               setTextEditorIsOpen={setTextEditorIsOpen}
+              series={series}
             />
           ))}
         <EditorButtonBox

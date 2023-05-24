@@ -4,6 +4,7 @@ import { CreatedSelect } from "./FormFields/CreatedSelect";
 import { TxtButton } from "./FormFields/TxtButton";
 import { ArrangementText } from "./FormFields/ArrangementText";
 import { GeneralTextField } from "./FormFields/GeneralTextField";
+import { SeriesSelect } from "./FormFields/SeriesSelect";
 
 export const FormComponent = ({
   el,
@@ -16,6 +17,7 @@ export const FormComponent = ({
   editorMode,
   setEditorIsOpen,
   setTextEditorIsOpen,
+  series,
 }) => {
   const formStyle = { color: "black", borderColor: "black" };
 
@@ -26,7 +28,6 @@ export const FormComponent = ({
         currentRowInfo={currentRowInfo}
         route={route}
         columnsTitles={columnsTitles}
-        editorMode={editorMode}
         requestBody={requestBody}
         setRequestBody={setRequestBody}
       />
@@ -65,6 +66,16 @@ export const FormComponent = ({
         currentRowInfo={currentRowInfo}
         requestBody={requestBody}
         setRequestBody={setRequestBody}
+      />
+    );
+  } else if (el === "series" && route === "pictures") {
+    return (
+      <SeriesSelect
+        formStyle={formStyle}
+        currentRowInfo={currentRowInfo}
+        requestBody={requestBody}
+        setRequestBody={setRequestBody}
+        series={series}
       />
     );
   }

@@ -43,7 +43,7 @@ export const Journal = () => {
       });
   }, []);
 
-  var categories = { all: data };
+  const categories = { all: data };
   data?.forEach((element) => {
     if (!(element.category in categories)) {
       categories[element.category] = [element];
@@ -53,14 +53,14 @@ export const Journal = () => {
   });
 
   Object.keys(categories)?.forEach((category) => {
-    var categoryIndex = 0;
+    let categoryIndex = 0;
     categories[category]?.forEach((el) => {
       el["categoryIndex"] = categoryIndex;
       categoryIndex++;
     });
   });
 
-  var journalIndex = 0;
+  let journalIndex = 0;
   categories["all"]?.forEach((el) => {
     el["journalIndex"] = journalIndex;
     journalIndex++;
@@ -106,7 +106,7 @@ export const Journal = () => {
       {currentCategory === "all"
         ? categories["all"]
           ? categories["all"]
-              .filter(
+              ?.filter(
                 (el) =>
                   el.journalIndex >= (currentPage - 1) * postsPerPage &&
                   el.journalIndex < currentPage * postsPerPage
@@ -121,7 +121,7 @@ export const Journal = () => {
           : []
         : categories[currentCategory]
         ? categories[currentCategory]
-            .filter(
+            ?.filter(
               (el) =>
                 el.categoryIndex >= (currentPage - 1) * postsPerPage &&
                 el.categoryIndex < currentPage * postsPerPage

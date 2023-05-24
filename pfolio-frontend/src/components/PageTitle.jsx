@@ -6,7 +6,7 @@ export const PageTitle = ({ pageTitle }) => {
   return (
     <>
       <Container>
-        <div className={universalStyles.pageTitle}>{pageTitle}</div>
+        <h2 className={universalStyles.pageTitle}>{pageTitle}</h2>
       </Container>
     </>
   );

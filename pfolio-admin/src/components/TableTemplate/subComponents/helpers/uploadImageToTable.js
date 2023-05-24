@@ -8,7 +8,7 @@ export const uploadImageToTable = async (
   headers
 ) => {
   try {
-    var formData = new FormData();
+    const formData = new FormData();
     const file = event.target.files[0];
 
     formData.append("image", file);

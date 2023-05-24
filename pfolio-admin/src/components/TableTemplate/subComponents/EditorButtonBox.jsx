@@ -48,8 +48,10 @@ export const EditorButtonBox = ({
         <div
           className={styles.submitButton}
           onClick={() => {
-            deleteFromTable(route, currentRowInfo, headers, setDataChanged);
-            resetEditor();
+            if (window.confirm("Are you sure you want to delete this item?")) {
+              deleteFromTable(route, currentRowInfo, headers, setDataChanged);
+              resetEditor();
+            }
           }}
         >
           Delete row

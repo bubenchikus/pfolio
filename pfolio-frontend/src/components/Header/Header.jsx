@@ -11,13 +11,11 @@ export const Header = () => {
       <div className={styles.root}>
         <Link className={styles.logoBox} to="/">
           <img className={styles.imageLogo} src={logo} alt="Not found" />
-          <div className={styles.textLogo}>
-            <div>
-              Bubengogh's
-              <br />
-              bunker
-            </div>
-          </div>
+          <h1 className={styles.textLogo}>
+            Bubengogh's
+            <br />
+            bunker
+          </h1>
         </Link>
       </div>
     </Container>

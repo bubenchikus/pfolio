@@ -23,7 +23,7 @@ export const SeriesGalleryTemplate = ({
         <>
           {seriesDescriptions ? (
             <div className={universalStyles.blockText}>
-              {seriesDescriptions.filter((el) => el.series === series)[0]?.txt}
+              {seriesDescriptions?.filter((el) => el.series === series)[0]?.txt}
             </div>
           ) : (
             <></>
@@ -35,7 +35,7 @@ export const SeriesGalleryTemplate = ({
           variant={"standard"}
           gap={6}
         >
-          {images[series].map((item) => (
+          {images[series]?.map((item) => (
             <ImageListItem
               key={item.id}
               rows={1}

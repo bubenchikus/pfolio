@@ -88,7 +88,7 @@ export const GalleryTemplate = ({ url }) => {
 
       <PageDescription descriptionData={descriptionData} />
 
-      {getSeriesArrangementFromImages(images, seriesDescriptions).map(
+      {getSeriesArrangementFromImages(images, seriesDescriptions)?.map(
         (series, index) => {
           return (
             <SeriesGalleryTemplate

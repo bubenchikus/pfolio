@@ -33,6 +33,12 @@ export const GeneralTextField = ({
                 oldCategory: currentRowInfo["category"],
                 [el]: e.target.value,
               }))
+            : el === "series"
+            ? setRequestBody((prev) => ({
+                ...prev,
+                oldSeries: currentRowInfo["series"],
+                [el]: e.target.value,
+              }))
             : setRequestBody((prev) => ({ ...prev, [el]: e.target.value }));
         }}
       ></TextField>
