@@ -234,7 +234,7 @@ function removeDeletedPicturesFromFS() {
           fs.readdir(`${process.cwd()}/pictures/previews`, (err, files) => {
             files?.forEach(async (file) => {
               const pic = await databaseFunctions.getPictureByPreviewName(
-                file.slice(0, file.length - 4)
+                file.slice(0, file.length - 5)
               );
               if (pic?.length == 0) {
                 fs.unlink(
