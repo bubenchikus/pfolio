@@ -5,7 +5,7 @@ import universalStyles from "../UniversalStyles.module.scss";
 
 import { Link } from "react-router-dom";
 
-import helloImage from "../../uiPictures/hello-image.png";
+import helloImage from "../../uiPictures/hello-image.webp";
 
 export const MainMenu = () => {
   const placeholder = "In process...";

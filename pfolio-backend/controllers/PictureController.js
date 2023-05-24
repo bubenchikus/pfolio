@@ -161,7 +161,7 @@ export const deletePicture = async (req, res) => {
 
     if (file[0].previewName) {
       fs.unlink(
-        `${process.cwd()}/pictures/previews/${file[0].previewName}.png`,
+        `${process.cwd()}/pictures/previews/${file[0].previewName}.webp`,
         function (err) {}
       );
     }

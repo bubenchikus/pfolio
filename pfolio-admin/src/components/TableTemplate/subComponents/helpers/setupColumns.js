@@ -13,7 +13,7 @@ export const setupColumns = (data, route, columnsTitles) => {
             <Avatar
               src={
                 params.row.previewName
-                  ? `${process.env.REACT_APP_API_URL}/pictures/previews/${params.row.previewName}.png`
+                  ? `${process.env.REACT_APP_API_URL}/pictures/previews/${params.row.previewName}.webp`
                   : ""
               }
               variant="square"

@@ -1,6 +1,7 @@
 .img {
   object-fit: cover;
   image-rendering: auto;
+  aspect-ratio: 1;
 }
 
 .img:hover {

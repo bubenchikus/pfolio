@@ -58,7 +58,7 @@ export const SeriesGalleryTemplate = ({
                 className={styles.img}
                 src={
                   item.previewName
-                    ? `${process.env.REACT_APP_API_URL}/pictures/previews/${item.previewName}.png`
+                    ? `${process.env.REACT_APP_API_URL}/pictures/previews/${item.previewName}.webp`
                     : `${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`
                 }
                 alt={item.title}
