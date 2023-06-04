@@ -11,7 +11,7 @@ export const sortImagesBySeries = (imagesData) => {
       galleryIndexes[element.series] = 1;
     }
 
-    if (element.series in images) {
+    if (images.hasOwnProperty(element.series)) {
       images[element.series].push(element);
     } else {
       images[element.series] = [element];

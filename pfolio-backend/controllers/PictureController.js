@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import * as databaseFunctions from "../db/pictureDatabaseQueries.js";
 
 import dotenv from "dotenv";
@@ -88,11 +89,22 @@ export const uploadPicture = async (req, res) => {
     );
 
     fs.rename(
-      `${process.cwd()}/pictures/${req.body.oldCategory}/${
-        req.body.oldPictureName
-      }`,
-      `${process.cwd()}/pictures/${req.body.category}/${req.body.pictureName}`,
-      function (err) {}
+      path.resolve(
+        "pictures",
+        `${req.body.oldCategory}`,
+        `${req.body.oldPictureName}`
+      ),
+      path.resolve(
+        "pictures",
+        `${req.body.category}`,
+        `${req.body.pictureName}`
+      ),
+      (err) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+      }
     );
 
     const picture = await databaseFunctions.getPictureByCategoryAndPictureName(
@@ -129,11 +141,22 @@ export const updatePicture = async (req, res) => {
     );
 
     fs.rename(
-      `${process.cwd()}/pictures/${req.body.oldCategory}/${
-        req.body.oldPictureName
-      }`,
-      `${process.cwd()}/pictures/${req.body.category}/${req.body?.pictureName}`,
-      function (err) {}
+      path.resolve(
+        "pictures",
+        `${req.body.oldCategory}`,
+        `${req.body.oldPictureName}`
+      ),
+      path.resolve(
+        "pictures",
+        `${req.body.category}`,
+        `${req.body.pictureName}`
+      ),
+      (err) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+      }
     );
 
     req.body.pictureName;
@@ -155,14 +178,24 @@ export const deletePicture = async (req, res) => {
     const deleted = await databaseFunctions.deletePictureById(req.params.id);
 
     fs.unlink(
-      `${process.cwd()}/pictures/${file[0].category}/${file[0].pictureName}`,
-      function (err) {}
+      path.resolve("pictures", `${file[0].category}`, `${file[0].pictureName}`),
+      (err) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+      }
     );
 
     if (file[0].previewName) {
       fs.unlink(
-        `${process.cwd()}/pictures/previews/${file[0].previewName}.webp`,
-        function (err) {}
+        path.resolve("pictures", "previews", `${file[0].previewName}.webp`),
+        (err) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+        }
       );
     }
 
@@ -180,9 +213,14 @@ export const deletePicture = async (req, res) => {
 export function placePreview(pictureName) {
   try {
     fs.rename(
-      `${process.cwd()}/pictures/no-category/${pictureName}`,
-      `${process.cwd()}/pictures/previews/${pictureName}`,
-      function (err) {}
+      path.resolve("pictures", "no-category", `${pictureName}`),
+      path.resolve("pictures", "previews", `${pictureName}`),
+      (err) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+      }
     );
   } catch (err) {
     console.log(err);
@@ -197,7 +235,7 @@ async function removeDeletedPicturesFromDB() {
   pictures.forEach((pic) => {
     try {
       fs.readFile(
-        `${process.cwd()}/pictures/${pic.category}/${pic.pictureName}`,
+        path.resolve("pictures", `${pic.category}`, `${pic.pictureName}`),
         (err, data) => {
           if (err?.code === "ENOENT") {
             databaseFunctions.deletePictureById(pic.id);
@@ -212,10 +250,10 @@ async function removeDeletedPicturesFromDB() {
 
 function removeDeletedPicturesFromFS() {
   try {
-    fs.readdir(`${process.cwd()}/pictures`, (err, subdirs) => {
+    fs.readdir(path.resolve("pictures"), (err, subdirs) => {
       subdirs?.forEach((dir) => {
         if (dir !== "previews") {
-          fs.readdir(`${process.cwd()}/pictures/${dir}`, (err, files) => {
+          fs.readdir(path.resolve("pictures", `${dir}`), (err, files) => {
             files?.forEach(async (file) => {
               const pic =
                 await databaseFunctions.getPictureByCategoryAndPictureName(
@@ -224,22 +262,32 @@ function removeDeletedPicturesFromFS() {
                 );
               if (pic?.length == 0) {
                 fs.unlink(
-                  `${process.cwd()}/pictures/${dir}/${file}`,
-                  function (err) {}
+                  path.resolve("pictures", `${dir}`, `${file}`),
+                  (err) => {
+                    if (err) {
+                      console.log(err);
+                      return;
+                    }
+                  }
                 );
               }
             });
           });
         } else {
-          fs.readdir(`${process.cwd()}/pictures/previews`, (err, files) => {
+          fs.readdir(path.resolve("pictures", "previews"), (err, files) => {
             files?.forEach(async (file) => {
               const pic = await databaseFunctions.getPictureByPreviewName(
                 file.slice(0, file.length - 5)
               );
               if (pic?.length == 0) {
                 fs.unlink(
-                  `${process.cwd()}/pictures/previews/${file}`,
-                  function (err) {}
+                  path.resolve("pictures", "previews", `${file}`),
+                  (err) => {
+                    if (err) {
+                      console.log(err);
+                      return;
+                    }
+                  }
                 );
               }
             });
@@ -253,16 +301,16 @@ function removeDeletedPicturesFromFS() {
 }
 
 function createStorage() {
-  var storageName = `${process.cwd()}/pictures/`;
+  var storageName = path.resolve("pictures");
 
-  [storageName, `${storageName}/previews`].forEach((path) => {
+  [storageName, path.resolve("previews")].forEach((path) => {
     if (!fs.existsSync(path)) {
       fs.mkdirSync(path);
     }
   });
 
   JSON.parse(process.env.DB_CATEGORIES_PICTURES).forEach((dir) => {
-    storageName = `${process.cwd()}/pictures/${dir}`;
+    storageName = path.resolve("pictures", `${dir}`);
     if (!fs.existsSync(storageName)) {
       fs.mkdirSync(storageName);
     }

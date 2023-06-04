@@ -45,7 +45,7 @@ export const Journal = () => {
 
   const categories = { all: data };
   data?.forEach((element) => {
-    if (!(element.category in categories)) {
+    if (!categories.hasOwnProperty(element.category)) {
       categories[element.category] = [element];
     } else {
       categories[element.category].push(element);
