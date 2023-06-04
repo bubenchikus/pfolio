@@ -18,7 +18,13 @@ export const Table = ({
       <DataGrid
         initialState={{
           sorting: { sortModel: [{ field: "id", sort: "desc" }] },
+          pagination: {
+            paginationModel: {
+              pageSize: 50,
+            },
+          },
         }}
+        disableColumnResize={false}
         sx={{ width: "100%", cursor: "pointer", zIndex: "0" }}
         columns={columns}
         rows={data}

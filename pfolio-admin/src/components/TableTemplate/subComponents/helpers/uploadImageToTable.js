@@ -5,7 +5,9 @@ export const uploadImageToTable = async (
   event,
   currentRowInfo,
   requestBody,
-  headers
+  headers,
+  setCropperIsOpen,
+  resetEditor
 ) => {
   try {
     const formData = new FormData();
@@ -28,10 +30,11 @@ export const uploadImageToTable = async (
     const res = await axios.post("pictures", requestBody, {
       headers: headers,
     });
-
     currentRowInfo.id = res.data[0].id;
+    setCropperIsOpen(true);
   } catch (err) {
     console.warn(err);
     alert("Error occured while uploading file!");
+    resetEditor();
   }
 };

@@ -9,6 +9,7 @@ export const CreateNewRowButton = ({
   requestBody,
   headers,
   setCropperIsOpen,
+  resetEditor,
 }) => {
   return (
     <div className={styles.buttonBox}>
@@ -26,8 +27,14 @@ export const CreateNewRowButton = ({
         ref={inputFileRef}
         type="file"
         onChange={(e) => {
-          uploadImageToTable(e, currentRowInfo, requestBody, headers);
-          setCropperIsOpen(true);
+          uploadImageToTable(
+            e,
+            currentRowInfo,
+            requestBody,
+            headers,
+            setCropperIsOpen,
+            resetEditor
+          );
         }}
         hidden
       />

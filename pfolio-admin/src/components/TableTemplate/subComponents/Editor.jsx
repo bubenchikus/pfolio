@@ -7,7 +7,6 @@ import { EditorButtonBox } from "./EditorButtonBox";
 export const Editor = ({
   route,
   editorMode,
-  setEditorMode,
   requestBody,
   setRequestBody,
   currentRowInfo,
@@ -20,13 +19,8 @@ export const Editor = ({
   closeIconStyle,
   setDataChanged,
   series,
+  resetEditor,
 }) => {
-  function resetEditor() {
-    setEditorMode("upload");
-    setCurrentRowInfo({});
-    setRequestBody({});
-    setEditorIsOpen(false);
-  }
   return (
     <div className={styles.uploaderEditorBox} id="uploaderEditorBox">
       <div className={styles.closeIconWrapper}>

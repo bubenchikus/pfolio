@@ -24,7 +24,7 @@ export async function uploadPost(title, txt, category) {
   const res = await userQuery(
     `
       INSERT INTO post(title, txt, category)
-      VALUE (?,?,?)
+      VALUE (?,?,COALESCE(?, DEFAULT(category)))
 
   `,
     [title, txt, category]

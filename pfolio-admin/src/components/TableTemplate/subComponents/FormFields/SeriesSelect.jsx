@@ -28,7 +28,7 @@ export const SeriesSelect = ({
           }));
         }}
       >
-        {series[requestBody.category]?.map((el) => (
+        {series[requestBody.category]?.sort().map((el) => (
           <MenuItem value={el} key={el}>
             {el}
           </MenuItem>

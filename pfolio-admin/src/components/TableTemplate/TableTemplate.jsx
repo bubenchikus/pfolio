@@ -86,13 +86,19 @@ export const TableTemplate = ({ route }) => {
     cursor: "pointer",
   };
 
+  const resetEditor = () => {
+    setEditorMode("upload");
+    setCurrentRowInfo({});
+    setRequestBody({});
+    setEditorIsOpen(false);
+  };
+
   return (
     <div className={styles.tableWrapper}>
       {editorIsOpen ? (
         <Editor
           route={route}
           editorMode={editorMode}
-          setEditorMode={setEditorMode}
           requestBody={requestBody}
           setRequestBody={setRequestBody}
           currentRowInfo={currentRowInfo}
@@ -105,6 +111,7 @@ export const TableTemplate = ({ route }) => {
           closeIconStyle={closeIconStyle}
           setDataChanged={setDataChanged}
           series={series}
+          resetEditor={resetEditor}
         />
       ) : (
         <>
@@ -156,6 +163,7 @@ export const TableTemplate = ({ route }) => {
         requestBody={requestBody}
         headers={headers}
         setCropperIsOpen={setCropperIsOpen}
+        resetEditor={resetEditor}
       />
     </div>
   );

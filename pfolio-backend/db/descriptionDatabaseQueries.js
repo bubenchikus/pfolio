@@ -39,7 +39,7 @@ export async function uploadDescription(txt, category, series, arrangement) {
   const res = await userQuery(
     `
       INSERT INTO description(txt, category, series, arrangement)
-      VALUE (?,COALESCE(?, DEFAULT(category)),?,?);
+      VALUE (?,COALESCE(?, DEFAULT(category)),COALESCE(?, DEFAULT(series)),COALESCE(?,DEFAULT(arrangement)));
   `,
     [txt, category, series, arrangement]
   );

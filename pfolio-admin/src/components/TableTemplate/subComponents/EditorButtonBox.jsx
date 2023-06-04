@@ -26,9 +26,14 @@ export const EditorButtonBox = ({
             (!requestBody.title || requestBody.title === "" || !requestBody.txt)
           ) {
             alert("Post title and text should not be empty!!!");
+          } else if (
+            route === "pages-descriptions" &&
+            (!requestBody.page || requestBody.page === "" || !requestBody.txt)
+          ) {
+            alert("Page description title and text should not be empty!!!");
           } else {
             if (editorMode === "upload" && route !== "pictures") {
-              uploadToTable(route, requestBody, headers);
+              uploadToTable(route, requestBody, headers, setDataChanged);
             } else {
               updateTable(
                 route,
