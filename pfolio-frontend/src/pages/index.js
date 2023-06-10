@@ -10,3 +10,5 @@ export { Comics } from "./Comics";
 
 export { About } from "./About";
 export { Journal } from "./Journal";
+
+export { ThisPage } from "./ThisPage";

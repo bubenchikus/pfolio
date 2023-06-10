@@ -6,8 +6,11 @@ import {
   DescriptionController,
   AdminController,
 } from "./controllers/index.js";
-import { checkAuth } from "./auth.js";
-import { validationResultStatus, pictureValidation } from "./valid.js";
+import { checkAuth } from "./middleware/auth.js";
+import {
+  validationResultStatus,
+  pictureValidation,
+} from "./middleware/valid.js";
 import multer from "multer";
 import dotenv from "dotenv";
 
@@ -92,8 +95,8 @@ app.get("/pictures", PictureController.getUnhiddenPictures);
 app.post(
   "/pictures",
   pictureValidation,
-  validationResultStatus,
   checkAuth,
+  validationResultStatus,
   PictureController.uploadPicture
 );
 app.patch("/pictures/:id", checkAuth, PictureController.updatePicture);

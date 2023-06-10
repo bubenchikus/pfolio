@@ -2,6 +2,7 @@ import React from "react";
 import axios from "../axios";
 import { PageTitle } from "../components/PageTitle";
 import { PageDescription } from "../components/PageDescription";
+import { Container } from "@mui/material";
 
 export const Dev = () => {
   const [descriptionData, setDescription] = React.useState();
@@ -19,9 +20,9 @@ export const Dev = () => {
   }, []);
 
   return (
-    <>
+    <Container maxWidth="lg">
       <PageTitle pageTitle="Dev works" />
       <PageDescription descriptionData={descriptionData} />
-    </>
+    </Container>
   );
 };

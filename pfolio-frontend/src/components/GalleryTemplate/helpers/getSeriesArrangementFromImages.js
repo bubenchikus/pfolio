@@ -5,17 +5,17 @@ export const getSeriesArrangementFromImages = (images, seriesDescriptions) => {
 
   return Object.keys(images).sort(function (a, b) {
     if (
-      seriesDescriptions?.filter((e) => e["series"] === a)[0]?.arrangement ===
-      seriesDescriptions?.filter((e) => e["series"] === b)[0]?.arrangement
+      seriesDescriptions?.find((e) => e["series"] === a)?.arrangement ===
+      seriesDescriptions?.find((e) => e["series"] === b)?.arrangement
     ) {
       return b?.localeCompare(a);
     }
     return (
-      (seriesDescriptions?.filter((e) => e["series"] === b)[0]?.arrangement
-        ? seriesDescriptions?.filter((e) => e["series"] === b)[0]?.arrangement
+      (seriesDescriptions?.find((e) => e["series"] === b)?.arrangement
+        ? seriesDescriptions?.find((e) => e["series"] === b)?.arrangement
         : 0) -
-      (seriesDescriptions?.filter((e) => e["series"] === a)[0]?.arrangement
-        ? seriesDescriptions?.filter((e) => e["series"] === a)[0]?.arrangement
+      (seriesDescriptions?.find((e) => e["series"] === a)?.arrangement
+        ? seriesDescriptions?.find((e) => e["series"] === a)?.arrangement
         : 0)
     );
   });

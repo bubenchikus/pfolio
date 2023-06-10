@@ -5,7 +5,7 @@ import { PageTitle } from "../components/PageTitle";
 export const Comics = () => {
   return (
     <>
-      <PageTitle pageTitle="Comics materials" />
+      <PageTitle pageTitle="Stories materials" />
       <GalleryTemplate url="art/comics" />
     </>
   );

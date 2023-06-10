@@ -18,15 +18,12 @@
 }
 
 body {
-  background-attachment: fixed;
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Hind Madurai",
     "Titillium Web", "Marcellus";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
-  width: 100%;
   background: white;
   background: radial-gradient(
     circle,
@@ -36,4 +33,5 @@ body {
     rgba(255, 255, 255, 1) 100%
   );
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }

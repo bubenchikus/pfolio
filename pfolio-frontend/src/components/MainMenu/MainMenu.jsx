@@ -17,8 +17,12 @@ export const MainMenu = () => {
           <Link to="/dev" className={styles.pageSubtitle}>
             Dev works
           </Link>
-          <Link to="/" className={styles.blockSubblock}>
+          <Link to="/this-page" className={styles.blockSubblock}>
             <div className={styles.blockSubblockDev1Image}></div>
+            <div className={styles.blockSubblockText}>This Page</div>
+          </Link>
+          <Link to="/" className={styles.blockSubblock}>
+            <div className={styles.blockSubblockDev2Image}></div>
             <div className={styles.blockSubblockText}>{placeholder}</div>
           </Link>
         </div>
@@ -30,13 +34,13 @@ export const MainMenu = () => {
             Art works
           </Link>
 
-          <Link to="/art/cg-paint-left" className={styles.blockSubblock}>
-            <div className={styles.blockSubblockArt1Image}></div>
+          <Link to="/art/cg-paint-right" className={styles.blockSubblock}>
+            <div className={styles.blockSubblockArt2Image}></div>
             <div className={styles.blockSubblockText}>CG Paintings I</div>
           </Link>
 
-          <Link to="/art/cg-paint-right" className={styles.blockSubblock}>
-            <div className={styles.blockSubblockArt2Image}></div>
+          <Link to="/art/cg-paint-left" className={styles.blockSubblock}>
+            <div className={styles.blockSubblockArt1Image}></div>
             <div className={styles.blockSubblockText}>CG Paintings II</div>
           </Link>
 
@@ -52,13 +56,13 @@ export const MainMenu = () => {
 
           <Link to="/art/comics" className={styles.blockSubblock}>
             <div className={styles.blockSubblockArt5Image}></div>
-            <div className={styles.blockSubblockText}>Comics materials</div>
+            <div className={styles.blockSubblockText}>Stories materials</div>
           </Link>
         </div>
       </div>
       <div className={universalStyles.linkBox}>
         <Link to="/about" className={universalStyles.link}>
-          About+links
+          About+contacts
         </Link>
         <Link to="/journal" className={universalStyles.link}>
           Action journal

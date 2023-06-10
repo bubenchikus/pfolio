@@ -76,6 +76,11 @@
 }
 
 .blockSubblockDev1Image {
+  @extend .blockSubblockImage;
+  background-image: url("../../uiPictures/ptichky.webp");
+}
+
+.blockSubblockDev2Image {
   @extend .blockSubblock;
 }
 
