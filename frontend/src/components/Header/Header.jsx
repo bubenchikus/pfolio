@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 
 import logo from "./../../uiPictures/logo-web.svg";
 
-export const Header = () => {
+const Header = () => {
   return (
     <Container maxWidth="lg">
       <div className={styles.root}>
@@ -21,3 +21,5 @@ export const Header = () => {
     </Container>
   );
 };
+
+export default Header;

@@ -1,0 +1,34 @@
+{
+  "categories": {
+    "pictures": [
+      "cg-paint-left",
+      "cg-paint-right",
+      "cg-graph",
+      "trad",
+      "comics",
+      "page",
+      "no-category"
+    ],
+    "posts": ["dev", "art", "comics", "misc"]
+  },
+
+  "columns": {
+    "pictures": [
+      "id",
+      "title",
+      "about",
+      "category",
+      "pictureName",
+      "series",
+      "created",
+      "redraw",
+      "hide"
+    ],
+
+    "posts": ["id", "title", "txt", "category"],
+
+    "series-descriptions": ["id", "txt", "category", "series", "arrangement"],
+
+    "pages-descriptions": ["id", "page", "txt"]
+  }
+}

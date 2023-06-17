@@ -1,9 +1,9 @@
 import styles from "../TableTemplate.module.scss";
-import { deleteFromTable } from "./helpers/deleteFromTable";
-import { uploadToTable } from "./helpers/uploadToTable";
-import { updateTable } from "./helpers/updateTable";
+import deleteFromTable from "./helpers/deleteFromTable";
+import uploadToTable from "./helpers/uploadToTable";
+import updateTable from "./helpers/updateTable";
 
-export const EditorButtonBox = ({
+const EditorButtonBox = ({
   route,
   headers,
   requestBody,
@@ -80,3 +80,5 @@ export const EditorButtonBox = ({
     </div>
   );
 };
+
+export default EditorButtonBox;

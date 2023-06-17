@@ -1,12 +1,12 @@
 import axios from "../../../../axios";
 
-export const updateTable = async (
+export default async function updateTable(
   route,
   requestBody,
   currentRowInfo,
   headers,
   setDataChanged
-) => {
+) {
   try {
     await axios.patch(`${route}/${currentRowInfo.id}`, requestBody, {
       headers: headers,
@@ -16,4 +16,4 @@ export const updateTable = async (
     console.warn(err);
     alert("Something went wrong while updating table!");
   }
-};
+}

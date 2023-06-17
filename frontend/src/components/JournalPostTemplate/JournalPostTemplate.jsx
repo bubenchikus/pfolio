@@ -5,7 +5,7 @@ import styles from "./JournalPostTemplate.module.scss";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { emojiSupport } from "../../utils/emojiSupport";
 
-export const JournalPostTemplate = ({ postData }) => {
+const JournalPostTemplate = ({ postData }) => {
   return (
     <Container>
       <div className={universalStyles.blockContainer}>
@@ -36,3 +36,5 @@ export const JournalPostTemplate = ({ postData }) => {
     </Container>
   );
 };
+
+export default JournalPostTemplate;

@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import universalStyles from "./UniversalStyles.module.scss";
 
-export const PageTitle = ({ pageTitle }) => {
+const PageTitle = ({ pageTitle }) => {
   return (
     <>
       <Container>
@@ -11,3 +11,5 @@ export const PageTitle = ({ pageTitle }) => {
     </>
   );
 };
+
+export default PageTitle;

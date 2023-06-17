@@ -2,12 +2,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import styles from "../../TableTemplate.module.scss";
 
-export const RedrawOrHideSelect = ({
-  el,
-  formStyle,
-  requestBody,
-  setRequestBody,
-}) => {
+const RedrawOrHideSelect = ({ el, formStyle, requestBody, setRequestBody }) => {
   return (
     <div className={styles.formBlock}>
       <div className={styles.formLabel}>{`${el}:`}</div>
@@ -32,3 +27,5 @@ export const RedrawOrHideSelect = ({
     </div>
   );
 };
+
+export default RedrawOrHideSelect;

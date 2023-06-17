@@ -1,10 +1,11 @@
-import React from "react";
-import { TableTemplate } from "../components/TableTemplate/TableTemplate";
+import TableTemplate from "../components/TableTemplate/TableTemplate";
 
-export const EditJournal = () => {
+const EditJournal = () => {
   return (
     <>
       <TableTemplate route="posts" />
     </>
   );
 };
+
+export default EditJournal;

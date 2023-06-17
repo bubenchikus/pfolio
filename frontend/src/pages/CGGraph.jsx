@@ -1,8 +1,8 @@
 import React from "react";
-import { GalleryTemplate } from "../components/GalleryTemplate/GalleryTemplate";
-import { PageTitle } from "../components/PageTitle";
+import GalleryTemplate from "../components/GalleryTemplate/GalleryTemplate";
+import PageTitle from "../components/PageTitle";
 
-export const CGGraph = () => {
+const CGGraph = () => {
   return (
     <>
       <PageTitle pageTitle="CG Graphics" />
@@ -10,3 +10,5 @@ export const CGGraph = () => {
     </>
   );
 };
+
+export default CGGraph;

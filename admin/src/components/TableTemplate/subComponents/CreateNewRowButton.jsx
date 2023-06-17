@@ -1,7 +1,7 @@
 import styles from "../TableTemplate.module.scss";
-import { uploadImageToTable } from "./helpers/uploadImageToTable";
+import uploadImageToTable from "./helpers/uploadImageToTable";
 
-export const CreateNewRowButton = ({
+const CreateNewRowButton = ({
   route,
   inputFileRef,
   setEditorIsOpen,
@@ -41,3 +41,5 @@ export const CreateNewRowButton = ({
     </div>
   );
 };
+
+export default CreateNewRowButton;

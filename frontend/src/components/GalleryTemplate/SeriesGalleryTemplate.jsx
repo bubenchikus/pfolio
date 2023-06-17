@@ -5,7 +5,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import universalStyles from "../UniversalStyles.module.scss";
 import styles from "./GalleryTemplate.module.scss";
 
-export const SeriesGalleryTemplate = ({
+const SeriesGalleryTemplate = ({
   series,
   seriesDescriptions,
   index,
@@ -71,3 +71,5 @@ export const SeriesGalleryTemplate = ({
     </Container>
   );
 };
+
+export default SeriesGalleryTemplate;

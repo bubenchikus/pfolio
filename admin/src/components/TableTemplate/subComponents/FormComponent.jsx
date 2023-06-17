@@ -1,12 +1,12 @@
-import { CategorySelect } from "./FormFields/CategorySelect";
-import { RedrawOrHideSelect } from "./FormFields/RedrawOrHideSelect";
-import { CreatedSelect } from "./FormFields/CreatedSelect";
-import { TxtButton } from "./FormFields/TxtButton";
-import { ArrangementText } from "./FormFields/ArrangementText";
-import { GeneralTextField } from "./FormFields/GeneralTextField";
-import { SeriesSelect } from "./FormFields/SeriesSelect";
+import CategorySelect from "./FormFields/CategorySelect";
+import RedrawOrHideSelect from "./FormFields/RedrawOrHideSelect";
+import CreatedSelect from "./FormFields/CreatedSelect";
+import TxtButton from "./FormFields/TxtButton";
+import ArrangementText from "./FormFields/ArrangementText";
+import GeneralTextField from "./FormFields/GeneralTextField";
+import SeriesSelect from "./FormFields/SeriesSelect";
 
-export const FormComponent = ({
+const FormComponent = ({
   el,
   currentRowInfo,
   setCurrentRowInfo,
@@ -90,3 +90,5 @@ export const FormComponent = ({
     />
   );
 };
+
+export default FormComponent;

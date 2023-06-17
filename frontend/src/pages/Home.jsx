@@ -1,10 +1,12 @@
 import React from "react";
-import { MainMenu } from "../components/MainMenu/MainMenu";
+import MainMenu from "../components/MainMenu/MainMenu";
 
-export const Home = () => {
+const Home = () => {
   return (
     <>
       <MainMenu />
     </>
   );
 };
+
+export default Home;

@@ -1,13 +1,13 @@
 import React from "react";
 import axios from "../axios";
-import { JournalPostTemplate } from "../components/JournalPostTemplate/JournalPostTemplate";
-import { PageTitle } from "../components/PageTitle";
-import { PageDescription } from "../components/PageDescription";
+import JournalPostTemplate from "../components/JournalPostTemplate/JournalPostTemplate";
+import PageTitle from "../components/PageTitle";
+import PageDescription from "../components/PageDescription";
 import universalStyles from "../components/UniversalStyles.module.scss";
 import Container from "@mui/material/Container";
 import Pagination from "@mui/material/Pagination";
 
-export const Journal = () => {
+const Journal = () => {
   const [data, setData] = React.useState();
   const [descriptionData, setDescription] = React.useState();
 
@@ -148,3 +148,5 @@ export const Journal = () => {
     </>
   );
 };
+
+export default Journal;

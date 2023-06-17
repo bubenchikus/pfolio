@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "../axios";
-import { PageTitle } from "../components/PageTitle";
-import { PageDescription } from "../components/PageDescription";
+import PageTitle from "../components/PageTitle";
+import PageDescription from "../components/PageDescription";
 
-export const About = () => {
+const About = () => {
   const [descriptionData, setDescription] = React.useState();
 
   React.useEffect(() => {
@@ -25,3 +25,5 @@ export const About = () => {
     </>
   );
 };
+
+export default About;

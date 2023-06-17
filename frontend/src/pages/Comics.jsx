@@ -1,8 +1,8 @@
 import React from "react";
-import { GalleryTemplate } from "../components/GalleryTemplate/GalleryTemplate";
-import { PageTitle } from "../components/PageTitle";
+import GalleryTemplate from "../components/GalleryTemplate/GalleryTemplate";
+import PageTitle from "../components/PageTitle";
 
-export const Comics = () => {
+const Comics = () => {
   return (
     <>
       <PageTitle pageTitle="Stories materials" />
@@ -10,3 +10,5 @@ export const Comics = () => {
     </>
   );
 };
+
+export default Comics;

@@ -1,8 +1,8 @@
 import React from "react";
-import { GalleryTemplate } from "../components/GalleryTemplate/GalleryTemplate";
-import { PageTitle } from "../components/PageTitle";
+import GalleryTemplate from "../components/GalleryTemplate/GalleryTemplate";
+import PageTitle from "../components/PageTitle";
 
-export const CGPaintLeft = () => {
+const CGPaintLeft = () => {
   return (
     <>
       <PageTitle pageTitle="CG Paintings I" />
@@ -10,3 +10,5 @@ export const CGPaintLeft = () => {
     </>
   );
 };
+
+export default CGPaintLeft;

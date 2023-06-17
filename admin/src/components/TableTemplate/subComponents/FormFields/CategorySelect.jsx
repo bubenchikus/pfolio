@@ -2,7 +2,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import styles from "../../TableTemplate.module.scss";
 
-export const CategorySelect = ({
+const CategorySelect = ({
   formStyle,
   currentRowInfo,
   route,
@@ -52,3 +52,5 @@ export const CategorySelect = ({
     </div>
   );
 };
+
+export default CategorySelect;

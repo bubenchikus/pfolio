@@ -1,37 +1,37 @@
-import React from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "../../axios";
 import styles from "./TableTemplate.module.scss";
 
-import { TextEditor } from "./subComponents/TextEditor";
-import { CropWindow } from "./subComponents/CropWindow";
-import { Table } from "./subComponents/Table";
-import { CreateNewRowButton } from "./subComponents/CreateNewRowButton";
-import { Editor } from "./subComponents/Editor";
+import TextEditor from "./subComponents/TextEditor";
+import CropWindow from "./subComponents/CropWindow";
+import Table from "./subComponents/Table";
+import CreateNewRowButton from "./subComponents/CreateNewRowButton";
+import Editor from "./subComponents/Editor";
 
-export const TableTemplate = ({ route }) => {
-  const [headers] = React.useState({
+const TableTemplate = ({ route }) => {
+  const [headers] = useState({
     Authentication:
       "Bearer " + JSON.parse(sessionStorage.getItem("token")).token,
   });
-  const [data, setData] = React.useState();
-  const [columnsTitles, setColumnsTitles] = React.useState([]);
-  const [series, setSeries] = React.useState();
+  const [data, setData] = useState();
+  const [columnsTitles, setColumnsTitles] = useState([]);
+  const [series, setSeries] = useState();
 
-  const [currentRowInfo, setCurrentRowInfo] = React.useState({});
-  const [requestBody, setRequestBody] = React.useState({});
+  const [currentRowInfo, setCurrentRowInfo] = useState({});
+  const [requestBody, setRequestBody] = useState({});
 
-  const [editorMode, setEditorMode] = React.useState("upload"); //or 'edit'
-  const [editorIsOpen, setEditorIsOpen] = React.useState(false);
-  const [textEditorIsOpen, setTextEditorIsOpen] = React.useState(false);
-  const [cropperIsOpen, setCropperIsOpen] = React.useState(false);
+  const [editorMode, setEditorMode] = useState("upload"); //or 'edit'
+  const [editorIsOpen, setEditorIsOpen] = useState(false);
+  const [textEditorIsOpen, setTextEditorIsOpen] = useState(false);
+  const [cropperIsOpen, setCropperIsOpen] = useState(false);
 
-  const inputFileRef = React.useRef(null);
-  const cropperRef = React.useRef(null);
-  const [croppedImage, setCroppedImage] = React.useState("");
+  const inputFileRef = useRef(null);
+  const cropperRef = useRef(null);
+  const [croppedImage, setCroppedImage] = useState("");
 
-  const [dataChanged, setDataChanged] = React.useState(false);
+  const [dataChanged, setDataChanged] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get(route === "pictures" ? "all-pictures" : route, { headers: headers })
       .then((response) => {
@@ -68,7 +68,7 @@ export const TableTemplate = ({ route }) => {
     }
   }, [route, headers, dataChanged]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get("columns", { headers: headers })
       .then((response) => {
@@ -168,3 +168,5 @@ export const TableTemplate = ({ route }) => {
     </div>
   );
 };
+
+export default TableTemplate;

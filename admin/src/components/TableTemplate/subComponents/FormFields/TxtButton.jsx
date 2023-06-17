@@ -1,11 +1,7 @@
 import Button from "@mui/material/Button";
 import styles from "../../TableTemplate.module.scss";
 
-export const TxtButton = ({
-  formStyle,
-  setTextEditorIsOpen,
-  setEditorIsOpen,
-}) => {
+const TxtButton = ({ formStyle, setTextEditorIsOpen, setEditorIsOpen }) => {
   return (
     <div className={styles.formBlock}>
       <div className={styles.formLabel}>txt:</div>
@@ -23,3 +19,5 @@ export const TxtButton = ({
     </div>
   );
 };
+
+export default TxtButton;

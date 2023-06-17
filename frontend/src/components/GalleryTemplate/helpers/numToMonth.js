@@ -1,4 +1,4 @@
-export const numToMonth = (num) => {
+export default function numToMonth(num) {
   const months = [
     "january",
     "february",
@@ -17,4 +17,4 @@ export const numToMonth = (num) => {
     return months[num - 1] + " ";
   }
   return "";
-};
+}

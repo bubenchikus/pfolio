@@ -1,15 +1,15 @@
 import React from "react";
 import axios from "../../axios";
 
-import { sorterByCreate } from "./helpers/sorterByCreate";
-import { getSeriesArrangementFromImages } from "./helpers/getSeriesArrangementFromImages";
-import { sortImagesBySeries } from "./helpers/sortImagesBySeries";
+import sorterByCreate from "./helpers/sorterByCreate";
+import getSeriesArrangementFromImages from "./helpers/getSeriesArrangementFromImages";
+import sortImagesBySeries from "./helpers/sortImagesBySeries";
 
-import { PageDescription } from "../PageDescription";
-import { CarouselTemplate } from "./CarouselTemplate";
-import { SeriesGalleryTemplate } from "./SeriesGalleryTemplate";
+import PageDescription from "../PageDescription";
+import CarouselTemplate from "./CarouselTemplate";
+import SeriesGalleryTemplate from "./SeriesGalleryTemplate";
 
-export const GalleryTemplate = ({ url }) => {
+const GalleryTemplate = ({ url }) => {
   const [images, setImages] = React.useState();
   const [descriptionData, setDescription] = React.useState();
   const [seriesDescriptions, setSeriesDescriptions] = React.useState();
@@ -106,3 +106,5 @@ export const GalleryTemplate = ({ url }) => {
     </>
   );
 };
+
+export default GalleryTemplate;

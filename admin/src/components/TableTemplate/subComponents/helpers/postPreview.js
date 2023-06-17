@@ -1,6 +1,6 @@
 import axios from "../../../../axios";
 
-export const postPreview = async (blob, pictureName, setDataChanged) => {
+export default async function postPreview(blob, pictureName, setDataChanged) {
   try {
     const formData = new FormData();
 
@@ -19,4 +19,4 @@ export const postPreview = async (blob, pictureName, setDataChanged) => {
     console.warn(err);
     alert("Something went wrong while uploading preview!");
   }
-};
+}

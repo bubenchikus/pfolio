@@ -1,4 +1,4 @@
 .env
 build/
-/pfolio-backend/pictures
+/backend/pictures
 node_modules

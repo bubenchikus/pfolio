@@ -1,3 +1,7 @@
+/*
+ Title: 
+ if "", the backend function will turn it to null and pass
+ */
 CREATE TABLE picture (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) DEFAULT 'Untitled',

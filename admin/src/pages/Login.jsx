@@ -1,7 +1,7 @@
-import React from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import axios from "../axios";
-import { LogoBar } from "../components/LogoBar/LogoBar";
+import LogoBar from "../components/LogoBar/LogoBar";
 
 async function loginUser(username, password) {
   return axios({
@@ -12,9 +12,9 @@ async function loginUser(username, password) {
   }).then((data) => data.data);
 }
 
-export const Login = ({ setToken }) => {
-  const [username, setUserName] = React.useState();
-  const [password, setPassword] = React.useState();
+const Login = ({ setToken }) => {
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,3 +47,5 @@ export const Login = ({ setToken }) => {
 Login.propTypes = {
   setToken: PropTypes.func.isRequired,
 };
+
+export default Login;

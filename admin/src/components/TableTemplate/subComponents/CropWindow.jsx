@@ -1,10 +1,10 @@
 import styles from "../TableTemplate.module.scss";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import { postPreview } from "./helpers/postPreview";
-import { randomString } from "../../../utils/randomString";
+import postPreview from "./helpers/postPreview";
+import randomString from "../../../utils/randomString";
 
-export const CropWindow = ({
+const CropWindow = ({
   cropperRef,
   setCropperIsOpen,
   croppedImage,
@@ -66,3 +66,5 @@ export const CropWindow = ({
     </div>
   );
 };
+
+export default CropWindow;

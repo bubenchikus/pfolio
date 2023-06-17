@@ -1,13 +1,10 @@
-import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { SideBar } from "./components/SideBar";
-import {
-  EditImages,
-  EditJournal,
-  EditPagesDescriptions,
-  EditSeriesDescriptions,
-  Login,
-} from "./pages";
+import SideBar from "./components/SideBar/SideBar";
+import EditImages from "./pages/EditImages";
+import EditJournal from "./pages/EditJournal";
+import EditPagesDescriptions from "./pages/EditPagesDescriptions";
+import EditSeriesDescriptions from "./pages/EditSeriesDescriptions";
+import Login from "./pages/Login";
 import useToken from "./useToken";
 
 function App() {

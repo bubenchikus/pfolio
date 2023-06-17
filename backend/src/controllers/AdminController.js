@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
-
 import dotenv from "dotenv";
+import config from "config";
+
 dotenv.config();
 
 function createToken() {
@@ -18,28 +19,23 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid username or password!" });
     }
 
-    const token = createToken();
-
-    res.json({ token: token });
+    res.json({ token: createToken() });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Authorization failed!" });
   }
 };
 
+// getting columns for admin panel pictures datagrid
 export const getColumns = async (_, res) => {
   try {
     res.json({
-      pictures: JSON.parse(process.env.DB_COLUMNS_PICTURES),
-      "pictures-categories": JSON.parse(process.env.DB_CATEGORIES_PICTURES),
-      "posts-categories": JSON.parse(process.env.DB_CATEGORIES_POSTS),
-      posts: JSON.parse(process.env.DB_COLUMNS_POSTS),
-      "series-descriptions": JSON.parse(
-        process.env.DB_COLUMNS_SERIES_DESCRIPTIONS
-      ),
-      "pages-descriptions": JSON.parse(
-        process.env.DB_COLUMNS_PAGES_DESCRIPTIONS
-      ),
+      pictures: config.get("columns.pictures"),
+      "pictures-categories": config.get("categories.pictures"),
+      "posts-categories": config.get("categories.posts"),
+      posts: config.get("columns.posts"),
+      "series-descriptions": config.get("columns.series-descriptions"),
+      "pages-descriptions": config.get("columns.pages-descriptions"),
     });
   } catch (err) {
     console.log(err);

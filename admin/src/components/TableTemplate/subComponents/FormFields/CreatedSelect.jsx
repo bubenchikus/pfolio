@@ -2,7 +2,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import styles from "../../TableTemplate.module.scss";
 
-export const CreatedSelect = ({
+const CreatedSelect = ({
   formStyle,
   currentRowInfo,
   requestBody,
@@ -98,3 +98,5 @@ export const CreatedSelect = ({
     </div>
   );
 };
+
+export default CreatedSelect;

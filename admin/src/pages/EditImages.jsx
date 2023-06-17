@@ -1,10 +1,11 @@
-import React from "react";
-import { TableTemplate } from "../components/TableTemplate/TableTemplate";
+import TableTemplate from "../components/TableTemplate/TableTemplate";
 
-export const EditImages = () => {
+const EditImages = () => {
   return (
     <>
       <TableTemplate route="pictures" />
     </>
   );
 };
+
+export default EditImages;

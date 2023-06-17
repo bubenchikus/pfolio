@@ -1,4 +1,4 @@
-export const randomString = (length) => {
+export default function randomString(length) {
   let result = "";
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -8,4 +8,4 @@ export const randomString = (length) => {
     counter += 1;
   }
   return result;
-};
+}

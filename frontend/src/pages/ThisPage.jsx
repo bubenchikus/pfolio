@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "../axios";
-import { PageTitle } from "../components/PageTitle";
-import { PageDescription } from "../components/PageDescription";
-import { Container } from "@mui/material";
+import PageTitle from "../components/PageTitle";
+import PageDescription from "../components/PageDescription";
+import Container from "@mui/material/Container";
 
-export const ThisPage = () => {
+const ThisPage = () => {
   const [descriptionData, setDescription] = React.useState();
 
   React.useEffect(() => {
@@ -26,3 +26,5 @@ export const ThisPage = () => {
     </Container>
   );
 };
+
+export default ThisPage;

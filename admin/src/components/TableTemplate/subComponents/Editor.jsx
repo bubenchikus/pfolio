@@ -1,10 +1,10 @@
 import styles from "../TableTemplate.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
-import { deleteFromTable } from "./helpers/deleteFromTable";
-import { FormComponent } from "./FormComponent";
-import { EditorButtonBox } from "./EditorButtonBox";
+import deleteFromTable from "./helpers/deleteFromTable";
+import FormComponent from "./FormComponent";
+import EditorButtonBox from "./EditorButtonBox";
 
-export const Editor = ({
+const Editor = ({
   route,
   editorMode,
   requestBody,
@@ -76,3 +76,5 @@ export const Editor = ({
     </div>
   );
 };
+
+export default Editor;

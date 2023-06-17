@@ -1,4 +1,4 @@
-export const sortImagesBySeries = (imagesData) => {
+export default function consortImagesBySeries(imagesData) {
   const images = {};
   const galleryIndexes = {};
 
@@ -19,4 +19,4 @@ export const sortImagesBySeries = (imagesData) => {
   });
 
   return images;
-};
+}

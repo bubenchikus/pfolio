@@ -3,7 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import "easymde/dist/easymde.min.css";
 import styles from "../TableTemplate.module.scss";
 
-export const TextEditor = ({
+const TextEditor = ({
   setEditorIsOpen,
   setTextEditorIsOpen,
   requestBody,
@@ -49,3 +49,5 @@ export const TextEditor = ({
     </div>
   );
 };
+
+export default TextEditor;

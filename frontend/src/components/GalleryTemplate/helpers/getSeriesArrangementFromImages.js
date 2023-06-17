@@ -1,4 +1,7 @@
-export const getSeriesArrangementFromImages = (images, seriesDescriptions) => {
+export default function getSeriesArrangementFromImages(
+  images,
+  seriesDescriptions
+) {
   if (!images) {
     return [];
   }
@@ -19,4 +22,4 @@ export const getSeriesArrangementFromImages = (images, seriesDescriptions) => {
         : 0)
     );
   });
-};
+}

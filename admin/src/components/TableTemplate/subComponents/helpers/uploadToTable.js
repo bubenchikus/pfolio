@@ -1,11 +1,11 @@
 import axios from "../../../../axios";
 
-export const uploadToTable = async (
+export default async function uploadToTable(
   route,
   requestBody,
   headers,
   setDataChanged
-) => {
+) {
   try {
     await axios.post(`${route}`, requestBody, { headers: headers });
     setDataChanged(true);
@@ -13,4 +13,4 @@ export const uploadToTable = async (
     console.warn(err);
     alert("Something went wrong while uploading!");
   }
-};
+}

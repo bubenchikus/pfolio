@@ -1,9 +1,9 @@
 import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 
-import { setupColumns } from "./helpers/setupColumns";
+import setupColumns from "./helpers/setupColumns";
 
-export const Table = ({
+const Table = ({
   data,
   setCurrentRowInfo,
   setRequestBody,
@@ -39,3 +39,5 @@ export const Table = ({
     </Box>
   );
 };
+
+export default Table;

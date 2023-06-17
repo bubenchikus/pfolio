@@ -1,6 +1,6 @@
 import Avatar from "@mui/material/Avatar";
 
-export const setupColumns = (data, route, columnsTitles) => {
+export default function setupColumns(data, route, columnsTitles) {
   const columns = [];
 
   if (data && data.length > 0 && route === "pictures") {
@@ -36,4 +36,4 @@ export const setupColumns = (data, route, columnsTitles) => {
   });
 
   return columns;
-};
+}

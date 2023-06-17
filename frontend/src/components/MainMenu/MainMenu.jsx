@@ -7,9 +7,7 @@ import { Link } from "react-router-dom";
 
 import helloImage from "../../uiPictures/hello-image.webp";
 
-export const MainMenu = () => {
-  const placeholder = "In process...";
-
+const MainMenu = () => {
   return (
     <>
       <div className={styles.grid}>
@@ -23,7 +21,11 @@ export const MainMenu = () => {
           </Link>
           <Link to="/" className={styles.blockSubblock}>
             <div className={styles.blockSubblockDev2Image}></div>
-            <div className={styles.blockSubblockText}>{placeholder}</div>
+            <div className={styles.blockSubblockText}>Nutrio-proportion</div>
+          </Link>
+          <Link to="/" className={styles.blockSubblock}>
+            <div className={styles.blockSubblockImage}></div>
+            <div className={styles.blockSubblockText}>In process...</div>
           </Link>
         </div>
         <div className={styles.middleBlock}>
@@ -71,3 +73,5 @@ export const MainMenu = () => {
     </>
   );
 };
+
+export default MainMenu;

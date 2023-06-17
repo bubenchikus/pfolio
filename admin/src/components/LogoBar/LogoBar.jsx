@@ -1,8 +1,7 @@
-import React from "react";
 import logo from "../../uiPictures/logo-web.svg";
 import styles from "./LogoBar.module.scss";
 
-export const LogoBar = () => {
+const LogoBar = () => {
   return (
     <div className={styles.logoBox}>
       <img className={styles.imageLogo} src={logo} alt="Not found" />
@@ -10,3 +9,5 @@ export const LogoBar = () => {
     </div>
   );
 };
+
+export default LogoBar;

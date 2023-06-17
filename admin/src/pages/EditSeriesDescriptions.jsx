@@ -1,10 +1,11 @@
-import React from "react";
-import { TableTemplate } from "../components/TableTemplate/TableTemplate";
+import TableTemplate from "../components/TableTemplate/TableTemplate";
 
-export const EditSeriesDescriptions = () => {
+const EditSeriesDescriptions = () => {
   return (
     <>
       <TableTemplate route="series-descriptions" />
     </>
   );
 };
+
+export default EditSeriesDescriptions;

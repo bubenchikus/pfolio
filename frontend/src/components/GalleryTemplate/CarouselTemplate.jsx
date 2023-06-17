@@ -1,10 +1,10 @@
-import { numToMonth } from "./helpers/numToMonth";
+import numToMonth from "./helpers/numToMonth";
 import styles from "./GalleryTemplate.module.scss";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
 
-export const CarouselTemplate = ({
+const CarouselTemplate = ({
   currentImage,
   setCurrentImage,
   setViewerIsOpen,
@@ -118,3 +118,5 @@ export const CarouselTemplate = ({
     </div>
   );
 };
+
+export default CarouselTemplate;

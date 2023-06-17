@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import universalStyles from "./UniversalStyles.module.scss";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
-export const PageDescription = ({ descriptionData }) => {
+const PageDescription = ({ descriptionData }) => {
   return (
     <>
       <Container>
@@ -30,3 +30,5 @@ export const PageDescription = ({ descriptionData }) => {
     </>
   );
 };
+
+export default PageDescription;

@@ -1,20 +1,18 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import {
-  Home,
-  Dev,
-  Art,
-  CGPaintLeft,
-  CGPaintRight,
-  CGGraph,
-  Trad,
-  Comics,
-  About,
-  Journal,
-  ThisPage,
-} from "./pages";
+import Home from "./pages/Home";
+import Dev from "./pages/Dev";
+import Art from "./pages/Art";
+import CGPaintLeft from "./pages/CGPaintLeft";
+import CGPaintRight from "./pages/CGPaintRight";
+import CGGraph from "./pages/CGGraph";
+import Trad from "./pages/Trad";
+import Comics from "./pages/Comics";
+import About from "./pages/About";
+import Journal from "./pages/Journal";
+import ThisPage from "./pages/ThisPage";
 
-import { Header } from "./components/Header/Header";
+import Header from "./components/Header/Header";
 
 function App() {
   return (

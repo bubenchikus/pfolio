@@ -1,7 +1,7 @@
 import TextField from "@mui/material/TextField";
 import styles from "../../TableTemplate.module.scss";
 
-export const ArrangementText = ({
+const ArrangementText = ({
   formStyle,
   currentRowInfo,
   requestBody,
@@ -37,3 +37,5 @@ export const ArrangementText = ({
     </div>
   );
 };
+
+export default ArrangementText;

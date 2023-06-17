@@ -1,12 +1,8 @@
-import * as databaseFunctions from "../db/postDatabaseQueries.js";
+import * as databaseFunctions from "../db_queries/postDatabaseQueries.js";
 
-export const getAllPosts = async (req, res) => {
+export const getAllPosts = async (_, res) => {
   try {
     const posts = await databaseFunctions.getAllPosts();
-
-    if (!posts) {
-      return res.status(404).json({ message: "Posts not found (all)!" });
-    }
 
     res.json(posts);
   } catch (err) {
@@ -15,20 +11,14 @@ export const getAllPosts = async (req, res) => {
   }
 };
 
-export const getPostsByCategory = async (req, res, category) => {
+export const getPostsByCategory = async (_, res, category) => {
   try {
     const posts = await databaseFunctions.getPostsByCategory(category);
-
-    if (!posts) {
-      return res
-        .status(404)
-        .json({ message: "Posts not found (by category)!" });
-    }
 
     res.json(posts);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Getting posts by category failed!" });
+    res.status(500).json({ message: "Getting posts failed (by category)!" });
   }
 };
 
@@ -40,7 +30,7 @@ export const uploadPost = async (req, res) => {
       req.body.category
     );
 
-    res.json({ message: "Post succesfully uploaded!" });
+    res.json({ message: "Post successfully uploaded!" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Post uploading failed!" });
@@ -49,16 +39,12 @@ export const uploadPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
-    const updated = await databaseFunctions.updatePost(
+    await databaseFunctions.updatePost(
       req.body.title,
       req.body.txt,
       req.body.category,
       req.params.id
     );
-
-    if (!updated.affectedRows) {
-      return res.status(404).json({ message: "Post not found (by id)!" });
-    }
 
     res.json({ message: "Post successfully updated!" });
   } catch (err) {
@@ -69,15 +55,11 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   try {
-    const deleted = await databaseFunctions.deletePost(req.params.id);
-
-    if (!deleted.affectedRows) {
-      return res.status(404).json({ message: "Post not found (by id)!" });
-    }
+    await databaseFunctions.deletePost(req.params.id);
 
     res.json({ message: "Post successfully deleted!" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Post deletion process failed!" });
+    res.status(500).json({ message: "Post deletion failed!" });
   }
 };

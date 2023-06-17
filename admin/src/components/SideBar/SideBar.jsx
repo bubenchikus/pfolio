@@ -1,11 +1,11 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./SideBar.module.scss";
-import { LogoBar } from "../LogoBar/LogoBar";
+import LogoBar from "../LogoBar/LogoBar";
 import { Sidebar, Menu } from "react-pro-sidebar";
 
-export const SideBar = () => {
-  const [currentPage, setCurrentPage] = React.useState();
+const SideBar = () => {
+  const [currentPage, setCurrentPage] = useState();
 
   const capitalize = (s) => {
     const replaced = s.replace(/(-.)/g, (x) => " " + x[1]);
@@ -59,3 +59,5 @@ export const SideBar = () => {
     </Sidebar>
   );
 };
+
+export default SideBar;

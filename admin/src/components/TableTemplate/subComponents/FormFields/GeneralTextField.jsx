@@ -1,7 +1,7 @@
 import TextField from "@mui/material/TextField";
 import styles from "../../TableTemplate.module.scss";
 
-export const GeneralTextField = ({
+const GeneralTextField = ({
   el,
   formStyle,
   requestBody,
@@ -45,3 +45,5 @@ export const GeneralTextField = ({
     </div>
   );
 };
+
+export default GeneralTextField;

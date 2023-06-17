@@ -3,24 +3,25 @@ import cors from "cors";
 import {
   PictureController,
   PostController,
-  DescriptionController,
+  PageDescriptionController,
+  SeriesDescriptionController,
   AdminController,
-} from "./controllers/index.js";
-import { checkAuth } from "./middleware/auth.js";
+} from "./src/controllers/index.js";
+import { checkAuth } from "./src/middlewares/auth.js";
 import {
   validationResultStatus,
   pictureValidation,
-} from "./middleware/valid.js";
+} from "./src/middlewares/valid.js";
 import multer from "multer";
 import dotenv from "dotenv";
+import picturesMaintainer from "./src/utils/picturesMaintainer.js";
 
 dotenv.config();
 
 const app = express();
+
 app.use(express.json());
-
 app.use(cors());
-
 app.use("/pictures", express.static("pictures"));
 
 const storage = multer.diskStorage({
@@ -49,46 +50,52 @@ app.get("/art/cg-graph", PictureController.getCGGraph);
 app.get("/art/trad", PictureController.getTrad);
 app.get("/art/comics", PictureController.getComics);
 
-app.get("/pages-descriptions", DescriptionController.getAllPagesDescriptions);
+app.get(
+  "/pages-descriptions",
+  PageDescriptionController.getAllPagesDescriptions
+);
 app.get(
   "/pages-descriptions/:page",
-  DescriptionController.getPageDescriptionByTitle
+  PageDescriptionController.getPageDescriptionByTitle
 );
 app.post(
   "/pages-descriptions",
   checkAuth,
-  DescriptionController.uploadPageDescription
+  PageDescriptionController.uploadPageDescription
 );
 app.patch(
   "/pages-descriptions/:id",
   checkAuth,
-  DescriptionController.updatePageDescription
+  PageDescriptionController.updatePageDescription
 );
 app.delete(
   "/pages-descriptions/:id",
   checkAuth,
-  DescriptionController.deletePageDescription
+  PageDescriptionController.deletePageDescription
 );
 
-app.get("/series-descriptions", DescriptionController.getAllSeriesDescriptions);
+app.get(
+  "/series-descriptions",
+  SeriesDescriptionController.getAllSeriesDescriptions
+);
 app.post(
   "/series-descriptions",
   checkAuth,
-  DescriptionController.uploadSeriesDescription
+  SeriesDescriptionController.uploadSeriesDescription
 );
 app.get(
   "/series-descriptions/:category",
-  DescriptionController.getSeriesDescriptionsByCategory
+  SeriesDescriptionController.getSeriesDescriptionsByCategory
 );
 app.patch(
   "/series-descriptions/:id",
   checkAuth,
-  DescriptionController.updateSeriesDescription
+  SeriesDescriptionController.updateSeriesDescription
 );
 app.delete(
   "/series-descriptions/:id",
   checkAuth,
-  DescriptionController.deleteSeriesDescription
+  SeriesDescriptionController.deleteSeriesDescription
 );
 
 app.get("/pictures", PictureController.getUnhiddenPictures);
@@ -113,9 +120,12 @@ app.post("/login", AdminController.login);
 
 app.get("/columns", checkAuth, AdminController.getColumns);
 
-PictureController.maintainPictureDB();
-
 app.listen(process.env.PORT, (err) => {
   if (err) return console.log(err);
-  console.log("Server OK");
+  try {
+    picturesMaintainer();
+  } catch (err) {
+    console.log(err);
+  }
+  console.log(`Server is Ok and running on the port ${process.env.PORT}...`);
 });
