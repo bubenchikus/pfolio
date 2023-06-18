@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import * as databaseFunctions from "../db_queries/pictureDatabaseQueries.js";
 import { standardError } from "../utils/universalHelpers.js";
+import { processPictures } from "../utils/resProcessers.js";
 
 const renamePicture = (req) => {
   if (req.body.oldCategory && req.body.oldPictureName) {
@@ -55,7 +56,7 @@ async function getPicturesByCategory(category, res) {
   try {
     const pictures = await databaseFunctions.getPicturesByCategory(category);
 
-    res.json(pictures);
+    res.json(processPictures(pictures));
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Getting pictures failed (by category)!" });

@@ -10,25 +10,20 @@ const Journal = () => {
   const [data, setData] = useState();
   const [descriptionData, setDescription] = useState();
 
-  const postsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [currentCategory, setCurrentCategory] = useState("all");
 
   useEffect(() => {
     axios
-      .get("posts")
+      .get(`/posts/${currentCategory}`)
       .then((response) => {
-        setData(
-          response?.data.sort(function (a, b) {
-            return new Date(b.created) - new Date(a.created);
-          })
-        );
+        setData(response?.data);
       })
       .catch((err) => {
         console.warn(err);
         alert("Error occured while getting journal!");
       });
-  }, []);
+  }, [currentCategory]);
 
   useEffect(() => {
     axios
@@ -41,29 +36,6 @@ const Journal = () => {
         alert("Error occured while getting Journal page description!");
       });
   }, []);
-
-  const categories = { all: data };
-  data?.forEach((element) => {
-    if (!categories.hasOwnProperty(element.category)) {
-      categories[element.category] = [element];
-    } else {
-      categories[element.category].push(element);
-    }
-  });
-
-  Object.keys(categories)?.forEach((category) => {
-    let categoryIndex = 0;
-    categories[category]?.forEach((el) => {
-      el["categoryIndex"] = categoryIndex;
-      categoryIndex++;
-    });
-  });
-
-  let journalIndex = 0;
-  categories["all"]?.forEach((el) => {
-    el["journalIndex"] = journalIndex;
-    journalIndex++;
-  });
 
   function pressButton(id) {
     document
@@ -80,7 +52,7 @@ const Journal = () => {
       <PageTitle pageTitle="Action Journal" />
       <PageDescription descriptionData={descriptionData} />
       <div className={universalStyles.buttonBox}>
-        {Object.keys(categories).map((category) => (
+        {["all", "dev", "art", "comics", "misc"].map((category) => (
           <div
             key={category}
             id={category}
@@ -100,43 +72,20 @@ const Journal = () => {
           </div>
         ))}
       </div>
-      {currentCategory === "all"
-        ? categories["all"]
-          ? categories["all"]
-              ?.filter(
-                (el) =>
-                  el.journalIndex >= (currentPage - 1) * postsPerPage &&
-                  el.journalIndex < currentPage * postsPerPage
-              )
-              ?.map((post) => {
-                return (
-                  <div key={post.journalIndex}>
-                    <JournalPostTemplate postData={post} />
-                  </div>
-                );
-              })
-          : []
-        : categories[currentCategory]
-        ? categories[currentCategory]
-            ?.filter(
-              (el) =>
-                el.categoryIndex >= (currentPage - 1) * postsPerPage &&
-                el.categoryIndex < currentPage * postsPerPage
-            )
-            ?.map((post) => {
-              return (
-                <div key={post.categoryIndex}>
-                  <JournalPostTemplate postData={post} />
-                </div>
-              );
-            })
-        : []}
+      {data ? (
+        data[currentPage - 1]?.map((post) => (
+          <JournalPostTemplate postData={post} />
+        ))
+      ) : (
+        <></>
+      )}
       <div className={universalStyles.paginationBox}>
         <Pagination
-          count={Math.ceil(
-            Object.keys(categories[currentCategory] || {}).length / postsPerPage
-          )}
-          onChange={(e, value) => setCurrentPage(value)}
+          count={data?.length}
+          onChange={(_, page) => {
+            setCurrentPage(page);
+            window.scrollTo(0, 0);
+          }}
           variant="outlined"
           shape="rounded"
           sx={{ margin: "20px 0", color: "rgb(148, 205, 171)" }}

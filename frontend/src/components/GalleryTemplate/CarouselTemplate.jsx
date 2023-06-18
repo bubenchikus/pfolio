@@ -1,4 +1,3 @@
-import numToMonth from "./helpers/numToMonth";
 import styles from "./GalleryTemplate.module.scss";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -69,17 +68,7 @@ const CarouselTemplate = ({
               {`Redraw: ${currentImage.redraw ? "yes" : "no"}`}
             </div>
             <div className={styles.carouselText}>
-              {currentImage.created &&
-              currentImage.created.split("-")[1] &&
-              currentImage.created.split("-")[1] !== "0"
-                ? `Created: ${
-                    currentImage.created[0] === "0"
-                      ? currentImage.created.split("-")[1]
-                      : `${numToMonth(currentImage.created.split("-")[0])}${
-                          currentImage.created.split("-")[1]
-                        }`
-                  }`
-                : `Created: unknown`}
+              {`Created: ${currentImage.created}`}
             </div>
             {currentImage.about ? (
               <div className={styles.carouselText}>

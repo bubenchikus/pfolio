@@ -30,5 +30,7 @@
     "series-descriptions": ["id", "txt", "category", "series", "arrangement"],
 
     "pages-descriptions": ["id", "page", "txt"]
-  }
+  },
+
+  "journal": { "postsPerPage": 10 }
 }

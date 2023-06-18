@@ -23,15 +23,17 @@ export default function setupColumns(data, route, columnsTitles) {
     });
   }
 
-  columnsTitles[route]?.forEach((el) => {
-    if (["id", "redraw", "hide"].includes(el)) {
-      columns.push({ field: el, flex: 0.5 });
-    } else if (["about", "txt"].includes(el)) {
-      columns.push({ field: el, flex: 2.5 });
-    } else {
-      columns.push({ field: el, flex: 1 });
-    }
-  });
+  if (columnsTitles) {
+    columnsTitles[route].forEach((el) => {
+      if (["id", "redraw", "hide"].includes(el)) {
+        columns.push({ field: el, flex: 0.5 });
+      } else if (["about", "txt"].includes(el)) {
+        columns.push({ field: el, flex: 2.5 });
+      } else {
+        columns.push({ field: el, flex: 1 });
+      }
+    });
+  }
 
   return columns;
 }

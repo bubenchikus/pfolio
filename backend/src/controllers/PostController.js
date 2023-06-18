@@ -1,4 +1,5 @@
 import * as databaseFunctions from "../db_queries/postDatabaseQueries.js";
+import { paginatePosts } from "../utils/resProcessers.js";
 
 export const getAllPosts = async (_, res) => {
   try {
@@ -11,11 +12,24 @@ export const getAllPosts = async (_, res) => {
   }
 };
 
-export const getPostsByCategory = async (_, res, category) => {
+export const getAllPostsPaginated = async (_, res) => {
   try {
-    const posts = await databaseFunctions.getPostsByCategory(category);
+    const posts = await databaseFunctions.getAllPosts();
 
-    res.json(posts);
+    res.json(paginatePosts(posts));
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Getting all posts failed!" });
+  }
+};
+
+export const getPostsByCategory = async (req, res) => {
+  try {
+    const posts = await databaseFunctions.getPostsByCategory(
+      req.params.category
+    );
+
+    res.json(paginatePosts(posts));
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Getting posts failed (by category)!" });

@@ -1,10 +1,5 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import axios from "../../axios";
-
-import sorterByCreate from "./helpers/sorterByCreate";
-import getSeriesArrangementFromImages from "./helpers/getSeriesArrangementFromImages";
-import sortImagesBySeries from "./helpers/sortImagesBySeries";
-
 import PageDescription from "../PageDescription";
 import CarouselTemplate from "./CarouselTemplate";
 import SeriesGalleryTemplate from "./SeriesGalleryTemplate";
@@ -23,13 +18,7 @@ const GalleryTemplate = ({ url }) => {
     axios
       .get(url)
       .then((response) => {
-        setImages(
-          sortImagesBySeries(
-            response?.data?.sort(function (a, b) {
-              return sorterByCreate(a, b);
-            })
-          )
-        );
+        setImages(response?.data);
       })
       .catch((err) => {
         console.warn(err);
@@ -86,12 +75,12 @@ const GalleryTemplate = ({ url }) => {
 
       <PageDescription descriptionData={descriptionData} />
 
-      {getSeriesArrangementFromImages(images, seriesDescriptions)?.map(
-        (series, index) => {
+      {seriesDescriptions?.map((el, index) => {
+        if (images[el?.series]?.length > 0) {
           return (
             <SeriesGalleryTemplate
-              series={series}
               key={index}
+              series={el?.series}
               seriesDescriptions={seriesDescriptions}
               images={images}
               clientWidth={clientWidth}
@@ -100,7 +89,8 @@ const GalleryTemplate = ({ url }) => {
             />
           );
         }
-      )}
+        return <></>;
+      })}
     </>
   );
 };

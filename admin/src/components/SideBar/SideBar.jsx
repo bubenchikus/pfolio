@@ -34,27 +34,26 @@ const SideBar = () => {
           <LogoBar />
         </div>
         {[
-          "edit-images",
+          "edit-pictures",
           "edit-series",
           "edit-journal",
           "edit-pages-descriptions",
-        ].map((page) => {
-          return (
-            <Link to={`/${page}`} key={page}>
-              <div
-                id={page}
-                className={styles.button}
-                onClick={() => {
-                  unpressButton(currentPage);
-                  pressButton(page);
-                  setCurrentPage(page);
-                }}
-              >
-                <div className={styles.sideBarLink}>{capitalize(page)}</div>
-              </div>
-            </Link>
-          );
-        })}
+        ].map((page) => (
+          <Link to={`/${page}`} key={page}>
+            <div
+              id={page}
+              className={styles.button}
+              onClick={() => {
+                unpressButton(currentPage);
+                pressButton(page);
+                setCurrentPage(page);
+              }}
+            >
+              <div className={styles.sideBarLink}>{capitalize(page)}</div>
+            </div>
+          </Link>
+        ))}
+        ;
       </Menu>
     </Sidebar>
   );

@@ -1,4 +1,5 @@
 import * as databaseFunctions from "../db_queries/descriptionDatabaseQueries.js";
+import { arrangeSeries } from "../utils/resProcessers.js";
 
 export const getSeriesDescriptionsByCategory = async (req, res) => {
   try {
@@ -6,7 +7,7 @@ export const getSeriesDescriptionsByCategory = async (req, res) => {
       req.params.category
     );
 
-    res.json(descriptions);
+    res.json(arrangeSeries(descriptions));
   } catch (err) {
     console.log(err);
     res

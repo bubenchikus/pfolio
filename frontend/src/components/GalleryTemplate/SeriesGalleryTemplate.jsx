@@ -6,7 +6,6 @@ import styles from "./GalleryTemplate.module.scss";
 const SeriesGalleryTemplate = ({
   series,
   seriesDescriptions,
-  index,
   images,
   clientWidth,
   setCurrentImage,
@@ -33,8 +32,6 @@ const SeriesGalleryTemplate = ({
         {images[series]?.map((item) => (
           <ImageListItem
             key={item.id}
-            rows={1}
-            cols={1}
             onClick={() => {
               setCurrentImage(
                 images[series].find(

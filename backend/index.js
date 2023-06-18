@@ -98,7 +98,6 @@ app.delete(
   SeriesDescriptionController.deleteSeriesDescription
 );
 
-app.get("/pictures", PictureController.getUnhiddenPictures);
 app.post(
   "/pictures",
   checkAuth,
@@ -115,6 +114,9 @@ app.get("/posts", PostController.getAllPosts);
 app.post("/posts", checkAuth, PostController.uploadPost);
 app.patch("/posts/:id", checkAuth, PostController.updatePost);
 app.delete("/posts/:id", checkAuth, PostController.deletePost);
+
+app.get("/posts/all", PostController.getAllPostsPaginated);
+app.get("/posts/:category", PostController.getPostsByCategory);
 
 app.post("/login", AdminController.login);
 

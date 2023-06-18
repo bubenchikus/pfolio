@@ -7,8 +7,10 @@ export default async function deleteFromTable(
   setDataChanged
 ) {
   try {
-    await axios.delete(`${route}/${currentRowInfo?.id}`, { headers: headers });
-    setDataChanged(true);
+    if (currentRowInfo && currentRowInfo.id) {
+      await axios.delete(`${route}/${currentRowInfo.id}`, { headers: headers });
+      setDataChanged(true);
+    }
   } catch (err) {
     console.warn(err);
     alert("Something went wrong while deleting data from table!");

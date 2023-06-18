@@ -93,6 +93,8 @@ const TableTemplate = ({ route }) => {
     setEditorIsOpen(false);
   };
 
+  console.log(series);
+
   return (
     <div className={styles.tableWrapper}>
       {editorIsOpen ? (
