@@ -44,9 +44,7 @@ const CropWindow = ({
         <div
           className={styles.submitButton}
           onClick={() => {
-            const pictureName = currentRowInfo.previewName
-              ? currentRowInfo.previewName
-              : randomString();
+            const pictureName = currentRowInfo.previewName ?? randomString();
             setCurrentRowInfo((prev) => ({
               ...prev,
               previewName: pictureName,

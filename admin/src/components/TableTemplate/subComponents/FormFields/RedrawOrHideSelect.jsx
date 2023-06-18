@@ -10,7 +10,7 @@ const RedrawOrHideSelect = ({ el, formStyle, requestBody, setRequestBody }) => {
         size="small"
         sx={formStyle}
         key={el}
-        defaultValue={requestBody[el] ? requestBody[el] : "0"}
+        defaultValue={requestBody[el] ?? "0"}
         onChange={(e) => {
           setRequestBody((prev) => ({
             ...prev,

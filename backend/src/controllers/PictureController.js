@@ -1,20 +1,32 @@
 import fs from "fs";
 import path from "path";
 import * as databaseFunctions from "../db_queries/pictureDatabaseQueries.js";
+import { standardError } from "../utils/universalHelpers.js";
 
-const renamePicture = (req, res) => {
-  fs.rename(
-    path.resolve(
-      "pictures",
-      `${req.body.oldCategory}`,
-      `${req.body.oldPictureName}`
-    ),
-    path.resolve("pictures", `${req.body.category}`, `${req.body.pictureName}`),
-    (err) => {
-      console.log(err);
-      return res.status(500).json({ message: "Picture renaming failed!" });
-    }
-  );
+const renamePicture = (req) => {
+  if (req.body.oldCategory && req.body.oldPictureName) {
+    fs.rename(
+      path.resolve(
+        "pictures",
+        `${req.body.oldCategory}`,
+        `${req.body.oldPictureName}`
+      ),
+      path.resolve(
+        "pictures",
+        `${req.body.category}`,
+        `${req.body.pictureName}`
+      ),
+      (err) => standardError(err)
+    );
+  }
+};
+
+const conditionalTrimmer = (str) => {
+  if (!str || (str && str.trim() === "")) {
+    // pass null instead of empty string for coalesce
+    return null;
+  }
+  return str;
 };
 
 export const getAllPictures = async (_, res) => {
@@ -86,7 +98,12 @@ export const uploadPicture = async (req, res) => {
 
     renamePicture(req, res);
 
-    res.json({ message: "Picture successfully uploaded!" });
+    const picture = await databaseFunctions.getPictureByCategoryAndPictureName(
+      req.body.category,
+      req.body.pictureName
+    );
+
+    res.json(picture);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Picture uploading failed!" });
@@ -96,12 +113,12 @@ export const uploadPicture = async (req, res) => {
 export const updatePicture = async (req, res) => {
   try {
     await databaseFunctions.updatePicture(
-      req.body.title.trim() === "" ? null : req.body.title.trim(), // COALESCE doesn't work with empty strings
+      conditionalTrimmer(req.body.title),
       req.body.created,
       req.body.category,
       req.body.pictureName,
       req.body.previewName,
-      req.body.series.trim() === "" ? null : req.body.series.trim(),
+      conditionalTrimmer(req.body.series),
       req.body.about,
       req.body.redraw,
       req.body.hide,
@@ -132,29 +149,13 @@ export const deletePicture = async (req, res) => {
         `${files[0].category}`,
         `${files[0].pictureName}`
       ),
-      (err) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({
-            message:
-              "Picture deletion failed! It will be cleaned on server restart.",
-          });
-        }
-      }
+      (err) => standardError(err)
     );
 
     if (files[0].previewName) {
       fs.unlink(
         path.resolve("pictures", "previews", `${files[0].previewName}.webp`),
-        (err) => {
-          if (err) {
-            console.log(err);
-            return res.status(500).json({
-              message:
-                "Preview deletion failed! It will be cleaned on server restart.",
-            });
-          }
-        }
+        (err) => standardError(err)
       );
     }
 
@@ -168,23 +169,11 @@ export const deletePicture = async (req, res) => {
 };
 
 export function placePreview(pictureName) {
-  try {
+  if (pictureName) {
     fs.rename(
       path.resolve("pictures", "no-category", `${pictureName}`),
       path.resolve("pictures", "previews", `${pictureName}`),
-      (err) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({
-            message: "Picture renaming failed!",
-          });
-        }
-      }
+      (err) => standardError(err)
     );
-  } catch (err) {
-    console.log(err);
-    res
-      .status(500)
-      .json({ message: "Something went wrong while renaiming picture!" });
   }
 }

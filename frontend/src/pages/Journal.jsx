@@ -1,21 +1,20 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import axios from "../axios";
 import JournalPostTemplate from "../components/JournalPostTemplate/JournalPostTemplate";
 import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
 import universalStyles from "../components/UniversalStyles.module.scss";
-import Container from "@mui/material/Container";
 import Pagination from "@mui/material/Pagination";
 
 const Journal = () => {
-  const [data, setData] = React.useState();
-  const [descriptionData, setDescription] = React.useState();
+  const [data, setData] = useState();
+  const [descriptionData, setDescription] = useState();
 
   const postsPerPage = 10;
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [currentCategory, setCurrentCategory] = React.useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentCategory, setCurrentCategory] = useState("all");
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get("posts")
       .then((response) => {
@@ -31,7 +30,7 @@ const Journal = () => {
       });
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get("/pages-descriptions/journal")
       .then((response) => {
@@ -80,29 +79,27 @@ const Journal = () => {
     <>
       <PageTitle pageTitle="Action Journal" />
       <PageDescription descriptionData={descriptionData} />
-      <Container>
-        <div className={universalStyles.buttonBox}>
-          {Object.keys(categories).map((category) => (
-            <div
-              key={category}
-              id={category}
-              className={
-                category === "all"
-                  ? universalStyles.buttonPressed
-                  : universalStyles.button
-              }
-              onClick={() => {
-                setCurrentCategory(category);
-                setCurrentPage(1);
-                pressButton(category);
-                unpressButton(currentCategory);
-              }}
-            >
-              {category}
-            </div>
-          ))}
-        </div>
-      </Container>
+      <div className={universalStyles.buttonBox}>
+        {Object.keys(categories).map((category) => (
+          <div
+            key={category}
+            id={category}
+            className={
+              category === "all"
+                ? universalStyles.buttonPressed
+                : universalStyles.button
+            }
+            onClick={() => {
+              setCurrentCategory(category);
+              setCurrentPage(1);
+              pressButton(category);
+              unpressButton(currentCategory);
+            }}
+          >
+            {category}
+          </div>
+        ))}
+      </div>
       {currentCategory === "all"
         ? categories["all"]
           ? categories["all"]

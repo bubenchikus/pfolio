@@ -52,20 +52,21 @@ const CarouselTemplate = ({
             <ArrowBackIcon sx={disabledIconStyle} />
           )}
         </div>
+
         <div className={styles.carouselMiddleBox}>
           <div className={styles.carouselImageBox}>
             <img
               src={`${process.env.REACT_APP_API_URL}/pictures/${currentImage.category}/${currentImage.pictureName}`}
               className={styles.carouselImage}
               alt={currentImage.title}
-            ></img>
+            />
           </div>
           <div className={styles.carouselDescription}>
             <div
               className={styles.carouselText}
             >{`Title: ${currentImage.title}`}</div>
             <div className={styles.carouselText}>
-              {currentImage.redraw ? `Redraw: yes` : `Redraw: no`}
+              {`Redraw: ${currentImage.redraw ? "yes" : "no"}`}
             </div>
             <div className={styles.carouselText}>
               {currentImage.created &&
@@ -80,11 +81,16 @@ const CarouselTemplate = ({
                   }`
                 : `Created: unknown`}
             </div>
-            <div className={styles.carouselText}>
-              {currentImage.about ? `About: ${currentImage.about}` : <></>}
-            </div>
+            {currentImage.about ? (
+              <div className={styles.carouselText}>
+                `About: ${currentImage.about}`
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
+
         <div className={styles.carouselSidePanel}>
           <CloseIcon
             sx={iconStyle}

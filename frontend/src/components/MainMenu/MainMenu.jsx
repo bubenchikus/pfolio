@@ -1,5 +1,3 @@
-import React from "react";
-
 import styles from "./MainMenu.module.scss";
 import universalStyles from "../UniversalStyles.module.scss";
 

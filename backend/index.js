@@ -101,8 +101,8 @@ app.delete(
 app.get("/pictures", PictureController.getUnhiddenPictures);
 app.post(
   "/pictures",
-  pictureValidation,
   checkAuth,
+  pictureValidation,
   validationResultStatus,
   PictureController.uploadPicture
 );

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import axios from "../../axios";
 
 import sorterByCreate from "./helpers/sorterByCreate";
@@ -10,16 +10,16 @@ import CarouselTemplate from "./CarouselTemplate";
 import SeriesGalleryTemplate from "./SeriesGalleryTemplate";
 
 const GalleryTemplate = ({ url }) => {
-  const [images, setImages] = React.useState();
-  const [descriptionData, setDescription] = React.useState();
-  const [seriesDescriptions, setSeriesDescriptions] = React.useState();
+  const [images, setImages] = useState();
+  const [descriptionData, setDescription] = useState();
+  const [seriesDescriptions, setSeriesDescriptions] = useState();
 
-  const [currentImage, setCurrentImage] = React.useState();
-  const [viewerIsOpen, setViewerIsOpen] = React.useState(false);
+  const [currentImage, setCurrentImage] = useState();
+  const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
-  const [clientWidth, setClientWidth] = React.useState(0);
+  const [clientWidth, setClientWidth] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get(url)
       .then((response) => {
@@ -37,7 +37,7 @@ const GalleryTemplate = ({ url }) => {
       });
   }, [url]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get(`/pages-descriptions/${url.substring(4)}`)
       .then((response) => {
@@ -49,7 +49,7 @@ const GalleryTemplate = ({ url }) => {
       });
   }, [url]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios
       .get(`/series-descriptions/${url.substring(4)}`)
       .then((response) => {
@@ -61,7 +61,7 @@ const GalleryTemplate = ({ url }) => {
       });
   }, [url]);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     function updateWidth() {
       setClientWidth(window.innerWidth);
     }
@@ -72,19 +72,17 @@ const GalleryTemplate = ({ url }) => {
 
   return (
     <>
-      <>
-        {viewerIsOpen ? (
-          <CarouselTemplate
-            currentImage={currentImage}
-            setCurrentImage={setCurrentImage}
-            setViewerIsOpen={setViewerIsOpen}
-            clientWidth={clientWidth}
-            images={images}
-          />
-        ) : (
-          <></>
-        )}
-      </>
+      {viewerIsOpen ? (
+        <CarouselTemplate
+          currentImage={currentImage}
+          setCurrentImage={setCurrentImage}
+          setViewerIsOpen={setViewerIsOpen}
+          clientWidth={clientWidth}
+          images={images}
+        />
+      ) : (
+        <></>
+      )}
 
       <PageDescription descriptionData={descriptionData} />
 

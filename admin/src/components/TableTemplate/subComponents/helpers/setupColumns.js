@@ -9,17 +9,15 @@ export default function setupColumns(data, route, columnsTitles) {
       flex: 1,
       renderCell: (params) => {
         return (
-          <>
-            <Avatar
-              src={
-                params.row.previewName
-                  ? `${process.env.REACT_APP_API_URL}/pictures/previews/${params.row.previewName}.webp`
-                  : ""
-              }
-              variant="square"
-              alt=""
-            />
-          </>
+          <Avatar
+            src={
+              params.row.previewName
+                ? `${process.env.REACT_APP_API_URL}/pictures/previews/${params.row.previewName}.webp`
+                : ""
+            }
+            variant="square"
+            alt=""
+          />
         );
       },
     });

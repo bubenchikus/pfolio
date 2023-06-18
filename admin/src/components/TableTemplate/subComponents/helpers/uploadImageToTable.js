@@ -1,14 +1,14 @@
 import axios from "../../../../axios";
 import randomString from "../../../../utils/randomString";
 
-export default async function uploadImageToTable(
+const uploadImageToTable = async (
   event,
   currentRowInfo,
   requestBody,
   headers,
   setCropperIsOpen,
   resetEditor
-) {
+) => {
   try {
     const formData = new FormData();
     const file = event.target.files[0];
@@ -37,4 +37,6 @@ export default async function uploadImageToTable(
     alert("Error occured while uploading file!");
     resetEditor();
   }
-}
+};
+
+export default uploadImageToTable;

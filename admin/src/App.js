@@ -1,11 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import useToken from "./useToken";
 import SideBar from "./components/SideBar/SideBar";
 import EditImages from "./pages/EditImages";
 import EditJournal from "./pages/EditJournal";
 import EditPagesDescriptions from "./pages/EditPagesDescriptions";
 import EditSeriesDescriptions from "./pages/EditSeriesDescriptions";
 import Login from "./pages/Login";
-import useToken from "./useToken";
 
 function App() {
   const { token, setToken } = useToken();

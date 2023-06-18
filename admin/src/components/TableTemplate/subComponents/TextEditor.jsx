@@ -23,13 +23,7 @@ const TextEditor = ({
         />
       </div>
       <SimpleMDE
-        value={
-          requestBody.txt
-            ? requestBody.txt
-            : currentRowInfo.txt
-            ? currentRowInfo.txt
-            : ""
-        }
+        value={requestBody.txt ?? currentRowInfo.txt ?? ""}
         onChange={(e) => {
           setRequestBody((prev) => ({
             ...prev,

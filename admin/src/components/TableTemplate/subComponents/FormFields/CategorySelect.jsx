@@ -22,9 +22,7 @@ const CategorySelect = ({
       <Select
         size="small"
         sx={formStyle}
-        defaultValue={
-          requestBody["category"] ? requestBody["category"] : defaultCategory
-        }
+        defaultValue={requestBody["category"] ?? defaultCategory}
         key={"category"}
         onChange={(e) => {
           if (route === "pictures") {

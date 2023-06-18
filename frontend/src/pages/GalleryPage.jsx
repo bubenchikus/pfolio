@@ -1,14 +1,13 @@
-import React from "react";
 import GalleryTemplate from "../components/GalleryTemplate/GalleryTemplate";
 import PageTitle from "../components/PageTitle";
 
-const Trad = () => {
+const GalleryPage = ({ pageTitle, url }) => {
   return (
     <>
-      <PageTitle pageTitle="Traditional" />
-      <GalleryTemplate url="art/trad" />
+      <PageTitle pageTitle={pageTitle} />
+      <GalleryTemplate url={url} />
     </>
   );
 };
 
-export default Trad;
+export default GalleryPage;

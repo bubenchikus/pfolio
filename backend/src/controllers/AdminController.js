@@ -5,8 +5,7 @@ import config from "config";
 dotenv.config();
 
 function createToken() {
-  const token = jwt.sign({}, process.env.JWT_SECRET, { expiresIn: "30d" });
-  return token;
+  return jwt.sign({}, process.env.JWT_SECRET, { expiresIn: "30d" });
 }
 
 export const login = async (req, res) => {
