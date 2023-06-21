@@ -120,10 +120,5 @@ app.get("/columns", checkAuth, AdminController.getColumns);
 
 app.listen(process.env.PORT, (err) => {
   if (err) return console.log(err);
-  try {
-    picturesMaintainer();
-  } catch (err) {
-    console.log(err);
-  }
   console.log(`Server is Ok and running on the port ${process.env.PORT}...`);
 });

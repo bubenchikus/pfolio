@@ -1,22 +1,34 @@
-# name: Node.js CD
+name: Node.js CD
 
-# on:
-#   push:
-#     branches: [main]
+on:
+  push:
+    branches: [main]
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Deploy using ssh
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: ${{ secrets.HOST }}
-#           username: ${{ secrets.USERNAME }}
-#           key: ${{ secrets.PRIVATE_KEY }}
-#           port: 22
-#           script: cd /commonplace
-#             git pull origin main
-#             git status
-#             npm install --only=prod
-#             pm2 restart node1
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: cd /commonplace
+            git pull origin main
+            git status
+
+            cd /backend
+            pm2 restart api
+            cd ..
+
+            for arg in frontend admin; do
+            cd /${arg}
+            npm i --force --no-optional
+            npm run build
+            rm -r /var/www/bubengogh/${arg}/*
+            cp -r build/* /var/www/bubnegogh/${arg}/
+            cd ..;
+
+            done
