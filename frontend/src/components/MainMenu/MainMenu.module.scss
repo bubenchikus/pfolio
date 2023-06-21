@@ -39,7 +39,7 @@
   width: 100%;
   height: 100%;
 
-  background-color: rgb(120, 113, 120);
+  background-color: rgb(98, 113, 119);
   align-items: center;
   justify-content: center;
   text-justify: center;
@@ -77,12 +77,12 @@
 
 .blockSubblockDev1Image {
   @extend .blockSubblockImage;
-  background-image: url("../../uiPictures/ptichky.webp");
+  background-image: url("../../uiPictures/site-hands.webp");
 }
 
 .blockSubblockDev2Image {
-  @extend .blockSubblock;
-  background-image: url("../../uiPictures/barIcon.svg");
+  @extend .blockSubblockImage;
+  background-image: url("../../uiPictures/site-ptichky.webp");
 }
 
 .blockSubblockArt1Image {

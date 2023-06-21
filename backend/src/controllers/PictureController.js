@@ -52,35 +52,17 @@ export const getUnhiddenPictures = async (_, res) => {
   }
 };
 
-async function getPicturesByCategory(category, res) {
+export const getPicturesByCategory = async (req, res) => {
   try {
-    const pictures = await databaseFunctions.getPicturesByCategory(category);
+    const pictures = await databaseFunctions.getPicturesByCategory(
+      req.params.category
+    );
 
     res.json(processPictures(pictures));
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Getting pictures failed (by category)!" });
   }
-}
-
-export const getCGPaintLeft = async (_, res) => {
-  getPicturesByCategory("cg-paint-left", res);
-};
-
-export const getCGPaintRight = async (_, res) => {
-  getPicturesByCategory("cg-paint-right", res);
-};
-
-export const getCGGraph = async (_, res) => {
-  getPicturesByCategory("cg-graph", res);
-};
-
-export const getTrad = async (_, res) => {
-  getPicturesByCategory("trad", res);
-};
-
-export const getComics = async (_, res) => {
-  getPicturesByCategory("comics", res);
 };
 
 export const uploadPicture = async (req, res) => {

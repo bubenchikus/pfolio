@@ -109,7 +109,6 @@ export function paginatePosts(posts) {
     paginatedPosts.push([]);
     for (let j = 0; j < pagesNum; j++) {
       if (posts[i * pagesNum + j]) {
-        console.log(posts[i * pagesNum + j].created);
         posts[i * pagesNum + j].created = posts[i * pagesNum + j].created
           .toISOString()
           .substring(0, 10);

@@ -44,11 +44,7 @@ app.post(`/upload-preview`, checkAuth, upload.single("image"), (req, res) => {
   res.json({ message: "Image succesfully uploaded" });
 });
 
-app.get("/art/cg-paint-left", PictureController.getCGPaintLeft);
-app.get("/art/cg-paint-right", PictureController.getCGPaintRight);
-app.get("/art/cg-graph", PictureController.getCGGraph);
-app.get("/art/trad", PictureController.getTrad);
-app.get("/art/comics", PictureController.getComics);
+app.get("/art/:category", PictureController.getPicturesByCategory);
 
 app.get(
   "/pages-descriptions",
