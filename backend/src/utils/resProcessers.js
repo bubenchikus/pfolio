@@ -1,10 +1,10 @@
 import config from "config";
 
 function sortImagesByCreatedDate(a, b) {
-  const a_month = parseInt(a.created?.split("-")[0] || "0");
-  const a_year = parseInt(a.created?.split("-")[1] || "0");
-  const b_month = parseInt(b.created?.split("-")[0] || "0");
-  const b_year = parseInt(b.created?.split("-")[1] || "0");
+  const a_year = parseInt(a.created?.split("-")[0] || "0");
+  const a_month = parseInt(a.created?.split("-")[1] || "0");
+  const b_year = parseInt(b.created?.split("-")[0] || "0");
+  const b_month = parseInt(b.created?.split("-")[1] || "0");
   return a_year < b_year
     ? 1
     : a_year > b_year
@@ -32,17 +32,17 @@ function numToMonth(num) {
     "december",
   ];
   if (months[num - 1]) {
-    return months[num - 1] + " ";
+    return months[num - 1];
   }
   return "";
 }
 
 function processDate(date) {
-  if (date && date.split("-")[1] && date.split("-")[1] !== "0") {
-    if (date[0] === "0") {
-      return date.split("-")[1];
+  if (date && date.split("-")[0] && date.split("-")[0] !== "0") {
+    if (date[1] === "0") {
+      return date.split("-")[0];
     } else {
-      return `${numToMonth(date.split("-")[0])}${date.split("-")[1]}`;
+      return `${date.split("-")[0]} ${numToMonth(date.split("-")[1])}`;
     }
   } else {
     return "unknown";

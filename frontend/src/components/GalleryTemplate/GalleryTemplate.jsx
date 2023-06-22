@@ -21,7 +21,6 @@ const GalleryTemplate = ({ url }) => {
         setImages(response?.data);
       })
       .catch((err) => {
-        console.warn(err);
         alert("Error occured while getting images!");
       });
   }, [url]);
@@ -33,7 +32,6 @@ const GalleryTemplate = ({ url }) => {
         setDescription(response.data);
       })
       .catch((err) => {
-        console.warn(err);
         alert("Error occured while getting descriptions!");
       });
   }, [url]);
@@ -45,7 +43,6 @@ const GalleryTemplate = ({ url }) => {
         setSeriesDescriptions(response.data);
       })
       .catch((err) => {
-        console.warn(err);
         alert("Error occured while getting descriptions!");
       });
   }, [url]);

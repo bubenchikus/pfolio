@@ -19,31 +19,23 @@ const EditorButtonBox = ({
       <div
         className={styles.submitButton}
         onClick={() => {
-          if (route === "pictures" && requestBody.pictureName === "") {
-            alert("Picture name should not be empty!!!");
-          } else if (
-            route === "posts" &&
-            (!requestBody.title || requestBody.title === "" || !requestBody.txt)
-          ) {
-            alert("Post title and text should not be empty!!!");
-          } else if (
-            route === "pages-descriptions" &&
-            (!requestBody.page || requestBody.page === "" || !requestBody.txt)
-          ) {
-            alert("Page description title and text should not be empty!!!");
+          if (editorMode === "upload" && route !== "pictures") {
+            uploadToTable(
+              route,
+              requestBody,
+              headers,
+              setDataChanged,
+              resetEditor
+            );
           } else {
-            if (editorMode === "upload" && route !== "pictures") {
-              uploadToTable(route, requestBody, headers, setDataChanged);
-            } else {
-              updateTable(
-                route,
-                requestBody,
-                currentRowInfo,
-                headers,
-                setDataChanged
-              );
-            }
-            resetEditor();
+            updateTable(
+              route,
+              requestBody,
+              currentRowInfo,
+              headers,
+              setDataChanged,
+              resetEditor
+            );
           }
         }}
       >

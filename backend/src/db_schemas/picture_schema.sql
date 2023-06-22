@@ -5,7 +5,7 @@
 CREATE TABLE picture (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) DEFAULT 'Untitled',
-    about TEXT,
+    about VARCHAR(255),
     category ENUM(
         'cg-paint-left',
         'cg-paint-right',

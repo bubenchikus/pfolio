@@ -12,7 +12,6 @@ export default async function deleteFromTable(
       setDataChanged(true);
     }
   } catch (err) {
-    console.warn(err);
     alert("Something went wrong while deleting data from table!");
   }
 }

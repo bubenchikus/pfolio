@@ -11,10 +11,12 @@ import { checkAuth } from "./src/middlewares/auth.js";
 import {
   validationResultStatus,
   pictureValidation,
+  seriesDescriptionValidation,
+  pageDescriptionValidation,
+  postValidation,
 } from "./src/middlewares/valid.js";
 import multer from "multer";
 import dotenv from "dotenv";
-import picturesMaintainer from "./src/utils/picturesMaintainer.js";
 
 dotenv.config();
 
@@ -57,11 +59,15 @@ app.get(
 app.post(
   "/pages-descriptions",
   checkAuth,
+  pageDescriptionValidation,
+  validationResultStatus,
   PageDescriptionController.uploadPageDescription
 );
 app.patch(
   "/pages-descriptions/:id",
   checkAuth,
+  pageDescriptionValidation,
+  validationResultStatus,
   PageDescriptionController.updatePageDescription
 );
 app.delete(
@@ -77,6 +83,8 @@ app.get(
 app.post(
   "/series-descriptions",
   checkAuth,
+  seriesDescriptionValidation,
+  validationResultStatus,
   SeriesDescriptionController.uploadSeriesDescription
 );
 app.get(
@@ -86,6 +94,8 @@ app.get(
 app.patch(
   "/series-descriptions/:id",
   checkAuth,
+  seriesDescriptionValidation,
+  validationResultStatus,
   SeriesDescriptionController.updateSeriesDescription
 );
 app.delete(
@@ -94,21 +104,33 @@ app.delete(
   SeriesDescriptionController.deleteSeriesDescription
 );
 
-app.post(
-  "/pictures",
-  checkAuth,
+app.post("/pictures", checkAuth, PictureController.uploadPicture);
+app.patch(
+  "/pictures/:id",
   pictureValidation,
   validationResultStatus,
-  PictureController.uploadPicture
+  checkAuth,
+  PictureController.updatePicture
 );
-app.patch("/pictures/:id", checkAuth, PictureController.updatePicture);
 app.delete("/pictures/:id", checkAuth, PictureController.deletePicture);
 
 app.get("/all-pictures", checkAuth, PictureController.getAllPictures);
 
 app.get("/posts", PostController.getAllPosts);
-app.post("/posts", checkAuth, PostController.uploadPost);
-app.patch("/posts/:id", checkAuth, PostController.updatePost);
+app.post(
+  "/posts",
+  checkAuth,
+  postValidation,
+  validationResultStatus,
+  PostController.uploadPost
+);
+app.patch(
+  "/posts/:id",
+  checkAuth,
+  postValidation,
+  validationResultStatus,
+  PostController.updatePost
+);
 app.delete("/posts/:id", checkAuth, PostController.deletePost);
 
 app.get("/posts/all", PostController.getAllPostsPaginated);

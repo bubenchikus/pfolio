@@ -29,16 +29,14 @@ const CreatedSelect = ({
               ? parseInt(currentRowInfo["created"].split("-")[0])
               : 0
           }
-          key={"months"}
+          key={"years"}
           onChange={(e) => {
-            const newData = `${
-              currentRowInfo["created"]
-                ? "" +
-                  e.target.value +
-                  "-" +
-                  currentRowInfo["created"].split("-")[1]
-                : "" + e.target.value + "-0"
-            }`;
+            const newData = currentRowInfo["created"]
+              ? "" +
+                e.target.value +
+                "-" +
+                currentRowInfo["created"].split("-")[1]
+              : "" + e.target.value + "-0";
             setRequestBody((prev) => ({
               ...prev,
               created: newData,
@@ -49,7 +47,7 @@ const CreatedSelect = ({
             }));
           }}
         >
-          {months.map((el) => (
+          {years.map((el) => (
             <MenuItem value={el} key={el}>
               {el}
             </MenuItem>
@@ -68,7 +66,7 @@ const CreatedSelect = ({
               ? parseInt(currentRowInfo["created"]?.split("-")[1])
               : 0
           }
-          key={"years"}
+          key={"months"}
           onChange={(e) => {
             const newData = `${
               currentRowInfo["created"]
@@ -88,7 +86,7 @@ const CreatedSelect = ({
             }));
           }}
         >
-          {years.map((el) => (
+          {months.map((el) => (
             <MenuItem value={el} key={el}>
               {el}
             </MenuItem>

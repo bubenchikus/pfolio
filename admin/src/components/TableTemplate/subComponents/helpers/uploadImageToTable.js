@@ -33,7 +33,6 @@ const uploadImageToTable = async (
     currentRowInfo.id = res.data[0].id;
     setCropperIsOpen(true);
   } catch (err) {
-    console.warn(err);
     alert("Error occured while uploading file!");
     resetEditor();
   }

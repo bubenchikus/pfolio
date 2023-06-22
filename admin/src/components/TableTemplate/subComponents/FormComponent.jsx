@@ -14,7 +14,6 @@ const FormComponent = ({
   setRequestBody,
   columnsTitles,
   route,
-  editorMode,
   setEditorIsOpen,
   setTextEditorIsOpen,
   series,

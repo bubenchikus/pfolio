@@ -5,15 +5,20 @@ export default async function updateTable(
   requestBody,
   currentRowInfo,
   headers,
-  setDataChanged
+  setDataChanged,
+  resetEditor
 ) {
   try {
     await axios.patch(`${route}/${currentRowInfo.id}`, requestBody, {
       headers: headers,
     });
     setDataChanged(true);
+    resetEditor();
   } catch (err) {
-    console.warn(err);
-    alert("Something went wrong while updating table!");
+    alert(
+      err.response.data?.msg ||
+        err.response.data[0]?.msg ||
+        "Something went wrong in the register process!"
+    );
   }
 }

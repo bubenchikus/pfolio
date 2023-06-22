@@ -4,13 +4,18 @@ export default async function uploadToTable(
   route,
   requestBody,
   headers,
-  setDataChanged
+  setDataChanged,
+  resetEditor
 ) {
   try {
     await axios.post(`${route}`, requestBody, { headers: headers });
     setDataChanged(true);
+    resetEditor();
   } catch (err) {
-    console.warn(err);
-    alert("Something went wrong while uploading!");
+    alert(
+      err.response.data?.msg ||
+        err.response.data[0]?.msg ||
+        "Something went wrong in the register process!"
+    );
   }
 }

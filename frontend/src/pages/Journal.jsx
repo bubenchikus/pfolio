@@ -20,7 +20,6 @@ const Journal = () => {
         setData(response?.data);
       })
       .catch((err) => {
-        console.warn(err);
         alert("Error occured while getting journal!");
       });
   }, [currentCategory]);
@@ -32,7 +31,6 @@ const Journal = () => {
         setDescription(response?.data);
       })
       .catch((err) => {
-        console.warn(err);
         alert("Error occured while getting Journal page description!");
       });
   }, []);

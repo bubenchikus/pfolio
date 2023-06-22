@@ -39,7 +39,6 @@ const TableTemplate = ({ route }) => {
         setDataChanged(false);
       })
       .catch((err) => {
-        console.warn(err);
         alert(`Error occured while getting ${route}!`);
       });
 
@@ -49,7 +48,7 @@ const TableTemplate = ({ route }) => {
         .then((response) => {
           let temp = {};
           if (response.data) {
-            Object.values(response.data).forEach((el) => {
+            Object.values(response.data)?.forEach((el) => {
               if (!temp.hasOwnProperty(el.category)) {
                 temp[el.category] = [el.series];
               } else {
@@ -62,7 +61,6 @@ const TableTemplate = ({ route }) => {
           setSeries(temp);
         })
         .catch((err) => {
-          console.warn(err);
           alert(`Error occured while getting series!`);
         });
     }
@@ -75,7 +73,6 @@ const TableTemplate = ({ route }) => {
         setColumnsTitles(response.data);
       })
       .catch((err) => {
-        console.warn(err);
         alert(`Error occured while getting columns!`);
       });
   }, [headers]);
@@ -92,8 +89,6 @@ const TableTemplate = ({ route }) => {
     setRequestBody({});
     setEditorIsOpen(false);
   };
-
-  console.log(series);
 
   return (
     <div className={styles.tableWrapper}>
