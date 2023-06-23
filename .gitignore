@@ -1,4 +1,4 @@
 .env
 build/
-/backend/pictures/*
+backend/pictures/*
 node_modules
