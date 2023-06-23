@@ -25,7 +25,7 @@ const CropWindow = ({
       })
       .toBlob((blob) => {
         setCroppedImage(blob);
-      });
+      }, "image/webp");
   };
   return (
     <div className={styles.textEditorBox}>

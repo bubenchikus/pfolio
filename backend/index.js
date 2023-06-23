@@ -17,6 +17,7 @@ import {
 } from "./src/middlewares/valid.js";
 import multer from "multer";
 import dotenv from "dotenv";
+import maintainPictures from "./src/utils/picturesMaintainer.js";
 
 dotenv.config();
 
@@ -141,6 +142,7 @@ app.post("/login", AdminController.login);
 app.get("/columns", checkAuth, AdminController.getColumns);
 
 app.listen(process.env.PORT, (err) => {
+  maintainPictures();
   if (err) return console.log(err);
   console.log(`Server is Ok and running on the port ${process.env.PORT}...`);
 });

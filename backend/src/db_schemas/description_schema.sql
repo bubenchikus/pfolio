@@ -6,7 +6,7 @@ CREATE TABLE description (
         'cg-paint-right',
         'cg-graph',
         'trad',
-        'comics',
+        'stories',
         'page',
         'no-category'
     ) NOT NULL DEFAULT 'no-category',
@@ -19,7 +19,7 @@ VALUES ('cg-paint-left'),
     ('cg-paint-right'),
     ('cg-graph'),
     ('trad'),
-    ('comics');
+    ('stories');
 INSERT INTO description(category, series)
 VALUES ('page', 'art'),
     ('page', 'dev'),

@@ -54,7 +54,7 @@ const MainMenu = () => {
             <div className={styles.blockSubblockText}>Traditional</div>
           </Link>
 
-          <Link to="/art/comics" className={styles.blockSubblock}>
+          <Link to="/art/stories" className={styles.blockSubblock}>
             <div className={styles.blockSubblockArt5Image}></div>
             <div className={styles.blockSubblockText}>Stories materials</div>
           </Link>

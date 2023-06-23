@@ -2,7 +2,7 @@ CREATE TABLE post (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255),
     txt TEXT,
-    category ENUM('dev', 'art', 'comics', 'misc') NOT NULL DEFAULT 'misc',
+    category ENUM('dev', 'art', 'stories', 'misc') NOT NULL DEFAULT 'misc',
     created TIMESTAMP NOT NULL DEFAULT NOW(),
     modified TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

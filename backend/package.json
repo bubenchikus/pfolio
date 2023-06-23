@@ -19,10 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start:dev": "nodemon index.js",
-    "stop": "pkill --signal SIGINT App",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "stop": "pkill --signal SIGINT App"
   },
   "eslintConfig": {
     "extends": [

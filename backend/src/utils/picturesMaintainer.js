@@ -94,22 +94,20 @@ function createStorage() {
   config.get("categories.pictures").forEach((dir) => {
     storageName = path.resolve("pictures", `${dir}`);
 
-    fs.access(storageName, (err) => {
-      standardError(err);
-
+    if (!fs.existsSync(storageName)) {
       fs.mkdir(storageName, (err) => {
         if (err && err.code != "EEXIST") {
           console.log(err);
           return;
         }
       });
-    });
+    }
   });
 }
 
 function maintainPictures() {
-  removeDeletedPicturesFromDB();
-  removeDeletedPicturesFromFS();
+  // removeDeletedPicturesFromDB();
+  // removeDeletedPicturesFromFS();
   createStorage();
 }
 

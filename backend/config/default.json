@@ -5,11 +5,11 @@
       "cg-paint-right",
       "cg-graph",
       "trad",
-      "comics",
+      "stories",
       "page",
       "no-category"
     ],
-    "posts": ["dev", "art", "comics", "misc"]
+    "posts": ["dev", "art", "stories", "misc"]
   },
 
   "columns": {

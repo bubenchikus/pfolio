@@ -64,9 +64,9 @@ function App() {
             element={<GalleryPage pageTitle="Traditional" url="art/trad" />}
           />
           <Route
-            path="/art/comics"
+            path="/art/stories"
             element={
-              <GalleryPage pageTitle="Stories materials" url="art/comics" />
+              <GalleryPage pageTitle="Stories materials" url="art/stories" />
             }
           />
 

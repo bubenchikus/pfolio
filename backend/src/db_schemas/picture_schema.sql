@@ -11,7 +11,7 @@ CREATE TABLE picture (
         'cg-paint-right',
         'cg-graph',
         'trad',
-        'comics',
+        'stories',
         'no-category',
         'page'
     ) NOT NULL DEFAULT 'no-category',

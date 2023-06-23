@@ -50,7 +50,7 @@ const Journal = () => {
       <PageTitle pageTitle="Action Journal" />
       <PageDescription descriptionData={descriptionData} />
       <div className={universalStyles.buttonBox}>
-        {["all", "dev", "art", "comics", "misc"].map((category) => (
+        {["all", "dev", "art", "stories", "misc"].map((category) => (
           <div
             key={category}
             id={category}

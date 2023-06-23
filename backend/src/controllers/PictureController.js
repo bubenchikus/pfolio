@@ -22,14 +22,6 @@ const renamePicture = (req) => {
   }
 };
 
-const conditionalTrimmer = (str) => {
-  if (!str || (str && str.trim() === "")) {
-    // pass null instead of empty string for coalesce
-    return null;
-  }
-  return str;
-};
-
 export const getAllPictures = async (_, res) => {
   try {
     const pictures = await databaseFunctions.getAllPictures();
@@ -96,12 +88,12 @@ export const uploadPicture = async (req, res) => {
 export const updatePicture = async (req, res) => {
   try {
     await databaseFunctions.updatePicture(
-      conditionalTrimmer(req.body.title),
+      req.body.title === "" ? null : req.body.title,
       req.body.created,
       req.body.category,
       req.body.pictureName,
       req.body.previewName,
-      conditionalTrimmer(req.body.series),
+      req.body.series === "" ? null : req.body.series,
       req.body.about,
       req.body.redraw,
       req.body.hide,
