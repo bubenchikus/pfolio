@@ -21,13 +21,16 @@ jobs:
             git status
 
             cd backend
-            pm2 restart api
+            npm ci
+            /root/.nvm/versions/node/v16.20.0/bin/pm2 restart api
             cd ..
 
             for arg in frontend admin; do
             cd ${arg}
-            npm i --force --no-optional
-            npm run build
+            rm -r node_modules
+            npm ci
+            rm -r build
+            npm run build --max_old_space_size=4096
             rm -r /var/www/bubengogh/${arg}/*
             cp -r build/* /var/www/bubengogh/${arg}/
             cd ..;

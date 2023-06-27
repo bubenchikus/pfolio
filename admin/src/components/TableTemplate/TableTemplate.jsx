@@ -34,8 +34,8 @@ const TableTemplate = ({ route }) => {
   useEffect(() => {
     axios
       .get(route === "pictures" ? "all-pictures" : route, { headers: headers })
-      .then((response) => {
-        setData(response.data);
+      .then((res) => {
+        setData(res.data);
         setDataChanged(false);
       })
       .catch((err) => {
@@ -45,10 +45,10 @@ const TableTemplate = ({ route }) => {
     if (route === "pictures") {
       axios
         .get("series-descriptions", { headers: headers })
-        .then((response) => {
+        .then((res) => {
           let temp = {};
-          if (response.data) {
-            Object.values(response.data)?.forEach((el) => {
+          if (res.data) {
+            Object.values(res.data)?.forEach((el) => {
               if (!temp.hasOwnProperty(el.category)) {
                 temp[el.category] = [el.series];
               } else {
@@ -69,8 +69,8 @@ const TableTemplate = ({ route }) => {
   useEffect(() => {
     axios
       .get("columns", { headers: headers })
-      .then((response) => {
-        setColumnsTitles(response.data);
+      .then((res) => {
+        setColumnsTitles(res.data);
       })
       .catch((err) => {
         alert(`Error occured while getting columns!`);

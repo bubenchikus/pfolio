@@ -23,15 +23,6 @@ function App() {
             element={<SimplePage pagePath="this-page" pageTitle="This page" />}
           />
           <Route
-            path="/nutrio-proportion"
-            element={
-              <SimplePage
-                pagePath="nutrio-proportion"
-                pageTitle="Nutrio-proportion"
-              />
-            }
-          />
-          <Route
             path="/art"
             element={<SimplePage pagePath="art" pageTitle="Art works" />}
           />

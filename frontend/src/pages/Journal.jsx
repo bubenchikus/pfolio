@@ -16,8 +16,8 @@ const Journal = () => {
   useEffect(() => {
     axios
       .get(`/posts/${currentCategory}`)
-      .then((response) => {
-        setData(response?.data);
+      .then((res) => {
+        setData(res?.data);
       })
       .catch((err) => {
         alert("Error occured while getting journal!");
@@ -27,8 +27,8 @@ const Journal = () => {
   useEffect(() => {
     axios
       .get("/pages-descriptions/journal")
-      .then((response) => {
-        setDescription(response?.data);
+      .then((res) => {
+        setDescription(res?.data);
       })
       .catch((err) => {
         alert("Error occured while getting Journal page description!");

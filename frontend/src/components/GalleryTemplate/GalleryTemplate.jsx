@@ -17,8 +17,8 @@ const GalleryTemplate = ({ url }) => {
   useEffect(() => {
     axios
       .get(url)
-      .then((response) => {
-        setImages(response?.data);
+      .then((res) => {
+        setImages(res?.data);
       })
       .catch((err) => {
         alert("Error occured while getting images!");
@@ -28,8 +28,8 @@ const GalleryTemplate = ({ url }) => {
   useEffect(() => {
     axios
       .get(`/pages-descriptions/${url.substring(4)}`)
-      .then((response) => {
-        setDescription(response.data);
+      .then((res) => {
+        setDescription(res.data);
       })
       .catch((err) => {
         alert("Error occured while getting descriptions!");
@@ -39,8 +39,8 @@ const GalleryTemplate = ({ url }) => {
   useEffect(() => {
     axios
       .get(`/series-descriptions/${url.substring(4)}`)
-      .then((response) => {
-        setSeriesDescriptions(response.data);
+      .then((res) => {
+        setSeriesDescriptions(res.data);
       })
       .catch((err) => {
         alert("Error occured while getting descriptions!");

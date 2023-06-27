@@ -39,7 +39,7 @@ function numToMonth(num) {
 
 function processDate(date) {
   if (date && date.split("-")[0] && date.split("-")[0] !== "0") {
-    if (date[1] === "0") {
+    if (date.split("-")[1] === "0") {
       return date.split("-")[0];
     } else {
       return `${date.split("-")[0]} ${numToMonth(date.split("-")[1])}`;

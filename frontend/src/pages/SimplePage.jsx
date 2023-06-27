@@ -9,8 +9,8 @@ const SimplePage = ({ pagePath, pageTitle }) => {
   useEffect(() => {
     axios
       .get(`/pages-descriptions/${pagePath}`)
-      .then((response) => {
-        setDescription(response.data);
+      .then((res) => {
+        setDescription(res.data);
       })
       .catch((err) => {
         alert("Error occured while getting page description!");

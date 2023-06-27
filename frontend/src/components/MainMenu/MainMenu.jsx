@@ -17,7 +17,10 @@ const MainMenu = () => {
             <div className={styles.blockSubblockDev1Image}></div>
             <div className={styles.blockSubblockText}>This Page</div>
           </Link>
-          <Link to="/nutrio-proportion" className={styles.blockSubblock}>
+          <Link
+            to="https://nutrio.bubengogh.com/"
+            className={styles.blockSubblock}
+          >
             <div className={styles.blockSubblockDev2Image}></div>
             <div className={styles.blockSubblockText}>Nutrio-proportion</div>
           </Link>

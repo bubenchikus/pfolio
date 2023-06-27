@@ -20,7 +20,7 @@ const ArrangementText = ({
         }}
         sx={formStyle}
         defaultValue={
-          requestBody["arrangement"] ?? currentRowInfo["arrangement"] ?? 0
+          requestBody["arrangement"] || currentRowInfo["arrangement"] || 0
         }
         key={"arrangement"}
         onChange={(e) => {

@@ -16,9 +16,9 @@ export default async function updateTable(
     resetEditor();
   } catch (err) {
     alert(
-      err.response.data?.msg ||
-        err.response.data[0]?.msg ||
-        "Something went wrong in the register process!"
+      err.res.data?.msg ||
+        err.res.data[0]?.msg ||
+        "Something went wrong in the updating process!"
     );
   }
 }
