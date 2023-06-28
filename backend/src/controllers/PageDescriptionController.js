@@ -6,7 +6,7 @@ export const getAllPagesDescriptions = async (_, res) => {
       "page"
     );
 
-    const processedDescriptions = descriptions.map((el) => {
+    const processedDescriptions = descriptions?.map((el) => {
       return { id: el.id, page: el.series, txt: el.txt };
     });
 
@@ -23,7 +23,7 @@ export const getPageDescriptionByTitle = async (req, res) => {
       req.params.page
     );
 
-    res.json(descriptions);
+    res.json(descriptions[0]);
   } catch (err) {
     console.log(err);
     res

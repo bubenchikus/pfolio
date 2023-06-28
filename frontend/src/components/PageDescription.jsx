@@ -18,9 +18,7 @@ const PageDescription = ({ descriptionData }) => {
         ),
       }}
     >
-      {descriptionData?.length > 0 && descriptionData[0].txt?.length > 0
-        ? descriptionData[0].txt
-        : "Description isn't added yet..."}
+      {descriptionData?.txt || "Description isn't added yet..."}
     </ReactMarkdown>
   );
 };

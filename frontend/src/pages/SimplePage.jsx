@@ -4,7 +4,7 @@ import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
 
 const SimplePage = ({ pagePath, pageTitle }) => {
-  const [descriptionData, setDescription] = useState();
+  const [descriptionData, setDescription] = useState({});
 
   useEffect(() => {
     axios

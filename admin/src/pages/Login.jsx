@@ -13,8 +13,8 @@ async function loginUser(username, password) {
 }
 
 const Login = ({ setToken }) => {
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();

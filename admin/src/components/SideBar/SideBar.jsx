@@ -5,7 +5,7 @@ import LogoBar from "../LogoBar/LogoBar";
 import { Sidebar, Menu } from "react-pro-sidebar";
 
 const SideBar = () => {
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState("edit-pictures");
 
   const capitalize = (s) => {
     const replaced = s.replace(/(-.)/g, (x) => " " + x[1]);

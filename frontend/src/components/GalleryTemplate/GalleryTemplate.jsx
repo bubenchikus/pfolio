@@ -5,11 +5,11 @@ import CarouselTemplate from "./CarouselTemplate";
 import SeriesGalleryTemplate from "./SeriesGalleryTemplate";
 
 const GalleryTemplate = ({ url }) => {
-  const [images, setImages] = useState();
-  const [descriptionData, setDescription] = useState();
-  const [seriesDescriptions, setSeriesDescriptions] = useState();
+  const [images, setImages] = useState({});
+  const [descriptionData, setDescription] = useState({});
+  const [seriesDescriptions, setSeriesDescriptions] = useState([]);
 
-  const [currentImage, setCurrentImage] = useState();
+  const [currentImage, setCurrentImage] = useState({});
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
   const [clientWidth, setClientWidth] = useState(0);
@@ -73,11 +73,11 @@ const GalleryTemplate = ({ url }) => {
       <PageDescription descriptionData={descriptionData} />
 
       {seriesDescriptions?.map((el, index) => {
-        if (images[el?.series]?.length > 0) {
+        if (images[el?.series]) {
           return (
             <SeriesGalleryTemplate
               key={index}
-              series={el?.series}
+              series={el.series}
               seriesDescriptions={seriesDescriptions}
               images={images}
               clientWidth={clientWidth}

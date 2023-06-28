@@ -13,9 +13,9 @@ const TableTemplate = ({ route }) => {
     Authentication:
       "Bearer " + JSON.parse(sessionStorage.getItem("token")).token,
   });
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [columnsTitles, setColumnsTitles] = useState([]);
-  const [series, setSeries] = useState();
+  const [series, setSeries] = useState({});
 
   const [currentRowInfo, setCurrentRowInfo] = useState({});
   const [requestBody, setRequestBody] = useState({});

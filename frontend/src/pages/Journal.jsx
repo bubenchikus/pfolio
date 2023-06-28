@@ -7,8 +7,8 @@ import universalStyles from "../components/UniversalStyles.module.scss";
 import Pagination from "@mui/material/Pagination";
 
 const Journal = () => {
-  const [data, setData] = useState();
-  const [descriptionData, setDescription] = useState();
+  const [data, setData] = useState([]);
+  const [descriptionData, setDescription] = useState({});
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentCategory, setCurrentCategory] = useState("all");
