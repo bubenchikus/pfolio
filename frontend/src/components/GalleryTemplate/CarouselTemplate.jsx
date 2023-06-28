@@ -2,6 +2,8 @@ import styles from "./GalleryTemplate.module.scss";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useState } from "react";
 
 const CarouselTemplate = ({
   currentImage,
@@ -10,6 +12,8 @@ const CarouselTemplate = ({
   clientWidth,
   images,
 }) => {
+  const [loaded, setLoaded] = useState(false);
+
   const iconFontStyle = `${
     clientWidth > 850
       ? Math.floor(clientWidth / 30)
@@ -37,15 +41,16 @@ const CarouselTemplate = ({
           {currentImage.galleryIndex > 0 ? (
             <ArrowBackIcon
               sx={iconStyle}
-              onClick={() =>
+              onClick={() => {
+                setLoaded(false);
                 setCurrentImage(
                   images[currentImage.series].find(
                     (image) =>
                       image?.galleryIndex === currentImage?.galleryIndex - 1 &&
                       image?.series === currentImage?.series
                   )
-                )
-              }
+                );
+              }}
             />
           ) : (
             <ArrowBackIcon sx={disabledIconStyle} />
@@ -53,14 +58,20 @@ const CarouselTemplate = ({
         </div>
 
         <div className={styles.carouselMiddleBox}>
-          <div className={styles.carouselImageBox}>
+          {loaded ? null : (
+            <CircularProgress sx={{ position: "absolute", color: "white" }} />
+          )}
+          <div className={loaded ? styles.carouselImageBox : styles.imgHidden}>
             <img
               src={`${process.env.REACT_APP_API_URL}/pictures/${currentImage.category}/${currentImage.pictureName}`}
               className={styles.carouselImage}
               alt={currentImage.title}
+              onLoad={() => setLoaded(true)}
             />
           </div>
-          <div className={styles.carouselDescription}>
+          <div
+            className={loaded ? styles.carouselDescription : styles.imgHidden}
+          >
             <div
               className={styles.carouselText}
             >{`Title: ${currentImage.title}`}</div>
@@ -93,7 +104,8 @@ const CarouselTemplate = ({
             images[currentImage.series].length - 1 ? (
               <ArrowForwardIcon
                 sx={iconStyle}
-                onClick={() =>
+                onClick={() => {
+                  setLoaded(false);
                   setCurrentImage(
                     images[currentImage.series].find(
                       (image) =>
@@ -101,8 +113,8 @@ const CarouselTemplate = ({
                           currentImage?.galleryIndex + 1 &&
                         image?.series === currentImage?.series
                     )
-                  )
-                }
+                  );
+                }}
               />
             ) : (
               <ArrowForwardIcon sx={disabledIconStyle} />

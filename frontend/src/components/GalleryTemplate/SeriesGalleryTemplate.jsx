@@ -1,5 +1,6 @@
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import Skeleton from "@mui/material/Skeleton";
 import universalStyles from "../UniversalStyles.module.scss";
 import styles from "./GalleryTemplate.module.scss";
 
@@ -10,6 +11,8 @@ const SeriesGalleryTemplate = ({
   clientWidth,
   setCurrentImage,
   setViewerIsOpen,
+  loaded,
+  setLoaded,
 }) => {
   return (
     <div className={universalStyles.blockContainer}>
@@ -45,16 +48,25 @@ const SeriesGalleryTemplate = ({
               overflow: "hidden",
             }}
           >
+            {loaded[item.id] ? null : (
+              <Skeleton
+                variant="rectangular"
+                sx={{ width: "100%", height: "100%" }}
+              />
+            )}
             <img
-              key={item.id}
-              className={styles.img}
+              className={loaded[item.id] ? styles.img : styles.imgHidden}
+              onLoad={() => {
+                loaded[item.id] = true;
+                setLoaded(loaded);
+              }}
               src={
                 item.previewName
                   ? `${process.env.REACT_APP_API_URL}/pictures/previews/${item.previewName}.webp`
                   : `${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`
               }
               alt={item.title}
-              loading="lazy"
+              // loading="lazy"
             />
           </ImageListItem>
         ))}

@@ -14,6 +14,8 @@ const GalleryTemplate = ({ url }) => {
 
   const [clientWidth, setClientWidth] = useState(0);
 
+  const [loaded, setLoaded] = useState({});
+
   useEffect(() => {
     axios
       .get(url)
@@ -83,6 +85,8 @@ const GalleryTemplate = ({ url }) => {
               clientWidth={clientWidth}
               setCurrentImage={setCurrentImage}
               setViewerIsOpen={setViewerIsOpen}
+              loaded={loaded}
+              setLoaded={setLoaded}
             />
           );
         }
