@@ -42,7 +42,7 @@ function processDate(date) {
     if (date.split("-")[1] === "0") {
       return date.split("-")[0];
     } else {
-      return `${date.split("-")[0]} ${numToMonth(date.split("-")[1])}`;
+      return `${numToMonth(date.split("-")[1])} ${date.split("-")[0]}`;
     }
   } else {
     return "unknown";

@@ -24,7 +24,7 @@ const SideBar = () => {
     <Sidebar
       style={{
         height: "100vh",
-        minWidth: "400px",
+        minWidth: "300px",
         backgroundColor: "rgb(180,180,180)",
         borderTop: "solid black 2px",
       }}
@@ -53,7 +53,6 @@ const SideBar = () => {
             </div>
           </Link>
         ))}
-        ;
       </Menu>
     </Sidebar>
   );

@@ -24,8 +24,8 @@ const Table = ({
             },
           },
         }}
-        disableColumnResize={false}
         sx={{ width: "100%", cursor: "pointer", zIndex: "0" }}
+        rowHeight={80}
         columns={columns}
         rows={data}
         disableRowSelectionOnClick

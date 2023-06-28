@@ -17,6 +17,10 @@ export default function setupColumns(data, route, columnsTitles) {
             }
             variant="square"
             alt=""
+            sx={{
+              height: "100%",
+              width: "100%",
+            }}
           />
         );
       },
@@ -27,7 +31,7 @@ export default function setupColumns(data, route, columnsTitles) {
     columnsTitles[route]?.forEach((el) => {
       if (["id", "redraw", "hide"].includes(el)) {
         columns.push({ field: el, flex: 0.5 });
-      } else if (["about", "txt"].includes(el)) {
+      } else if (["pictureName", "txt"].includes(el)) {
         columns.push({ field: el, flex: 2.5 });
       } else {
         columns.push({ field: el, flex: 1 });
