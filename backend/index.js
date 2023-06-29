@@ -105,6 +105,7 @@ app.delete(
   SeriesDescriptionController.deleteSeriesDescription
 );
 
+app.get("/pictures", PictureController.getUnhiddenPictures);
 app.post("/pictures", checkAuth, PictureController.uploadPicture);
 app.patch(
   "/pictures/:id",
