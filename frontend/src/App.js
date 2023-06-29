@@ -63,6 +63,16 @@ function App() {
 
           <Route path="/journal" element={<Journal />} />
 
+          <Route
+            path="/admin-screenshots"
+            element={
+              <SimplePage
+                pagePath="admin-screenshots"
+                pageTitle="Admin panel screenshots"
+              />
+            }
+          />
+
           <Route path="*" element={<Navigate to={"/"} />} />
         </Routes>
       </div>
