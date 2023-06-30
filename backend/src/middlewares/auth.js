@@ -7,15 +7,12 @@ export const checkAuth = (req, res, next) => {
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.userId = decoded.id;
+      jwt.verify(token, process.env.JWT_SECRET);
       next();
     } catch (err) {
       return res
         .status(403)
         .json({ message: "No access (verification failed)!" });
     }
-  } else {
-    return res.status(403).json({ message: "No access!" });
   }
 };

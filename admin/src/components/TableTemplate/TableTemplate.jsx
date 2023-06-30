@@ -10,8 +10,7 @@ import Editor from "./subComponents/Editor";
 
 const TableTemplate = ({ route }) => {
   const [headers] = useState({
-    Authentication:
-      "Bearer " + JSON.parse(sessionStorage.getItem("token")).token,
+    Authentication: "Bearer " + JSON.parse(localStorage.getItem("token")).token,
   });
   const [data, setData] = useState([]);
   const [columnsTitles, setColumnsTitles] = useState([]);

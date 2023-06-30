@@ -142,13 +142,3 @@ export const deletePicture = async (req, res) => {
     res.status(500).json({ message: "Picture deletion failed!" });
   }
 };
-
-export function placePreview(pictureName) {
-  if (pictureName) {
-    fs.rename(
-      path.resolve("pictures", "no-category", `${pictureName}`),
-      path.resolve("pictures", "previews", `${pictureName}`),
-      (err) => standardError(err)
-    );
-  }
-}

@@ -53,6 +53,17 @@ const SideBar = () => {
             </div>
           </Link>
         ))}
+        <Link to={"/login"} key={"login"} reloadDocument>
+          <div
+            id={"logout"}
+            className={styles.button}
+            onClick={() => {
+              localStorage.clear();
+            }}
+          >
+            <div className={styles.sideBarLink}>{capitalize("logout")}</div>
+          </div>
+        </Link>
       </Menu>
     </Sidebar>
   );

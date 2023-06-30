@@ -32,17 +32,20 @@ function App() {
           />
 
           <Route
-            path="/art/cg-paint-left"
-            element={
-              <GalleryPage pageTitle="CG Paintings I" url="art/cg-paint-left" />
-            }
-          />
-          <Route
             path="/art/cg-paint-right"
             element={
               <GalleryPage
-                pageTitle="CG Paintings II"
+                pageTitle="CG Paintings I"
                 url="art/cg-paint-right"
+              />
+            }
+          />
+          <Route
+            path="/art/cg-paint-left"
+            element={
+              <GalleryPage
+                pageTitle="CG Paintings II"
+                url="art/cg-paint-left"
               />
             }
           />

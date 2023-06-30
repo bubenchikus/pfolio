@@ -15,9 +15,9 @@ import {
   pageDescriptionValidation,
   postValidation,
 } from "./src/middlewares/valid.js";
-import multer from "multer";
 import dotenv from "dotenv";
 import maintainPictures from "./src/utils/picturesMaintainer.js";
+import { uploadPicture, uploadPreview } from "./src/middlewares/multer.js";
 
 dotenv.config();
 
@@ -27,25 +27,8 @@ app.use(express.json());
 app.use(cors());
 app.use("/pictures", express.static("pictures"));
 
-const storage = multer.diskStorage({
-  destination: (_, __, cb) => {
-    cb(null, `pictures/no-category`);
-  },
-  filename: (_, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({ storage });
-
-app.post(`/upload`, checkAuth, upload.single("image"), (req, res) => {
-  res.json({ message: "Image succesfully uploaded" });
-});
-
-app.post(`/upload-preview`, checkAuth, upload.single("image"), (req, res) => {
-  PictureController.placePreview(req.file.originalname);
-  res.json({ message: "Image succesfully uploaded" });
-});
+app.post(`/upload`, checkAuth, uploadPicture);
+app.post(`/upload-preview`, checkAuth, uploadPreview);
 
 app.get("/art/:category", PictureController.getPicturesByCategory);
 

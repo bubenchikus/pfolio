@@ -4,6 +4,7 @@ import path from "path";
 import config from "config";
 import { standardError } from "./universalHelpers.js";
 
+// Delete pictures present in DB but not in FS
 async function removeDeletedPicturesFromDB() {
   const pictures = await databaseFunctions.getAllPictures();
 
@@ -23,6 +24,7 @@ async function removeDeletedPicturesFromDB() {
   }
 }
 
+// Delete pictures present in FS but not in DB
 async function removeDeletedPicturesFromFS() {
   fs.readdir(path.resolve("pictures"), (err, subdirs) => {
     standardError(err);
@@ -75,6 +77,7 @@ async function removeDeletedPicturesFromFS() {
   });
 }
 
+// Setup necessary archive folders if they don't exist yet
 function createStorage() {
   var storageName = path.resolve("pictures");
 
@@ -106,7 +109,7 @@ function createStorage() {
 }
 
 function maintainPictures() {
-  // removeDeletedPicturesFromDB();
+  // removeDeletedPicturesFromDB(); //<--- It's unsafe to use these functions until final project deployment.
   // removeDeletedPicturesFromFS();
   createStorage();
 }

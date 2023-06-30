@@ -10,9 +10,8 @@ function App() {
 
   if (!token) {
     return <Login setToken={setToken} />;
-  }
-  return (
-    <>
+  } else {
+    return (
       <div style={{ display: "flex" }}>
         <SideBar />
         <Routes>
@@ -39,8 +38,8 @@ function App() {
           <Route path="*" element={<Navigate to={"/edit-pictures"} />} />
         </Routes>
       </div>
-    </>
-  );
+    );
+  }
 }
 
 export default App;

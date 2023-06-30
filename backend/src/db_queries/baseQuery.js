@@ -1,5 +1,4 @@
 import mysql from "mysql2";
-
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -14,18 +13,19 @@ const pool = mysql.createPool({
 async function userQuery(query, parameters) {
   if (parameters === undefined) {
     return new Promise(function (resolve, reject) {
-      pool.query(query, function (err, results, fields) {
+      pool.query(query, function (err, results) {
+        if (err) return reject(err);
+        return resolve(results);
+      });
+    });
+  } else {
+    return new Promise(function (resolve, reject) {
+      pool.query(query, parameters, function (err, results) {
         if (err) return reject(err);
         return resolve(results);
       });
     });
   }
-  return new Promise(function (resolve, reject) {
-    pool.query(query, parameters, function (err, results, fields) {
-      if (err) return reject(err);
-      return resolve(results);
-    });
-  });
 }
 
 export default userQuery;

@@ -10,7 +10,7 @@ export default async function postPreview(blob, pictureName, setDataChanged) {
       .post("/upload-preview", formData, {
         headers: {
           Authentication:
-            "Bearer " + JSON.parse(sessionStorage.getItem("token")).token,
+            "Bearer " + JSON.parse(localStorage.getItem("token")).token,
           enctype: "multipart/form-data",
         },
       })

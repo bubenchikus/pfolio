@@ -10,8 +10,7 @@ export const validationResultStatus = (req, res, next) => {
   next();
 };
 
-// setting 'optional' where db handles defaults
-
+// Using optional() where db handles defaults by itself
 export const pictureValidation = [
   body("title")
     .isString()
