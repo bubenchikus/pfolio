@@ -14,5 +14,7 @@ export const checkAuth = (req, res, next) => {
         .status(403)
         .json({ message: "No access (verification failed)!" });
     }
+  } else {
+    return res.status(403).json({ msg: "No access!" });
   }
 };

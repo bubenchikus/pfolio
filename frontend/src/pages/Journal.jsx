@@ -70,12 +70,12 @@ const Journal = () => {
           </div>
         ))}
       </div>
-      {data ? (
+      {data && data.length > 0 ? (
         data[currentPage - 1]?.map((post) => (
           <JournalPostTemplate postData={post} />
         ))
       ) : (
-        <></>
+        <h2>No posts available for this category yet...</h2>
       )}
       <div className={universalStyles.paginationBox}>
         <Pagination
