@@ -120,6 +120,7 @@ app.delete("/posts/:id", checkAuth, PostController.deletePost);
 
 app.get("/posts/all", PostController.getAllPostsPaginated);
 app.get("/posts/:category", PostController.getPostsByCategory);
+app.get("/posts/:category/:id", PostController.getPostById)
 
 app.post("/login", AdminController.login);
 

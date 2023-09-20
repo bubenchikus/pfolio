@@ -5,24 +5,27 @@ import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
 import universalStyles from "../components/UniversalStyles.module.scss";
 import Pagination from "@mui/material/Pagination";
+import { Link, useParams } from "react-router-dom";
 
 const Journal = () => {
+  let { category } = useParams();
   const [data, setData] = useState([]);
   const [descriptionData, setDescription] = useState({});
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentCategory, setCurrentCategory] = useState("all");
+  const [currentCategory, setCurrentCategory] = useState(category);
 
   useEffect(() => {
     axios
-      .get(`/posts/${currentCategory}`)
+      .get(`/posts/${category}?postsPerPage=10&page=1`)
       .then((res) => {
         setData(res?.data);
       })
       .catch((err) => {
-        alert("Error occured while getting journal!");
+        console.error("Error occured while getting journal!");
       });
-  }, [currentCategory]);
+    pressButton(category);
+  }, [category]);
 
   useEffect(() => {
     axios
@@ -31,7 +34,7 @@ const Journal = () => {
         setDescription(res?.data);
       })
       .catch((err) => {
-        alert("Error occured while getting Journal page description!");
+        console.error("Error occured while getting Journal page description!");
       });
   }, []);
 
@@ -51,28 +54,28 @@ const Journal = () => {
       <PageDescription descriptionData={descriptionData} />
       <div className={universalStyles.buttonBox}>
         {["all", "dev", "art", "stories", "misc"].map((category) => (
-          <div
+          <Link
+            to={`/journal/${category}`}
             key={category}
             id={category}
-            className={
-              category === "all"
-                ? universalStyles.buttonPressed
-                : universalStyles.button
-            }
+            className={universalStyles.button}
             onClick={() => {
               setCurrentCategory(category);
               setCurrentPage(1);
-              pressButton(category);
               unpressButton(currentCategory);
+              pressButton(category);
             }}
           >
             {category}
-          </div>
+          </Link>
         ))}
       </div>
       {data && data.length > 0 ? (
         data[currentPage - 1]?.map((post) => (
-          <JournalPostTemplate postData={post} />
+          <JournalPostTemplate
+            postData={post}
+            currentCategory={currentCategory}
+          />
         ))
       ) : (
         <h2>No posts available for this category yet...</h2>

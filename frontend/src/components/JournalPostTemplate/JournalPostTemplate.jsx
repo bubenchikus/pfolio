@@ -2,11 +2,17 @@ import universalStyles from "../UniversalStyles.module.scss";
 import styles from "./JournalPostTemplate.module.scss";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import emoji from "node-emoji";
+import { Link } from "react-router-dom";
 
-const JournalPostTemplate = ({ postData }) => {
+const JournalPostTemplate = ({ postData, currentCategory }) => {
   return (
     <div className={universalStyles.blockContainer}>
-      <div className={universalStyles.blockTitle}>{postData?.title}</div>
+      <Link
+        to={`/journal/${currentCategory}/${postData?.id}`}
+        className={universalStyles.blockTitle}
+      >
+        {postData?.title}
+      </Link>
       <ReactMarkdown
         className={universalStyles.blockText}
         components={{

@@ -15,10 +15,10 @@ export default async function updateTable(
     setDataChanged(true);
     resetEditor();
   } catch (err) {
-    alert(
+    console.error(
       err.res.data?.msg ||
-        err.res.data[0]?.msg ||
-        "Something went wrong in the updating process!"
+      err.res.data[0]?.msg ||
+      "Something went wrong in the updating process!"
     );
   }
 }

@@ -25,6 +25,8 @@ export const getAllPostsPaginated = async (_, res) => {
 
 export const getPostsByCategory = async (req, res) => {
   try {
+    const postsPerPage = req.query.postsPerPage || 10;
+    const page = req.query.page || 1;
     const posts = await databaseFunctions.getPostsByCategory(
       req.params.category
     );
@@ -32,7 +34,7 @@ export const getPostsByCategory = async (req, res) => {
     res.json(paginatePosts(posts));
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Getting posts failed (by category)!" });
+    res.status(500).json({ message: "Getting posts by category failed!" });
   }
 };
 
@@ -77,3 +79,13 @@ export const deletePost = async (req, res) => {
     res.status(500).json({ message: "Post deletion failed!" });
   }
 };
+
+export const getPostById = async (req, res) => {
+  try {
+    const post = await databaseFunctions.getPostById(req.params.id);
+    res.json(post);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Getting post by id failed!" })
+  }
+}

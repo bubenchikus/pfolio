@@ -67,7 +67,7 @@ const MainMenu = () => {
         <Link to="/about" className={universalStyles.link}>
           About+contacts
         </Link>
-        <Link to="/journal" className={universalStyles.link}>
+        <Link to="/journal/all" className={universalStyles.link}>
           Action journal
         </Link>
       </div>

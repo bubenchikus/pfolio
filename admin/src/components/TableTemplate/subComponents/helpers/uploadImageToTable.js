@@ -18,11 +18,11 @@ const uploadImageToTable = async (
     currentRowInfo.category =
       requestBody.category =
       requestBody.oldCategory =
-        "no-category";
+      "no-category";
     currentRowInfo.pictureName =
       requestBody.pictureName =
       requestBody.oldPictureName =
-        file.name;
+      file.name;
     currentRowInfo.previewName = requestBody.previewName = randomString();
 
     await axios.post("/upload", formData, { headers: headers });
@@ -33,7 +33,7 @@ const uploadImageToTable = async (
     currentRowInfo.id = res.data[0].id;
     setCropperIsOpen(true);
   } catch (err) {
-    alert("Error occured while uploading file!");
+    console.error("Error occured while uploading file!");
     resetEditor();
   }
 };

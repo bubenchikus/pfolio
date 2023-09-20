@@ -16,6 +16,6 @@ export default async function postPreview(blob, pictureName, setDataChanged) {
       })
       .then(setDataChanged(true));
   } catch (err) {
-    alert("Something went wrong while uploading preview!");
+    console.error("Something went wrong while uploading preview!");
   }
 }

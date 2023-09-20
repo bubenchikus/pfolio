@@ -38,7 +38,7 @@ const TableTemplate = ({ route }) => {
         setDataChanged(false);
       })
       .catch((err) => {
-        alert(`Error occured while getting ${route}!`);
+        console.error(`Error occured while getting ${route}!`);
       });
 
     if (route === "pictures") {
@@ -60,7 +60,7 @@ const TableTemplate = ({ route }) => {
           setSeries(temp);
         })
         .catch((err) => {
-          alert(`Error occured while getting series!`);
+          console.error(`Error occured while getting series!`);
         });
     }
   }, [route, headers, dataChanged]);
@@ -72,7 +72,7 @@ const TableTemplate = ({ route }) => {
         setColumnsTitles(res.data);
       })
       .catch((err) => {
-        alert(`Error occured while getting columns!`);
+        console.error(`Error occured while getting columns!`);
       });
   }, [headers]);
 

@@ -23,7 +23,7 @@ const GalleryTemplate = ({ url }) => {
         setImages(res?.data);
       })
       .catch((err) => {
-        alert("Error occured while getting images!");
+        console.error("Error occured while getting images!");
       });
   }, [url]);
 
@@ -34,7 +34,7 @@ const GalleryTemplate = ({ url }) => {
         setDescription(res.data);
       })
       .catch((err) => {
-        alert("Error occured while getting descriptions!");
+        console.error("Error occured while getting descriptions!");
       });
   }, [url]);
 
@@ -45,7 +45,7 @@ const GalleryTemplate = ({ url }) => {
         setSeriesDescriptions(res.data);
       })
       .catch((err) => {
-        alert("Error occured while getting descriptions!");
+        console.error("Error occured while getting descriptions!");
       });
   }, [url]);
 

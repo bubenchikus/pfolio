@@ -57,3 +57,15 @@ export async function deletePost(id) {
   );
   return res;
 }
+
+export async function getPostById(id) {
+  const res = await userQuery(
+    `
+        SELECT *
+        FROM post
+        WHERE id=?;
+    `,
+    [id]
+  );
+  return res;
+}

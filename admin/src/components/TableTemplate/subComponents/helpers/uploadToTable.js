@@ -12,10 +12,10 @@ export default async function uploadToTable(
     setDataChanged(true);
     resetEditor();
   } catch (err) {
-    alert(
+    console.error(
       err.res.data?.msg ||
-        err.res.data[0]?.msg ||
-        "Something went wrong in the uploading process!"
+      err.res.data[0]?.msg ||
+      "Something went wrong in the uploading process!"
     );
   }
 }
