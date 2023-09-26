@@ -118,9 +118,9 @@ app.patch(
 );
 app.delete("/posts/:id", checkAuth, PostController.deletePost);
 
-app.get("/posts/all", PostController.getAllPostsPaginated);
+app.get("/posts/all", PostController.getAllPosts);
 app.get("/posts/:category", PostController.getPostsByCategory);
-app.get("/posts/:category/:id", PostController.getPostById)
+app.get("/posts/:category/:id", PostController.getPostById);
 
 app.post("/login", AdminController.login);
 
@@ -128,6 +128,6 @@ app.get("/columns", checkAuth, AdminController.getColumns);
 
 app.listen(process.env.PORT, (err) => {
   maintainPictures();
-  if (err) return console.log(err);
+  if (err) return console.error(err);
   console.log(`Server is Ok and running on the port ${process.env.PORT}...`);
 });

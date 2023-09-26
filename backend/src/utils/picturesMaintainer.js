@@ -87,7 +87,7 @@ function createStorage() {
 
       fs.mkdir(path, (err) => {
         if (err && err.code != "EEXIST") {
-          console.log(err);
+          console.error(err);
           return;
         }
       });
@@ -100,7 +100,7 @@ function createStorage() {
     if (!fs.existsSync(storageName)) {
       fs.mkdir(storageName, (err) => {
         if (err && err.code != "EEXIST") {
-          console.log(err);
+          console.error(err);
           return;
         }
       });

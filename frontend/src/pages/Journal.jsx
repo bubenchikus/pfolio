@@ -4,28 +4,67 @@ import JournalPostTemplate from "../components/JournalPostTemplate/JournalPostTe
 import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
 import universalStyles from "../components/UniversalStyles.module.scss";
-import Pagination from "@mui/material/Pagination";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 
 const Journal = () => {
   let { category } = useParams();
   const [data, setData] = useState([]);
   const [descriptionData, setDescription] = useState({});
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
   const [currentCategory, setCurrentCategory] = useState(category);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
-      .get(`/posts/${category}?postsPerPage=10&page=1`)
+      .get(`/posts/${currentCategory}?page=1`)
       .then((res) => {
         setData(res?.data);
       })
       .catch((err) => {
-        console.error("Error occured while getting journal!");
+        console.error("Error occured while getting Journal page description!");
       });
-    pressButton(category);
-  }, [category]);
+    setLastPage(2);
+    pressButton(currentCategory);
+  }, [currentCategory]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      axios
+        .get(`/posts/${currentCategory}?page=${lastPage}`)
+        .then((res) => {
+          setData((prevData) => [...prevData, ...res?.data]);
+          setLastPage((prevLastPage) => prevLastPage + 1);
+        })
+        .catch((err) => {
+          console.error("Error occured while getting journal!");
+        });
+      setIsLoading(false);
+    };
+
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop !==
+          document.documentElement.offsetHeight ||
+        isLoading
+      ) {
+        localStorage.removeItem("yOffset");
+        return;
+      }
+      fetchData();
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    if (localStorage.getItem("yOffset")) {
+      window.scrollTo(0, parseInt(localStorage.getItem("yOffset")));
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isLoading, lastPage, currentCategory]);
 
   useEffect(() => {
     axios
@@ -61,9 +100,7 @@ const Journal = () => {
             className={universalStyles.button}
             onClick={() => {
               setCurrentCategory(category);
-              setCurrentPage(1);
               unpressButton(currentCategory);
-              pressButton(category);
             }}
           >
             {category}
@@ -71,27 +108,17 @@ const Journal = () => {
         ))}
       </div>
       {data && data.length > 0 ? (
-        data[currentPage - 1]?.map((post) => (
+        data?.map((post) => (
           <JournalPostTemplate
             postData={post}
             currentCategory={currentCategory}
+            clickable={true}
           />
         ))
       ) : (
         <h2>No posts available for this category yet...</h2>
       )}
-      <div className={universalStyles.paginationBox}>
-        <Pagination
-          count={data?.length}
-          onChange={(_, page) => {
-            setCurrentPage(page);
-            window.scrollTo(0, 0);
-          }}
-          variant="outlined"
-          shape="rounded"
-          sx={{ margin: "20px 0", color: "rgb(148, 205, 171)" }}
-        />
-      </div>
+      <>{isLoading && <p>Loading...</p>}</>
     </>
   );
 };

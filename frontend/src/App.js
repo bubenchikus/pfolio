@@ -65,7 +65,7 @@ function App() {
             }
           />
 
-          <Route path="/journal/:category" element={<Journal />} />
+          <Route path="/journal/:category?" element={<Journal />} />
 
           <Route
             path="/admin-screenshots"

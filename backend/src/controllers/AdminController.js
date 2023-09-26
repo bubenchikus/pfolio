@@ -20,7 +20,7 @@ export const login = async (req, res) => {
 
     res.json({ token: createToken() });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Authorization failed!" });
   }
 };
@@ -37,7 +37,7 @@ export const getColumns = async (_, res) => {
       "pages-descriptions": config.get("columns.pages-descriptions"),
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res
       .status(500)
       .json({ message: "Getting columns for admin panel failed!" });

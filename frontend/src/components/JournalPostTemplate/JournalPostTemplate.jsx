@@ -4,15 +4,27 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import emoji from "node-emoji";
 import { Link } from "react-router-dom";
 
-const JournalPostTemplate = ({ postData, currentCategory }) => {
+const JournalPostTemplate = ({
+  postData,
+  currentCategory,
+  clickable = false,
+}) => {
   return (
     <div className={universalStyles.blockContainer}>
-      <Link
-        to={`/journal/${currentCategory}/${postData?.id}`}
-        className={universalStyles.blockTitle}
-      >
-        {postData?.title}
-      </Link>
+      {clickable ? (
+        <Link
+          to={`/journal/${currentCategory}/${postData?.id}`}
+          className={universalStyles.blockTitle}
+          onClick={() => {
+            localStorage.setItem("yOffset", document.documentElement.scrollTop);
+          }}
+        >
+          {postData?.title}
+        </Link>
+      ) : (
+        <div className={universalStyles.blockTitle}>{postData?.title}</div>
+      )}
+
       <ReactMarkdown
         className={universalStyles.blockText}
         components={{
