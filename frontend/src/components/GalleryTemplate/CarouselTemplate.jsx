@@ -1,4 +1,5 @@
 import styles from "./GalleryTemplate.module.scss";
+import styleConstants from "../../styleConstants.scss";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
@@ -15,7 +16,7 @@ const CarouselTemplate = ({
   const [loaded, setLoaded] = useState(false);
 
   const iconFontStyle = `${
-    clientWidth > 850
+    clientWidth > parseInt(styleConstants.mobileWidth)
       ? Math.floor(clientWidth / 30)
       : Math.floor(clientWidth / 10)
   }px`;

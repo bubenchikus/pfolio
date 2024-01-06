@@ -28,7 +28,7 @@ const SeriesGalleryTemplate = ({
       )}
       <ImageList
         sx={{ margin: "15px 0", padding: "2px" }}
-        cols={Math.max(Math.floor(clientWidth / 350), 2)}
+        cols={Math.max(Math.floor(clientWidth / 320), 2)}
         variant={"standard"}
         gap={6}
       >

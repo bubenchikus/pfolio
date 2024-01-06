@@ -4,7 +4,7 @@ import JournalPostTemplate from "../components/JournalPostTemplate/JournalPostTe
 import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
 import universalStyles from "../components/UniversalStyles.module.scss";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Journal = () => {
   let { category } = useParams();

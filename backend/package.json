@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "commonplace-backend",
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
@@ -17,8 +17,7 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "start:dev": "nodemon index.js",
+    "start": "nodemon index.js",
     "stop": "pkill --signal SIGINT App"
   },
   "eslintConfig": {

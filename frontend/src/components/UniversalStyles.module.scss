@@ -1,3 +1,5 @@
+@import "../styleConstants.scss";
+
 .linkBox {
   display: flex;
   padding: 25px;
@@ -117,7 +119,7 @@
   justify-content: center;
 }
 
-@media (max-width: 850px) {
+@media (max-width: $mobileWidth) {
   .buttonBox {
     display: block;
     columns: auto;

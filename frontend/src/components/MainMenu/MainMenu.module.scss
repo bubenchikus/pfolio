@@ -1,3 +1,5 @@
+@import "../../styleConstants.scss";
+
 .root {
   margin: 0;
   padding: 0;
@@ -123,7 +125,7 @@
   max-height: 75vh;
 }
 
-@media (max-width: 850px), (max-height: 500px) {
+@media (max-width: $mobileWidth), (max-height: 500px) {
   .grid {
     justify-content: center;
     display: grid;
@@ -146,7 +148,7 @@
   }
 }
 
-@media (max-width: 850px) {
+@media (max-width: $mobileWidth) {
   .pageSubtitle {
     font-size: 6vw;
     padding: 1vh 0;
