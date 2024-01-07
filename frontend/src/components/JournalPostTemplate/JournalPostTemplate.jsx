@@ -16,8 +16,9 @@ const JournalPostTemplate = ({
           to={`/journal/${currentCategory}/${postData?.id}`}
           className={universalStyles.blockTitle}
           onClick={() => {
-            localStorage.setItem("yOffset", document.documentElement.scrollTop);
+            document.body.style.overflow = "hidden";
           }}
+          id={`#${postData?.id}`}
         >
           {postData?.title}
         </Link>
@@ -31,7 +32,10 @@ const JournalPostTemplate = ({
           img: ({ node, ...props }) => (
             <img
               alt=""
-              style={{ maxWidth: "100%", maxHeight: "400px" }}
+              style={{
+                maxHeight: "250px",
+                maxWidth: "100%",
+              }}
               {...props}
             />
           ),

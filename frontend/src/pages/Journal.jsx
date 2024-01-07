@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "../axios";
 import JournalPostTemplate from "../components/JournalPostTemplate/JournalPostTemplate";
+import PostPage from "./PostPage";
 import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
 import universalStyles from "../components/UniversalStyles.module.scss";
 import { Link, useParams } from "react-router-dom";
 
 const Journal = () => {
-  let { category } = useParams();
+  let { category, id } = useParams();
+
   const [data, setData] = useState([]);
   const [descriptionData, setDescription] = useState({});
 
@@ -50,16 +52,11 @@ const Journal = () => {
           document.documentElement.offsetHeight ||
         isLoading
       ) {
-        localStorage.removeItem("yOffset");
         return;
       }
       fetchData();
     };
     window.addEventListener("scroll", handleScroll);
-
-    if (localStorage.getItem("yOffset")) {
-      window.scrollTo(0, parseInt(localStorage.getItem("yOffset")));
-    }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -89,6 +86,7 @@ const Journal = () => {
 
   return (
     <>
+      {id ? <PostPage /> : <></>}
       <PageTitle pageTitle="Action Journal" />
       <PageDescription descriptionData={descriptionData} />
       <div className={universalStyles.buttonBox}>

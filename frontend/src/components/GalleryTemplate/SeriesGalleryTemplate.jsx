@@ -36,6 +36,7 @@ const SeriesGalleryTemplate = ({
           <ImageListItem
             key={item.id}
             onClick={() => {
+              document.body.style.overflow = "hidden";
               setCurrentImage(
                 images[series].find(
                   (image) => image.galleryIndex === item.galleryIndex

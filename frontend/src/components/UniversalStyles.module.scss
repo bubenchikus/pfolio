@@ -119,6 +119,21 @@
   justify-content: center;
 }
 
+.dark {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.9);
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: $mobileWidth) {
   .buttonBox {
     display: block;

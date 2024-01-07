@@ -1,4 +1,5 @@
 import styles from "./GalleryTemplate.module.scss";
+import universalStyles from "../UniversalStyles.module.scss";
 import styleConstants from "../../styleConstants.scss";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -35,7 +36,7 @@ const CarouselTemplate = ({
   };
 
   return (
-    <div className={styles.dark}>
+    <div className={universalStyles.dark}>
       <div className={styles.carouselBox}>
         <div className={styles.carouselSidePanel}>
           <div className={styles.carouselSidePanelBox}></div>
@@ -96,6 +97,7 @@ const CarouselTemplate = ({
           <CloseIcon
             sx={iconStyle}
             onClick={() => {
+              document.body.style.overflow = "visible";
               setCurrentImage();
               setViewerIsOpen(false);
             }}

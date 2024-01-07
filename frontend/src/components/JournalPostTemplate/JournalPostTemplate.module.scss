@@ -16,3 +16,17 @@
 .img {
   min-width: 400px;
 }
+
+.postBox {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+}
+
+.closeBox {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 2vw;
+}

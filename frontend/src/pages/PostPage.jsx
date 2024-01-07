@@ -3,14 +3,13 @@ import { useParams, Link } from "react-router-dom";
 import JournalPostTemplate from "../components/JournalPostTemplate/JournalPostTemplate";
 import axios from "../axios";
 import universalStyles from "../components/UniversalStyles.module.scss";
+import styles from "../components/JournalPostTemplate/JournalPostTemplate.module.scss";
+import CloseIcon from "@mui/icons-material/Close";
+import styleConstants from "../styleConstants.scss";
 
 const PostPage = () => {
   let { category, id } = useParams();
   const [postData, setPostData] = useState({});
-
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  });
 
   useEffect(() => {
     axios
@@ -23,19 +22,47 @@ const PostPage = () => {
       });
   }, [category, id]);
 
+  const [clientWidth, setClientWidth] = useState(0);
+
+  useLayoutEffect(() => {
+    function updateWidth() {
+      setClientWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", updateWidth);
+    updateWidth();
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
+  const iconFontStyle = `${
+    clientWidth > parseInt(styleConstants.mobileWidth)
+      ? Math.floor(clientWidth / 30)
+      : Math.floor(clientWidth / 10)
+  }px`;
+
+  const iconStyle = {
+    color: "white",
+    fontSize: iconFontStyle,
+    padding: "10px",
+    cursor: "pointer",
+  };
+
   return (
-    <>
-      <JournalPostTemplate postData={postData} />
-      <div className={universalStyles.buttonBox}>
-        <Link
-          className={universalStyles.button}
-          to={`/journal/${category}`}
-          state={{ prevPage: "PostPage" }}
-        >
-          Back to journal
+    <div className={universalStyles.dark}>
+      <div className={styles.closeBox}>
+        <Link to={`/journal/${category}`}>
+          <CloseIcon
+            sx={iconStyle}
+            onClick={() => {
+              document.body.style.overflow = "visible";
+            }}
+          />
         </Link>
       </div>
-    </>
+
+      <div className={styles.postBox}>
+        <JournalPostTemplate postData={postData} clickable={false} />
+      </div>
+    </div>
   );
 };
 

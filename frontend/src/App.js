@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import Journal from "./pages/Journal";
 import GalleryPage from "./pages/GalleryPage";
 import SimplePage from "./pages/SimplePage";
-import PostPage from "./pages/PostPage";
 import { useEffect, useState } from "react";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 
@@ -114,7 +113,7 @@ function App() {
               }
             />
 
-            <Route path="/journal/:category?" element={<Journal />} />
+            <Route path="/journal/:category?/:id?" element={<Journal />} />
 
             <Route
               path="/admin-screenshots"
@@ -126,7 +125,7 @@ function App() {
               }
             />
 
-            <Route path="/journal/:category/:id" element={<PostPage />}></Route>
+            {/* <Route path="/journal/:category/:id" element={<PostPage />}></Route> */}
 
             <Route path="*" element={<Navigate to={"/"} />} />
           </Routes>
