@@ -3,51 +3,72 @@ import axios from "../../axios";
 import PageDescription from "../PageDescription";
 import CarouselTemplate from "./CarouselTemplate";
 import SeriesGalleryTemplate from "./SeriesGalleryTemplate";
+import { useParams } from "react-router-dom";
 
-const GalleryTemplate = ({ url }) => {
-  const [images, setImages] = useState({});
-  const [descriptionData, setDescription] = useState({});
-  const [seriesDescriptions, setSeriesDescriptions] = useState([]);
+const GalleryTemplate = () => {
+  let { category, id } = useParams();
 
-  const [currentImage, setCurrentImage] = useState({});
-  const [viewerIsOpen, setViewerIsOpen] = useState(false);
+  const [images, setImages] = useState();
+  const [descriptionData, setDescription] = useState();
+  const [seriesDescriptions, setSeriesDescriptions] = useState();
 
   const [clientWidth, setClientWidth] = useState(0);
 
   const [loaded, setLoaded] = useState({});
 
+  const [currentImage, setCurrentImage] = useState();
+
+  const [nextImageId, setNextImageId] = useState();
+  const [prevImageId, setPrevImageId] = useState();
+
   useEffect(() => {
     axios
-      .get(url)
+      .get(`art/${category}`)
       .then((res) => {
         setImages(res?.data);
       })
       .catch((err) => {
         console.error("Error occured while getting images!");
       });
-  }, [url]);
+  }, [category]);
+
+  useEffect(() => {
+    if (id && images) {
+      const tempCurrentImage = Object?.values(images)
+        .flat(1)
+        .find((el) => el.id === parseInt(id));
+      setCurrentImage(tempCurrentImage);
+
+      setPrevImageId(
+        images[tempCurrentImage?.series][tempCurrentImage?.galleryIndex - 1]?.id
+      );
+      setNextImageId(
+        images[tempCurrentImage?.series][tempCurrentImage?.galleryIndex + 1]?.id
+      );
+    }
+  }, [images, id]);
 
   useEffect(() => {
     axios
-      .get(`/pages-descriptions/${url.substring(4)}`)
+      .get(`/pages-descriptions/${category}`)
       .then((res) => {
         setDescription(res.data);
       })
       .catch((err) => {
         console.error("Error occured while getting descriptions!");
       });
-  }, [url]);
+  }, [category]);
 
   useEffect(() => {
     axios
-      .get(`/series-descriptions/${url.substring(4)}`)
+      .get(`/series-descriptions/${category}`)
       .then((res) => {
         setSeriesDescriptions(res.data);
       })
       .catch((err) => {
         console.error("Error occured while getting descriptions!");
       });
-  }, [url]);
+  }, [category]);
 
   useLayoutEffect(() => {
     function updateWidth() {
@@ -60,13 +81,12 @@ const GalleryTemplate = ({ url }) => {
 
   return (
     <>
-      {viewerIsOpen ? (
+      {id ? (
         <CarouselTemplate
           currentImage={currentImage}
-          setCurrentImage={setCurrentImage}
-          setViewerIsOpen={setViewerIsOpen}
+          nextImageId={nextImageId}
+          prevImageId={prevImageId}
           clientWidth={clientWidth}
-          images={images}
         />
       ) : (
         <></>
@@ -83,8 +103,6 @@ const GalleryTemplate = ({ url }) => {
               seriesDescriptions={seriesDescriptions}
               images={images}
               clientWidth={clientWidth}
-              setCurrentImage={setCurrentImage}
-              setViewerIsOpen={setViewerIsOpen}
               loaded={loaded}
               setLoaded={setLoaded}
             />

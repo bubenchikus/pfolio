@@ -1,5 +1,3 @@
-import config from "config";
-
 function sortImagesByCreatedDate(a, b) {
   const a_year = parseInt(a.created?.split("-")[0] || "0");
   const a_month = parseInt(a.created?.split("-")[1] || "0");

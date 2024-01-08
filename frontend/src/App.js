@@ -79,38 +79,8 @@ function App() {
             />
 
             <Route
-              path="/art/cg-paint-right"
-              element={
-                <GalleryPage
-                  pageTitle="CG Paintings I"
-                  url="art/cg-paint-right"
-                />
-              }
-            />
-            <Route
-              path="/art/cg-paint-left"
-              element={
-                <GalleryPage
-                  pageTitle="CG Paintings II"
-                  url="art/cg-paint-left"
-                />
-              }
-            />
-            <Route
-              path="/art/cg-graph"
-              element={
-                <GalleryPage pageTitle="CG Graphics" url="art/cg-graph" />
-              }
-            />
-            <Route
-              path="/art/trad"
-              element={<GalleryPage pageTitle="Traditional" url="art/trad" />}
-            />
-            <Route
-              path="/art/stories"
-              element={
-                <GalleryPage pageTitle="Stories materials" url="art/stories" />
-              }
+              path="/art/:category?/:id?"
+              element={<GalleryPage pageTitle="Gallery" />}
             />
 
             <Route path="/journal/:category?/:id?" element={<Journal />} />
