@@ -1,3 +1,4 @@
+import React from "react";
 import MainMenu from "../components/MainMenu/MainMenu";
 
 const Home = () => {

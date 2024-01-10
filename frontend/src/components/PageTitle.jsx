@@ -1,3 +1,4 @@
+import React from "react";
 import universalStyles from "./UniversalStyles.module.scss";
 
 const PageTitle = ({ pageTitle }) => {

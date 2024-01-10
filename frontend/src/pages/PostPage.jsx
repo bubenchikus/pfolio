@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState, useLayoutEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import JournalPostTemplate from "../components/JournalPostTemplate/JournalPostTemplate";

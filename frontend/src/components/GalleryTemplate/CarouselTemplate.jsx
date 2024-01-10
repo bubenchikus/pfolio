@@ -5,7 +5,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const CarouselTemplate = ({
@@ -62,7 +62,7 @@ const CarouselTemplate = ({
             <img
               src={`${process.env.REACT_APP_API_URL}/pictures/${currentImage?.category}/${currentImage?.pictureName}`}
               className={styles.carouselImage}
-              alt={currentImage?.title}
+              alt={currentImage.title ?? ""}
               onLoad={() => setLoaded(true)}
             />
           </div>

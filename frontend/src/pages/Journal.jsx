@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "../axios";
 import JournalPostTemplate from "../components/JournalPostTemplate/JournalPostTemplate";
@@ -28,7 +29,9 @@ const Journal = () => {
         console.error("Error occured while getting Journal page description!");
       });
     setLastPage(2);
-    pressButton(currentCategory);
+    document
+      .getElementById(currentCategory)
+      .setAttribute("class", universalStyles.buttonPressed);
   }, [currentCategory]);
 
   useEffect(() => {
@@ -74,16 +77,6 @@ const Journal = () => {
       });
   }, []);
 
-  function pressButton(id) {
-    document
-      .getElementById(id)
-      ?.setAttribute("class", universalStyles.buttonPressed);
-  }
-
-  function unpressButton(id) {
-    document.getElementById(id)?.setAttribute("class", universalStyles.button);
-  }
-
   return (
     <>
       {id ? <PostPage /> : <></>}
@@ -98,7 +91,9 @@ const Journal = () => {
             className={universalStyles.button}
             onClick={() => {
               setCurrentCategory(category);
-              unpressButton(currentCategory);
+              document
+                .getElementById(currentCategory)
+                .setAttribute("class", universalStyles.button);
             }}
           >
             {category}

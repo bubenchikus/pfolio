@@ -22,7 +22,7 @@ jobs:
 
             cd backend
             npm ci
-            /root/.nvm/versions/node/v16.20.0/bin/pm2 restart api
+            /root/.nvm/versions/node/v20.10.0/bin/pm2 restart api
             cd ..
 
             for arg in frontend admin; do

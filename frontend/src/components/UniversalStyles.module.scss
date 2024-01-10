@@ -87,6 +87,11 @@
   font-weight: 300;
 }
 
+.blockText img {
+  max-height: 250px;
+  max-width: 100%;
+}
+
 .pageTitle {
   display: flex;
   justify-content: flex-start;

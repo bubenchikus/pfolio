@@ -2,7 +2,9 @@ import * as databaseFunctions from "../db_queries/postDatabaseQueries.js";
 
 export const getAllPosts = async (req, res) => {
   try {
-    const posts = await databaseFunctions.getAllPosts(req.query.page);
+    const posts = req.query.page
+      ? await databaseFunctions.getAllPostsByPage(req.query.page)
+      : await databaseFunctions.getAllPosts();
 
     res.json(posts);
   } catch (err) {

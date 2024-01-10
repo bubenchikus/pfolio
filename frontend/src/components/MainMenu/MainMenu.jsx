@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./MainMenu.module.scss";
 import universalStyles from "../UniversalStyles.module.scss";
 
@@ -39,12 +40,12 @@ const MainMenu = () => {
 
           <Link to="/art/cg-paint-right" className={styles.blockSubblock}>
             <div className={styles.blockSubblockArt2Image}></div>
-            <div className={styles.blockSubblockText}>CG Paintings I</div>
+            <div className={styles.blockSubblockText}>CG Paintings R</div>
           </Link>
 
           <Link to="/art/cg-paint-left" className={styles.blockSubblock}>
             <div className={styles.blockSubblockArt1Image}></div>
-            <div className={styles.blockSubblockText}>CG Paintings II</div>
+            <div className={styles.blockSubblockText}>CG Paintings L</div>
           </Link>
 
           <Link to="/art/cg-graph" className={styles.blockSubblock}>

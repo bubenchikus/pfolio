@@ -1,9 +1,10 @@
+import React from "react";
 import universalStyles from "./UniversalStyles.module.scss";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import Markdown from "react-markdown";
 
 const PageDescription = ({ descriptionData }) => {
   return (
-    <ReactMarkdown
+    <Markdown
       className={universalStyles.pageDescription}
       components={{
         img: ({ node, ...props }) => (
@@ -19,7 +20,7 @@ const PageDescription = ({ descriptionData }) => {
       }}
     >
       {descriptionData?.txt || ""}
-    </ReactMarkdown>
+    </Markdown>
   );
 };
 

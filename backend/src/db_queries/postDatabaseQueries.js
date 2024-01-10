@@ -7,7 +7,18 @@ const calculateLimitsByPage = (page) => {
   return [(page - 1) * postsPerPage, postsPerPage];
 };
 
-export async function getAllPosts(page) {
+export async function getAllPosts() {
+  const res = await userQuery(
+    `
+      SELECT * 
+      FROM post
+      ORDER BY created DESC
+  `
+  );
+  return res;
+}
+
+export async function getAllPostsByPage(page) {
   const res = await userQuery(
     `
       SELECT * 
