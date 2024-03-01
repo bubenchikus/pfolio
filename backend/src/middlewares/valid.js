@@ -1,6 +1,5 @@
 import { body, validationResult } from "express-validator";
-
-import config from "config";
+import * as databaseFunctions from "../db_queries/informationSchemaQueries.js";
 
 export const validationResultStatus = (req, res, next) => {
   const errors = validationResult(req);
@@ -27,7 +26,7 @@ export const pictureValidation = [
     .isLength({ max: 255 })
     .withMessage("Picture's about must be 255 symbols maximum!"),
   body("category")
-    .isIn(config.get("categories.pictures").concat(""))
+    .isIn(await databaseFunctions.getPicturesCategories())
     .withMessage("Picture's category must be in categories list!"),
   body("pictureName")
     .isString()
@@ -72,7 +71,7 @@ export const seriesDescriptionValidation = [
     .withMessage("Series description's txt must be 65,535 symbols maximum!")
     .optional({ nullable: true }),
   body("category")
-    .isIn(config.get("categories.pictures").concat(""))
+    .isIn(await databaseFunctions.getPicturesCategories())
     .withMessage("Series descriptions's category must be in categories list!"),
   body("series")
     .isString()
@@ -115,7 +114,7 @@ export const postValidation = [
     .isLength({ max: 65535 })
     .withMessage("Posts's txt must be 65,535 symbols maximum!"),
   body("category")
-    .isIn(config.get("categories.posts"))
+    .isIn(await databaseFunctions.getPostsCategories())
     .withMessage("Post's category must be in categories list!")
     .optional({ nullable: true }),
 ];

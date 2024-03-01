@@ -2,7 +2,7 @@ import React from "react";
 import GalleryTemplate from "../components/GalleryTemplate/GalleryTemplate";
 import PageTitle from "../components/PageTitle";
 
-const GalleryPage = ({ pageTitle }) => {
+const GalleryPage = () => {
   return (
     <>
       <PageTitle

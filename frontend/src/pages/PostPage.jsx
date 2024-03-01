@@ -18,7 +18,7 @@ const PostPage = () => {
       .then((res) => {
         setPostData(res.data[0]);
       })
-      .catch((err) => {
+      .catch(() => {
         console.error("Error occured while getting post!");
       });
   }, [category, id]);

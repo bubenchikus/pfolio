@@ -25,7 +25,7 @@ const Journal = () => {
       .then((res) => {
         setData(res?.data);
       })
-      .catch((err) => {
+      .catch(() => {
         console.error("Error occured while getting Journal page description!");
       });
     setLastPage(2);
@@ -43,7 +43,7 @@ const Journal = () => {
           setData((prevData) => [...prevData, ...res?.data]);
           setLastPage((prevLastPage) => prevLastPage + 1);
         })
-        .catch((err) => {
+        .catch(() => {
           console.error("Error occured while getting journal!");
         });
       setIsLoading(false);
@@ -72,7 +72,7 @@ const Journal = () => {
       .then((res) => {
         setDescription(res?.data);
       })
-      .catch((err) => {
+      .catch(() => {
         console.error("Error occured while getting Journal page description!");
       });
   }, []);

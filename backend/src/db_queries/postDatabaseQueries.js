@@ -1,9 +1,8 @@
 import userQuery from "./baseQuery.js";
-import config from "config";
 
 const calculateLimitsByPage = (page) => {
   page = parseInt(page) || 1;
-  const postsPerPage = parseInt(config.get("journal.postsPerPage"));
+  const postsPerPage = 10;
   return [(page - 1) * postsPerPage, postsPerPage];
 };
 

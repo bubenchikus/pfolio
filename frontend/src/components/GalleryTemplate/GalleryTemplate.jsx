@@ -28,7 +28,7 @@ const GalleryTemplate = () => {
       .then((res) => {
         setImages(res?.data);
       })
-      .catch((err) => {
+      .catch(() => {
         console.error("Error occured while getting images!");
       });
   }, [category]);
@@ -38,6 +38,7 @@ const GalleryTemplate = () => {
       const tempCurrentImage = Object?.values(images)
         .flat(1)
         .find((el) => el.id === parseInt(id));
+
       setCurrentImage(tempCurrentImage);
 
       setPrevImageId(
@@ -55,7 +56,7 @@ const GalleryTemplate = () => {
       .then((res) => {
         setDescription(res.data);
       })
-      .catch((err) => {
+      .catch(() => {
         console.error("Error occured while getting descriptions!");
       });
   }, [category]);
@@ -66,7 +67,7 @@ const GalleryTemplate = () => {
       .then((res) => {
         setSeriesDescriptions(res.data);
       })
-      .catch((err) => {
+      .catch(() => {
         console.error("Error occured while getting descriptions!");
       });
   }, [category]);
@@ -96,7 +97,7 @@ const GalleryTemplate = () => {
       <PageDescription descriptionData={descriptionData} />
 
       {seriesDescriptions?.map((el, index) => {
-        if (images[el?.series]) {
+        if (el.series) {
           return (
             <SeriesGalleryTemplate
               key={index}

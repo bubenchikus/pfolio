@@ -37,7 +37,7 @@ const TableTemplate = ({ route }) => {
         setData(res.data);
         setDataChanged(false);
       })
-      .catch((err) => {
+      .catch(() => {
         console.error(`Error occured while getting ${route}!`);
       });
 
@@ -59,7 +59,7 @@ const TableTemplate = ({ route }) => {
           }
           setSeries(temp);
         })
-        .catch((err) => {
+        .catch(() => {
           console.error(`Error occured while getting series!`);
         });
     }
@@ -71,7 +71,7 @@ const TableTemplate = ({ route }) => {
       .then((res) => {
         setColumnsTitles(res.data);
       })
-      .catch((err) => {
+      .catch(() => {
         console.error(`Error occured while getting columns!`);
       });
   }, [headers]);

@@ -11,32 +11,45 @@ const MainMenu = () => {
     <>
       <div className={styles.grid}>
         <div className={styles.menuBlock}>
-          <Link to="/dev" className={styles.pageSubtitle}>
-            Dev works
-          </Link>
-          <Link to="/this-page" className={styles.blockSubblock}>
+          <div className={styles.pageSubtitle}>World building</div>
+          {/* <Link to="/this-page" className={styles.blockSubblock}>
             <div className={styles.blockSubblockDev1Image}></div>
             <div className={styles.blockSubblockText}>This Page</div>
+          </Link> */}
+          <Link to="/art/stories" className={styles.blockSubblock}>
+            {/* <div className={styles.blockSubblockArt5Image}></div> */}
+            <div className={styles.blockSubblockText}>Lore</div>
           </Link>
-          <Link
-            to="https://nutrio.bubengogh.com/"
-            className={styles.blockSubblock}
-          >
-            <div className={styles.blockSubblockDev2Image}></div>
-            <div className={styles.blockSubblockText}>Nutrio-proportion</div>
+          <Link to="/art/stories" className={styles.blockSubblock}>
+            {/* <div className={styles.blockSubblockArt5Image}></div> */}
+            <div className={styles.blockSubblockText}>Big Barn Book</div>
           </Link>
-          <Link to="/" className={styles.blockSubblock}>
-            <div className={styles.blockSubblockImage}></div>
-            <div className={styles.blockSubblockText}>In process...</div>
+          <Link to="/art/stories" className={styles.blockSubblock}>
+            {/* <div className={styles.blockSubblockArt5Image}></div> */}
+            <div className={styles.blockSubblockText}>Cast Iron Empire</div>
+          </Link>
+          <Link to="/art/stories" className={styles.blockSubblock}>
+            {/* <div className={styles.blockSubblockArt5Image}></div> */}
+            <div className={styles.blockSubblockText}>Moonwalker-1</div>
+          </Link>
+          <Link to="/art/stories" className={styles.blockSubblock}>
+            {/* <div className={styles.blockSubblockArt5Image}></div> */}
+            <div className={styles.blockSubblockText}>Numerology Plant #</div>
+          </Link>
+          <Link to="/art/stories" className={styles.blockSubblock}>
+            {/* <div className={styles.blockSubblockArt5Image}></div> */}
+            <div className={styles.blockSubblockText}>Catalogues</div>
+          </Link>
+          <Link to="/art/stories" className={styles.blockSubblock}>
+            <div className={styles.blockSubblockArt5Image}></div>
+            <div className={styles.blockSubblockText}>Other materials</div>
           </Link>
         </div>
         <div className={styles.middleBlock}>
           <img className={styles.helloImage} src={helloImage} alt="Not found" />
         </div>
         <div className={styles.menuBlock}>
-          <Link to="/art" className={styles.pageSubtitle}>
-            Art works
-          </Link>
+          <div className={styles.pageSubtitle}>Art works</div>
 
           <Link to="/art/cg-paint-right" className={styles.blockSubblock}>
             <div className={styles.blockSubblockArt2Image}></div>
@@ -53,22 +66,19 @@ const MainMenu = () => {
             <div className={styles.blockSubblockText}>CG Graphics</div>
           </Link>
 
-          <Link to="/art/trad" className={styles.blockSubblock}>
+          <Link to="/art/trad-graph" className={styles.blockSubblock}>
             <div className={styles.blockSubblockArt4Image}></div>
-            <div className={styles.blockSubblockText}>Traditional</div>
+            <div className={styles.blockSubblockText}>Trad Graph</div>
           </Link>
 
-          <Link to="/art/stories" className={styles.blockSubblock}>
-            <div className={styles.blockSubblockArt5Image}></div>
-            <div className={styles.blockSubblockText}>Stories materials</div>
+          <Link to="/art/trad-paint" className={styles.blockSubblock}>
+            {/* <div className={styles.blockSubblockArt4Image}></div> */}
+            <div className={styles.blockSubblockText}>Trad Paint</div>
           </Link>
         </div>
       </div>
       <div className={universalStyles.linkBox}>
-        <Link to="/about" className={universalStyles.link}>
-          About+contacts
-        </Link>
-        <Link to="/journal/all" className={universalStyles.link}>
+        <Link to="/journal/all" className={styles.hugeLink}>
           Action journal
         </Link>
       </div>

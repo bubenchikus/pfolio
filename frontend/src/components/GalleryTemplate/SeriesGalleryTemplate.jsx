@@ -21,7 +21,7 @@ const SeriesGalleryTemplate = ({
       }`}</div>
       {seriesDescriptions ? (
         <div className={universalStyles.blockText}>
-          {seriesDescriptions?.filter((el) => el.series === series)[0]?.txt}
+          {seriesDescriptions?.filter((el) => el?.series === series)[0]?.txt}
         </div>
       ) : (
         <></>
@@ -32,41 +32,43 @@ const SeriesGalleryTemplate = ({
         variant={"standard"}
         gap={6}
       >
-        {images[series]?.map((item) => (
-          <Link to={`/art/${item.category}/${item.id}`}>
-            <ImageListItem
-              key={item.id}
-              onClick={() => {
-                document.body.style.overflow = "hidden";
-              }}
-              sx={{
-                aspectRatio: "1",
-                overflow: "hidden",
-              }}
-            >
-              {loaded[item.id] ? null : (
-                <Skeleton
-                  variant="rectangular"
-                  sx={{ width: "100%", height: "100%" }}
-                />
-              )}
-              <img
-                className={loaded[item.id] ? styles.img : styles.imgHidden}
-                onLoad={() => {
-                  loaded[item.id] = true;
-                  setLoaded(loaded);
+        {images && images[series] ? (
+          images[series].map((item) => (
+            <Link to={`/art/${item.category}/${item.id}`} key={item.id}>
+              <ImageListItem
+                onClick={() => {
+                  document.body.style.overflow = "hidden";
                 }}
-                src={
-                  item.previewName
-                    ? `${process.env.REACT_APP_API_URL}/pictures/previews/${item.previewName}.webp`
-                    : `${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`
-                }
-                alt={item.title}
-                // loading="lazy"
-              />
-            </ImageListItem>
-          </Link>
-        ))}
+                sx={{
+                  aspectRatio: "1",
+                  overflow: "hidden",
+                }}
+              >
+                {loaded[item.id] ? null : (
+                  <Skeleton
+                    variant="rectangular"
+                    sx={{ width: "100%", height: "100%" }}
+                  />
+                )}
+                <img
+                  className={loaded[item.id] ? styles.img : styles.imgHidden}
+                  onLoad={() => {
+                    loaded[item.id] = true;
+                    setLoaded(loaded);
+                  }}
+                  src={
+                    item.previewName
+                      ? `${process.env.REACT_APP_API_URL}/pictures/previews/${item.previewName}.webp`
+                      : `${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`
+                  }
+                  alt={item.title}
+                />
+              </ImageListItem>
+            </Link>
+          ))
+        ) : (
+          <></>
+        )}
       </ImageList>
     </div>
   );

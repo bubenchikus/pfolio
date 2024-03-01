@@ -13,7 +13,7 @@ const SimplePage = ({ pagePath, pageTitle }) => {
       .then((res) => {
         setDescription(res.data);
       })
-      .catch((err) => {
+      .catch(() => {
         console.error("Error occured while getting page description!");
       });
   }, [pagePath]);

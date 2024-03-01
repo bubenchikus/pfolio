@@ -9,7 +9,7 @@
   text-decoration: none;
   justify-content: center;
   display: grid;
-  grid-template-columns: 14vw auto 14vw;
+  grid-template-columns: 16vw auto 16vw;
   gap: 0.7vw;
 }
 
@@ -54,7 +54,6 @@
   font-size: calc(10px + 0.8vw);
   color: white;
   text-shadow: 0 0 2px black, 0 0 5px black, 0 0 10px black;
-  white-space: nowrap;
   transition: 1s;
 }
 
@@ -123,6 +122,11 @@
   display: flex;
   max-width: 30vw;
   max-height: 75vh;
+}
+
+.hugeLink {
+  color: blue;
+  @extend .pageSubtitle;
 }
 
 @media (max-width: $mobileWidth), (max-height: 500px) {

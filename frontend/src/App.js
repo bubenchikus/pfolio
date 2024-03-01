@@ -34,6 +34,7 @@ function App() {
   const iconStyle = {
     color: "black",
     fontSize: "60px",
+    alignItems: "start",
     padding: 0,
     margin: 0,
   };
@@ -79,10 +80,7 @@ function App() {
               }
             />
 
-            <Route
-              path="/art/:category?/:id?"
-              element={<GalleryPage pageTitle="Gallery" />}
-            />
+            <Route path="/art/:category?/:id?" element={<GalleryPage />} />
 
             <Route path="/journal/:category?/:id?" element={<Journal />} />
 
@@ -95,8 +93,6 @@ function App() {
                 />
               }
             />
-
-            {/* <Route path="/journal/:category/:id" element={<PostPage />}></Route> */}
 
             <Route path="*" element={<Navigate to={"/"} />} />
           </Routes>
