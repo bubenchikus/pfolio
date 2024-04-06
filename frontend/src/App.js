@@ -7,7 +7,7 @@ import Journal from "./pages/Journal";
 import GalleryPage from "./pages/GalleryPage";
 import SimplePage from "./pages/SimplePage";
 import { useEffect, useState } from "react";
-import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
+import { KeyboardDoubleArrowUp, LightModeSharp, Brightness3Sharp } from "@mui/icons-material";
 
 function App() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -31,72 +31,82 @@ function App() {
     };
   }, [scrollPosition]);
 
-  const iconStyle = {
-    color: "black",
-    fontSize: "60px",
-    alignItems: "start",
-    padding: 0,
-    margin: 0,
-  };
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    if (isDark) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [isDark]);
 
   return (
     <>
-      {isUpButtonActive ? (
-        <div
-          className="upButton"
-          onClick={() => {
-            window.scrollTo(0, 0);
-          }}
-        >
-          <KeyboardDoubleArrowUpIcon sx={iconStyle} />
-          <div>UP</div>
-        </div>
-      ) : null}
+      {
+        isUpButtonActive ? (
+          <div
+            className="upButton"
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
+          >
+            <KeyboardDoubleArrowUp sx={{ fontSize: "60px" }} />
+            <div>UP</div>
+          </div >
+        ) : null}
 
-      <Container>
-        <Header />
-        <div className="wrapper">
-          <Routes>
-            <Route path="/" element={<Home />} />
+      <div
+        className="togglerButton"
+        onClick={() => { setIsDark(!isDark) }}
+      >
+        {isDark ? <LightModeSharp sx={{ fontSize: "50px" }} /> : <Brightness3Sharp sx={{ fontSize: "50px" }} />}
 
-            <Route
-              path="/dev"
-              element={<SimplePage pagePath="dev" pageTitle="Dev works" />}
-            />
-            <Route
-              path="/this-page"
-              element={
-                <SimplePage pagePath="this-page" pageTitle="This page" />
-              }
-            />
-            <Route
-              path="/art"
-              element={<SimplePage pagePath="art" pageTitle="Art works" />}
-            />
-            <Route
-              path="/about"
-              element={
-                <SimplePage pagePath="about" pageTitle="About+contacts" />
-              }
-            />
+      </div>
 
-            <Route path="/art/:category?/:id?" element={<GalleryPage />} />
+      <Header isDark={isDark} />
+      <Container maxWidth="lg">
 
-            <Route path="/journal/:category?/:id?" element={<Journal />} />
+        <Routes>
+          <Route path="/" element={<Home isDark={isDark} />} />
 
-            <Route
-              path="/admin-screenshots"
-              element={
-                <SimplePage
-                  pagePath="admin-screenshots"
-                  pageTitle="Admin panel screenshots"
-                />
-              }
-            />
+          <Route
+            path="/dev"
+            element={<SimplePage pagePath="dev" pageTitle="Dev works" />}
+          />
+          <Route
+            path="/this-page"
+            element={
+              <SimplePage pagePath="this-page" pageTitle="This page" />
+            }
+          />
+          <Route
+            path="/art"
+            element={<SimplePage pagePath="art" pageTitle="Art works" />}
+          />
+          <Route
+            path="/about"
+            element={
+              <SimplePage pagePath="about" pageTitle="About+contacts" />
+            }
+          />
 
-            <Route path="*" element={<Navigate to={"/"} />} />
-          </Routes>
-        </div>
+          <Route path="/art/:category?/:id?" element={<GalleryPage />} />
+
+          <Route path="/journal/:category?/:id?" element={<Journal />} />
+
+          <Route
+            path="/admin-screenshots"
+            element={
+              <SimplePage
+                pagePath="admin-screenshots"
+                pageTitle="Admin panel screenshots"
+              />
+            }
+          />
+
+          <Route path="*" element={<Navigate to={"/"} />} />
+        </Routes>
       </Container>
     </>
   );

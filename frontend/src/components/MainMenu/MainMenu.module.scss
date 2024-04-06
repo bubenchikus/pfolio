@@ -25,15 +25,14 @@
   display: flex;
   align-items: center;
   font-family: "Marcellus SC", serif;
-  font-size: calc(20px + 0.5vw);
+  font-size: calc(30px + 0.1vw);
   letter-spacing: -2px;
   padding: calc(15px + 0.5vh) 0;
-  color: rgb(85, 85, 85);
   text-decoration: underline 2px;
   transition: 1s;
   text-transform: uppercase;
   font-weight: 400;
-  mix-blend-mode: multiply;
+  color: var(--varSubtitle);
 }
 
 .blockSubblock {
@@ -62,7 +61,7 @@
   height: 100%;
   background-position: center 50%;
   background-size: 100% auto;
-  filter: brightness(0.6);
+  filter: brightness(var(--varSubblockImageBrightness));
   transition: 1s;
 }
 
@@ -125,8 +124,12 @@
 }
 
 .hugeLink {
-  color: blue;
+  color: var(--varLinkColor);
   @extend .pageSubtitle;
+}
+
+.hugeLink:hover {
+  font-size: calc(30px + 0.2vw);
 }
 
 @media (max-width: $mobileWidth), (max-height: 500px) {

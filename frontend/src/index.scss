@@ -16,6 +16,66 @@
   text-decoration-skip-ink: none;
 }
 
+.baseBody {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Hind Madurai",
+    "Titillium Web", "Marcellus";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @extend .baseBody;
+
+  background: var(--varMainColor);
+  background: radial-gradient(
+    circle,
+    rgba(107, 226, 183, 1) 0%,
+    rgba(237, 255, 246, 1) 50%,
+    rgba(253, 255, 253, 1) 65%,
+    rgba(255, 255, 255, 1) 100%
+  );
+
+  --varMainColor: white;
+  --varSubtitle: rgb(85, 85, 85);
+  --varContrastTextsAndLogos: black;
+  --varLinkColor: blue;
+  --varSubblockImageBrightness: 0.6;
+  --varContainerColor: rgb(160, 187, 175);
+  --varBlockLink: rgb(54, 54, 167);
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.dark {
+  @extend .baseBody;
+  background: var(--varMainColor);
+  background: radial-gradient(
+    circle,
+    rgba(83, 89, 117, 1) 0%,
+    rgba(38, 38, 45, 1) 46%,
+    rgba(12, 13, 13, 1) 100%
+  );
+
+  --varMainColor: rgba(12, 13, 13, 1);
+  --varSubtitle: rgb(209, 209, 209);
+  --varContrastTextsAndLogos: rgb(220, 220, 220);
+  --varLinkColor: rgb(121, 121, 255);
+  --varSubblockImageBrightness: 0.8;
+  --varContainerColor: rgb(123, 142, 155);
+  --varBlockLink: rgb(22, 22, 139);
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+h2 {
+  color: var(--varContrastTextsAndLogos);
+  font-weight: 500;
+}
+
 .wrapper {
   align-items: center;
   min-height: 100%;
@@ -25,9 +85,9 @@
   position: fixed;
   display: flex;
   flex-direction: row;
-  height: 80px;
-  padding: 20px;
-  z-index: 2;
+  height: 60px;
+  margin: 0px 20px;
+  padding: 0px 10px;
   align-items: center;
   justify-content: center;
   font-size: 30px;
@@ -35,31 +95,16 @@
   letter-spacing: -2px;
   line-height: calc(25px + 1vw);
   cursor: pointer;
+  color: var(--varContrastTextsAndLogos);
+  z-index: 1;
 }
 
-.themeSwitcher {
-  position: fixed;
-  padding: 20px;
+.togglerButton {
+  @extend .upButton;
+  background: none;
+  position: absolute;
   right: 0;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Hind Madurai",
-    "Titillium Web", "Marcellus";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: white;
-  background: radial-gradient(
-    circle,
-    rgba(107, 226, 183, 1) 0%,
-    rgba(237, 255, 246, 1) 50%,
-    rgba(253, 255, 253, 1) 65%,
-    rgba(255, 255, 255, 1) 100%
-  );
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  padding: 20px;
 }
 
 html {

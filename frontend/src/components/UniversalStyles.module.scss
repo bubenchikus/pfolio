@@ -18,7 +18,7 @@
 }
 
 .link {
-  color: rgb(0, 0, 140);
+  color: var(--varBlockLink);
   text-decoration: underline 2px;
   font-size: calc(15px + 0.3vw);
   text-align: center;
@@ -35,14 +35,14 @@
   font-size: 22px;
   height: 40px;
   padding: 0 20px;
-  background-color: rgb(161, 204, 180);
+  background-color: var(--varContainerColor);
   border-radius: 5px;
   transition: 0.5s;
 }
 
 .buttonPressed {
   @extend .button;
-  background-color: rgb(58, 154, 114);
+  filter: saturate(3) brightness(0.7);
 }
 
 .link:hover {
@@ -62,21 +62,24 @@
   border: black 2px solid;
   border-left: black 4px solid;
   box-sizing: border-box;
-  background-color: rgb(160, 187, 175);
+  background-color: var(--varContainerColor);
   overflow-wrap: break-word;
-  padding: 0 20px;
+  padding: 10px 20px;
   border-radius: 0 5px 5px 0;
 }
 
 .blockTitle {
   font-size: 25px;
-  margin-top: 10px;
   text-decoration: underline 2px;
   text-underline-offset: 4px;
 }
 
+.blockTitle:link {
+  color: var(--varBlockLink);
+}
+
 .blockTitle:visited {
-  color: blue;
+  color: var(--varBlockLink);
 }
 
 .blockText {
@@ -95,15 +98,14 @@
   justify-content: flex-start;
   align-items: center;
   font-size: 40px;
-  color: rgb(119, 119, 119);
-  border-bottom: solid rgb(119, 119, 119) 3px;
+  color: var(--varSubtitle);
+  border-bottom: solid var(--varSubtitle) 3px;
   letter-spacing: -2px;
   margin: 5px 0 30px 0;
   font-family: "Marcellus SC", serif;
   line-height: 98%;
   text-transform: uppercase;
   font-weight: 400;
-  mix-blend-mode: multiply;
 }
 
 .pageSubtitle:hover {
@@ -113,6 +115,7 @@
 
 .pageDescription {
   @extend .blockText;
+  color: var(--varContrastTextsAndLogos);
   margin-bottom: 30px;
   max-width: 100%;
 }
