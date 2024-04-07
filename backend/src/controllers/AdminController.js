@@ -32,7 +32,7 @@ export const getColumns = async (_, res) => {
       "posts-categories": await databaseFunctions.getPostsCategories(),
       pictures: await databaseFunctions.getPicturesColumnsNames(),
       posts: await databaseFunctions.getPostsColumnsNames(),
-      "series-descriptions": ["id", "txt", "category", "series", "arrangement"],
+      "series-descriptions": await databaseFunctions.getSeriesDescriptionsColumnsNames(),
       "pages-descriptions": ["id", "txt", "page"],
     });
   } catch (err) {

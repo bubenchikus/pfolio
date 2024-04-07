@@ -1,54 +1,68 @@
 import userQuery from "./baseQuery.js";
 
-const getCategoriesFromEnum = (enumString) => {
-    return enumString
-        .substring(5, enumString.length - 1)
-        .replaceAll("'", "")
-        .split(",");
+const makeIdFirst = (arr) => {
+  arr.splice(arr.indexOf("id"), 1);
+  arr.unshift("id");
+  return arr;
 };
 
+const getCategoriesQuery = (tableName) => {
+  return `
+  SELECT column_type
+  FROM information_schema.columns
+  WHERE table_name = '${tableName}'
+  AND column_name = 'category';
+`
+}
+
+const getCategoriesListFromRes = (res) => {
+  const enumString = res[0]["COLUMN_TYPE"];
+  const arr = enumString
+    .substring(5, enumString.length - 1)
+    .replaceAll("'", "")
+    .split(",");
+  return makeIdFirst(arr);
+};
+
+const getCategories = async (tableName) => {
+  const query = getCategoriesQuery(tableName);
+  const res = await userQuery(
+    query
+  );
+  return getCategoriesListFromRes(res);
+}
+
 export async function getPicturesCategories() {
-    const res = await userQuery(
-        `
-        SELECT column_type
-        FROM information_schema.columns
-        WHERE table_name = 'picture'
-        AND column_name = 'category';
-      `
-    );
-    return getCategoriesFromEnum(res[0]["COLUMN_TYPE"]);
+  return await getCategories("picture");
 }
 
 export async function getPostsCategories() {
-    const res = await userQuery(
-        `
-        SELECT column_type
-        FROM information_schema.columns
-        WHERE table_name = 'post'
-        AND column_name = 'category';
-      `
-    );
-    return getCategoriesFromEnum(res[0]["COLUMN_TYPE"]);
+  return await getCategories("post");
 }
 
+const getColumnsQuery = (tableName) => {
+  return `
+  SELECT column_name
+  FROM information_schema.columns
+  WHERE table_name = '${tableName}';
+`;
+};
+
+const getColumnsNames = async (tableName) => {
+  const query = getColumnsQuery(tableName);
+  const res = await userQuery(query);
+  const listFromRes = res.map((name) => name.COLUMN_NAME);
+  return makeIdFirst(listFromRes);
+};
+
 export async function getPicturesColumnsNames() {
-    const res = await userQuery(
-        `
-        SELECT column_name
-        FROM information_schema.columns
-        WHERE table_name = 'picture';
-      `
-    );
-    return res.map((name) => name.COLUMN_NAME);
+  return await getColumnsNames("picture");
 }
 
 export async function getPostsColumnsNames() {
-    const res = await userQuery(
-        `
-        SELECT column_name
-        FROM information_schema.columns
-        WHERE table_name = 'post';
-      `
-    );
-    return res.map((name) => name.COLUMN_NAME);
+  return await getColumnsNames("post");
+}
+
+export async function getSeriesDescriptionsColumnsNames() {
+  return await getColumnsNames("description");
 }

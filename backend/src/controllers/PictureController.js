@@ -57,6 +57,20 @@ export const getPicturesByCategory = async (req, res) => {
   }
 };
 
+export const getPicturesByCategoryAndSeries = async (req, res) => {
+  try {
+    const pictures = await databaseFunctions.getPicturesByCategoryAndSeries(
+      req.params.category,
+      req.params.series
+    );
+
+    res.json(processPictures(pictures));
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Getting pictures failed (by category)!" });
+  }
+};
+
 export const uploadPicture = async (req, res) => {
   try {
     await databaseFunctions.uploadPicture(

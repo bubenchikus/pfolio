@@ -70,29 +70,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home isDark={isDark} />} />
 
-          <Route
-            path="/dev"
-            element={<SimplePage pagePath="dev" pageTitle="Dev works" />}
-          />
-          <Route
-            path="/this-page"
-            element={
-              <SimplePage pagePath="this-page" pageTitle="This page" />
-            }
-          />
-          <Route
-            path="/art"
-            element={<SimplePage pagePath="art" pageTitle="Art works" />}
-          />
-          <Route
-            path="/about"
-            element={
-              <SimplePage pagePath="about" pageTitle="About+contacts" />
-            }
-          />
-
           <Route path="/art/:category?/:id?" element={<GalleryPage />} />
-
+          <Route path="/world/:series?" element={<SimplePage />} />
           <Route path="/journal/:category?/:id?" element={<Journal />} />
 
           <Route

@@ -32,6 +32,8 @@ app.post(`/upload-preview`, checkAuth, uploadPreview);
 
 app.get("/art/:category", PictureController.getPicturesByCategory);
 
+app.get("/art/:category/:series", PictureController.getPicturesByCategoryAndSeries);
+
 app.get(
   "/pages-descriptions",
   PageDescriptionController.getAllPagesDescriptions

@@ -64,6 +64,20 @@ export async function getPicturesByCategory(category) {
   return res;
 }
 
+export async function getPicturesByCategoryAndSeries(category, series) {
+  const res = await userQuery(
+    `
+      SELECT * 
+      FROM picture
+      WHERE category=?
+      AND series=?
+      AND hide=false;
+    `,
+    [category, series]
+  );
+  return res;
+}
+
 export async function getPictureById(id) {
   const res = await userQuery(
     `

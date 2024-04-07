@@ -75,14 +75,39 @@
   font-size: calc(10px + 1vw);
 }
 
-.blockSubblockDev1Image {
+.blockSubblockWorld1Image {
   @extend .blockSubblockImage;
-  background-image: url("../../uiPictures/site-hands.webp");
+  background-image: url("../../uiPictures/lore.webp");
 }
 
-.blockSubblockDev2Image {
+.blockSubblockWorld2Image {
   @extend .blockSubblockImage;
-  background-image: url("../../uiPictures/site-ptichky.webp");
+  background-image: url("../../uiPictures/bbb.webp");
+}
+
+.blockSubblockWorld3Image {
+  @extend .blockSubblockImage;
+  background-image: url("../../uiPictures/cast-iron-empire.webp");
+}
+
+.blockSubblockWorld4Image {
+  @extend .blockSubblockImage;
+  background-image: url("../../uiPictures/moonwalker-1.webp");
+}
+
+.blockSubblockWorld5Image {
+  @extend .blockSubblockImage;
+  background-image: url("../../uiPictures/numerology-plant.webp");
+}
+
+.blockSubblockWorld6Image {
+  @extend .blockSubblockImage;
+  background-image: url("../../uiPictures/catalogue.webp");
+}
+
+.blockSubblockWorld7Image {
+  @extend .blockSubblockImage;
+  background-image: url("../../uiPictures/other.webp");
 }
 
 .blockSubblockArt1Image {
@@ -107,7 +132,6 @@
 
 .blockSubblockArt5Image {
   @extend .blockSubblockImage;
-  background-image: url("../../uiPictures/stories.webp");
 }
 
 .middleBlock {
