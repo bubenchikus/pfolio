@@ -91,6 +91,7 @@
 
 .blockText img {
   max-height: 300px;
+  max-width: 100%;
 }
 
 .pageTitle {
@@ -118,6 +119,10 @@
   color: var(--varContrastTextsAndLogos);
   margin-bottom: 30px;
   max-width: 100%;
+}
+
+.pageDescription img {
+  max-height: 80vh;
 }
 
 .paginationBox {

@@ -4,21 +4,7 @@ import Markdown from "react-markdown";
 
 const PageDescription = ({ descriptionData }) => {
   return (
-    <Markdown
-      className={universalStyles.pageDescription}
-      components={{
-        img: ({ node, ...props }) => (
-          <img
-            alt=""
-            style={{
-              maxWidth: "100%",
-              maxHeight: "500px",
-            }}
-            {...props}
-          />
-        ),
-      }}
-    >
+    <Markdown className={universalStyles.pageDescription}>
       {descriptionData?.txt || ""}
     </Markdown>
   );

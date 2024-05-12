@@ -1,15 +1,30 @@
-import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Header from "./components/Header/Header";
-import Home from "./pages/Home";
-import Journal from "./pages/Journal";
-import GalleryPage from "./pages/GalleryPage";
-import SimplePage from "./pages/SimplePage";
-import { useEffect, useState } from "react";
-import { KeyboardDoubleArrowUp, LightModeSharp, Brightness3Sharp } from "@mui/icons-material";
+import { useEffect, useState, useMemo } from "react";
+import {
+  KeyboardDoubleArrowUp,
+  LightModeSharp,
+  Brightness3Sharp,
+} from "@mui/icons-material";
+import { GalleryPage, Home, Journal, SimplePage } from "./pages";
+import createPersistedState from "use-persisted-state";
+import { artCategories, journalCategories } from "./internalConstants";
 
 function App() {
+  const useColorSchemeState = createPersistedState("colorScheme");
+  const [isDark, setIsDark] = useColorSchemeState(true);
+
+  const value = useMemo(() => isDark, [isDark]);
+
+  useEffect(() => {
+    if (value) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [value]);
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isUpButtonActive, setIsUpButtonActive] = useState(false);
 
@@ -31,51 +46,55 @@ function App() {
     };
   }, [scrollPosition]);
 
-  const [isDark, setIsDark] = useState(true);
-
-  useEffect(() => {
-    if (isDark) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
-  }, [isDark]);
-
   return (
     <>
-      {
-        isUpButtonActive ? (
-          <div
-            className="upButton"
-            onClick={() => {
-              window.scrollTo(0, 0);
-            }}
-          >
-            <KeyboardDoubleArrowUp sx={{ fontSize: "60px" }} />
-            <div>UP</div>
-          </div >
-        ) : null}
+      {isUpButtonActive ? (
+        <div
+          className="upButton"
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+        >
+          <KeyboardDoubleArrowUp sx={{ fontSize: "60px" }} />
+          <div>UP</div>
+        </div>
+      ) : null}
 
       <div
         className="togglerButton"
-        onClick={() => { setIsDark(!isDark) }}
+        onClick={() => {
+          setIsDark(!isDark);
+        }}
       >
-        {isDark ? <LightModeSharp sx={{ fontSize: "50px" }} /> : <Brightness3Sharp sx={{ fontSize: "50px" }} />}
-
+        {isDark ? (
+          <LightModeSharp sx={{ fontSize: "50px" }} />
+        ) : (
+          <Brightness3Sharp sx={{ fontSize: "50px" }} />
+        )}
       </div>
 
       <Header isDark={isDark} />
       <Container maxWidth="lg">
-
         <Routes>
           <Route path="/" element={<Home isDark={isDark} />} />
 
-          <Route path="/art/:category?/:id?" element={<GalleryPage />} />
-          <Route path="/world/:series?" element={<SimplePage />} />
-          <Route path="/journal/:category?/:id?" element={<Journal />} />
+          {artCategories.map((category) => (
+            <Route
+              path={`/art/${category}/:id?`}
+              element={<GalleryPage category={category} />}
+            />
+          ))}
+
+
+          <Route path={`/journal/:category/:id?`} element={<Journal />} />
+
 
           <Route
-            path="/admin-screenshots"
+            path="/article/lore?"
+            element={<SimplePage pageTitle="Lore" />}
+          />
+          <Route
+            path="/article/admin-screenshots"
             element={
               <SimplePage
                 pagePath="admin-screenshots"
@@ -85,6 +104,7 @@ function App() {
           />
 
           <Route path="*" element={<Navigate to={"/"} />} />
+
         </Routes>
       </Container>
     </>

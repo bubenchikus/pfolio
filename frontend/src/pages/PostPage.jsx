@@ -16,7 +16,12 @@ const PostPage = () => {
     axios
       .get(`/posts/${category}/${id}`)
       .then((res) => {
-        setPostData(res.data[0]);
+        setPostData(
+          res.data || {
+            title: "Seems like post with this id does not exist...",
+            txt: "(◉Θ◉)",
+          }
+        );
       })
       .catch(() => {
         console.error("Error occured while getting post!");

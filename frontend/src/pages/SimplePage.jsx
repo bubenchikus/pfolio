@@ -3,22 +3,23 @@ import { useState, useEffect } from "react";
 import axios from "../axios";
 import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
+import { useParams } from "react-router-dom";
 
-const SimplePage = ({ pagePath, pageTitle }) => {
-  const [descriptionData, setDescription] = useState();
+const SimplePage = ({ pageTitle }) => {
+  const [descriptionData, setDescription] = useState({});
 
-  console.log("HERE");
+  let { id } = useParams();
 
   useEffect(() => {
     axios
-      .get(`/pages-descriptions/${pagePath}`)
+      .get(`/pages-descriptions/${id}`)
       .then((res) => {
         setDescription(res.data);
       })
       .catch(() => {
         console.error("Error occured while getting page description!");
       });
-  }, [pagePath]);
+  }, [id]);
 
   return (
     <>

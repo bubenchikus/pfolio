@@ -6,8 +6,8 @@ import CarouselTemplate from "./CarouselTemplate";
 import SeriesGalleryTemplate from "./SeriesGalleryTemplate";
 import { useParams } from "react-router-dom";
 
-const GalleryTemplate = () => {
-  let { category, id } = useParams();
+const GalleryTemplate = ({ category }) => {
+  let { id } = useParams();
 
   const [images, setImages] = useState();
   const [descriptionData, setDescription] = useState();
@@ -31,26 +31,7 @@ const GalleryTemplate = () => {
       .catch(() => {
         console.error("Error occured while getting images!");
       });
-  }, [category]);
 
-  useEffect(() => {
-    if (id && images) {
-      const tempCurrentImage = Object?.values(images)
-        .flat(1)
-        .find((el) => el.id === parseInt(id));
-
-      setCurrentImage(tempCurrentImage);
-
-      setPrevImageId(
-        images[tempCurrentImage?.series][tempCurrentImage?.galleryIndex - 1]?.id
-      );
-      setNextImageId(
-        images[tempCurrentImage?.series][tempCurrentImage?.galleryIndex + 1]?.id
-      );
-    }
-  }, [images, id]);
-
-  useEffect(() => {
     axios
       .get(`/pages-descriptions/${category}`)
       .then((res) => {
@@ -59,9 +40,7 @@ const GalleryTemplate = () => {
       .catch(() => {
         console.error("Error occured while getting descriptions!");
       });
-  }, [category]);
 
-  useEffect(() => {
     axios
       .get(`/series-descriptions/${category}`)
       .then((res) => {
@@ -71,6 +50,29 @@ const GalleryTemplate = () => {
         console.error("Error occured while getting descriptions!");
       });
   }, [category]);
+
+  useEffect(() => {
+    if (id && images) {
+      const tempCurrentImage = Object?.values(images)
+        .flat(1)
+        .find((el) => el.id === parseInt(id));
+
+      if (tempCurrentImage) {
+        setCurrentImage(tempCurrentImage);
+
+        setPrevImageId(
+          images[tempCurrentImage?.series][tempCurrentImage?.galleryIndex - 1]
+            ?.id
+        );
+        setNextImageId(
+          images[tempCurrentImage?.series][tempCurrentImage?.galleryIndex + 1]
+            ?.id
+        );
+      }
+    } else {
+      id = undefined;
+    }
+  });
 
   useLayoutEffect(() => {
     function updateWidth() {
@@ -97,20 +99,19 @@ const GalleryTemplate = () => {
       <PageDescription descriptionData={descriptionData} />
 
       {seriesDescriptions?.map((el, index) => {
-        if (el.series) {
-          return (
-            <SeriesGalleryTemplate
-              key={index}
-              series={el.series}
-              seriesDescriptions={seriesDescriptions}
-              images={images}
-              clientWidth={clientWidth}
-              loaded={loaded}
-              setLoaded={setLoaded}
-            />
-          );
-        }
-        return <></>;
+        return images && Object.keys(images)?.includes(el?.series) ? (
+          <SeriesGalleryTemplate
+            key={index}
+            series={el?.series}
+            seriesDescription={el?.series.txt}
+            images={images[el?.series]}
+            clientWidth={clientWidth}
+            loaded={loaded}
+            setLoaded={setLoaded}
+          />
+        ) : (
+          <></>
+        );
       })}
     </>
   );

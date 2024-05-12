@@ -72,7 +72,7 @@ export const deletePost = async (req, res) => {
 export const getPostById = async (req, res) => {
   try {
     const post = await databaseFunctions.getPostById(req.params.id);
-    res.json(post);
+    res.json(post[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Getting post by id failed!" });

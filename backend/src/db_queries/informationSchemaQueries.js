@@ -1,8 +1,13 @@
 import userQuery from "./baseQuery.js";
 
 const makeIdFirst = (arr) => {
-  arr.splice(arr.indexOf("id"), 1);
-  arr.unshift("id");
+  const idIndex = arr.indexOf("id");
+
+  if (idIndex > -1) {
+    arr.splice(arr.indexOf("id"), 1);
+    arr.unshift("id");
+  }
+
   return arr;
 };
 
@@ -17,18 +22,22 @@ const getCategoriesQuery = (tableName) => {
 
 const getCategoriesListFromRes = (res) => {
   const enumString = res[0]["COLUMN_TYPE"];
+
   const arr = enumString
     .substring(5, enumString.length - 1)
     .replaceAll("'", "")
     .split(",");
+
   return makeIdFirst(arr);
 };
 
 const getCategories = async (tableName) => {
   const query = getCategoriesQuery(tableName);
+
   const res = await userQuery(
     query
   );
+
   return getCategoriesListFromRes(res);
 }
 

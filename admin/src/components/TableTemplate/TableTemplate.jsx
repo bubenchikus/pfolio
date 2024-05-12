@@ -49,10 +49,10 @@ const TableTemplate = ({ route }) => {
           if (res.data) {
             Object.values(res.data)?.forEach((el) => {
               if (!temp.hasOwnProperty(el.category)) {
-                temp[el.category] = [el.series];
+                temp[el.category] = [el?.series];
               } else {
-                if (!temp[el.category].includes(el.series)) {
-                  temp[el.category].push(el.series);
+                if (!temp[el.category].includes(el?.series)) {
+                  temp[el.category].push(el?.series);
                 }
               }
             });

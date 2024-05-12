@@ -7,7 +7,7 @@ export const getAllPagesDescriptions = async (_, res) => {
     );
 
     const processedDescriptions = descriptions?.map((el) => {
-      return { id: el.id, page: el.series, txt: el.txt };
+      return { id: el.id, page: el?.series, txt: el.txt };
     });
 
     res.json(processedDescriptions);

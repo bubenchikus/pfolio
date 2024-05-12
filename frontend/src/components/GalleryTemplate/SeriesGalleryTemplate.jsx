@@ -8,68 +8,62 @@ import { Link } from "react-router-dom";
 
 const SeriesGalleryTemplate = ({
   series,
-  seriesDescriptions,
+  seriesDescription,
   images,
   clientWidth,
   loaded,
   setLoaded,
 }) => {
+  const imagesList = images?.map((item) => (
+    <Link to={`/art/${item.category}/${item.id}`} key={item.id}>
+      <ImageListItem
+        onClick={() => {
+          document.body.style.overflow = "hidden";
+        }}
+        sx={{
+          aspectRatio: "1",
+          overflow: "hidden",
+        }}
+      >
+        {loaded[item.id] ? null : (
+          <Skeleton
+            variant="rectangular"
+            sx={{ width: "100%", height: "100%" }}
+          />
+        )}
+        <img
+          className={loaded[item.id] ? styles.img : styles.imgHidden}
+          onLoad={() => {
+            loaded[item.id] = true;
+            setLoaded(loaded);
+          }}
+          src={
+            item.previewName
+              ? `${process.env.REACT_APP_API_URL}/pictures/previews/${item.previewName}.webp`
+              : `${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`
+          }
+          alt={item.title}
+        />
+      </ImageListItem>
+    </Link>
+  ));
   return (
     <div className={universalStyles.blockContainer}>
       <div className={universalStyles.blockTitle}>{`Series: ${
         series ? series : "no-series"
       }`}</div>
-      {seriesDescriptions ? (
-        <div className={universalStyles.blockText}>
-          {seriesDescriptions?.filter((el) => el?.series === series)[0]?.txt}
-        </div>
+      {seriesDescription ? (
+        <div className={universalStyles.blockText}>{seriesDescription}</div>
       ) : (
         <></>
       )}
       <ImageList
         sx={{ margin: "15px 0", padding: "2px" }}
-        cols={Math.max(Math.floor(clientWidth / 320), 2)}
+        cols={Math.max(Math.floor(clientWidth / 300), 2)}
         variant={"standard"}
         gap={6}
-      >
-        {images && images[series] ? (
-          images[series].map((item) => (
-            <Link to={`/art/${item.category}/${item.id}`} key={item.id}>
-              <ImageListItem
-                onClick={() => {
-                  document.body.style.overflow = "hidden";
-                }}
-                sx={{
-                  aspectRatio: "1",
-                  overflow: "hidden",
-                }}
-              >
-                {loaded[item.id] ? null : (
-                  <Skeleton
-                    variant="rectangular"
-                    sx={{ width: "100%", height: "100%" }}
-                  />
-                )}
-                <img
-                  className={loaded[item.id] ? styles.img : styles.imgHidden}
-                  onLoad={() => {
-                    loaded[item.id] = true;
-                    setLoaded(loaded);
-                  }}
-                  src={
-                    item.previewName
-                      ? `${process.env.REACT_APP_API_URL}/pictures/previews/${item.previewName}.webp`
-                      : `${process.env.REACT_APP_API_URL}/pictures/${item.category}/${item.pictureName}`
-                  }
-                  alt={item.title}
-                />
-              </ImageListItem>
-            </Link>
-          ))
-        ) : (
-          <></>
-        )}
-      </ImageList>
+        children={imagesList ?? []}
+      ></ImageList>
     </div>
   );
 };

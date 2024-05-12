@@ -7,6 +7,7 @@ import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
 import universalStyles from "../components/UniversalStyles.module.scss";
 import { Link, useParams } from "react-router-dom";
+import { journalCategories } from "../internalConstants";
 
 const Journal = () => {
   let { category, id } = useParams();
@@ -24,14 +25,16 @@ const Journal = () => {
       .get(`/posts/${currentCategory}?page=1`)
       .then((res) => {
         setData(res?.data);
+        if (res?.data) {
+          setLastPage(2);
+          document
+            .getElementById(currentCategory)
+            .setAttribute("class", universalStyles.buttonPressed);
+        }
       })
       .catch(() => {
         console.error("Error occured while getting Journal page description!");
       });
-    setLastPage(2);
-    document
-      .getElementById(currentCategory)
-      .setAttribute("class", universalStyles.buttonPressed);
   }, [currentCategory]);
 
   useEffect(() => {
@@ -77,13 +80,13 @@ const Journal = () => {
       });
   }, []);
 
-  return (
+  return data ? (
     <>
       {id ? <PostPage /> : <></>}
       <PageTitle pageTitle="Action Journal" />
       <PageDescription descriptionData={descriptionData} />
       <div className={universalStyles.buttonBox}>
-        {["all", "dev", "art", "stories", "misc"].map((category) => (
+        {journalCategories.map((category) => (
           <Link
             to={`/journal/${category}`}
             key={category}
@@ -113,6 +116,8 @@ const Journal = () => {
       )}
       <>{isLoading && <p>Loading...</p>}</>
     </>
+  ) : (
+    <></>
   );
 };
 
