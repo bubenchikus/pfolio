@@ -1,21 +1,25 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "../axios";
 import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
+import { useParams } from "react-router-dom";
 
-const SimplePage = ({ pagePath, pageTitle }) => {
+const SimplePage = ({ pageTitle }) => {
   const [descriptionData, setDescription] = useState({});
+
+  let { id } = useParams();
 
   useEffect(() => {
     axios
-      .get(`/pages-descriptions/${pagePath}`)
+      .get(`/pages-descriptions/${id}`)
       .then((res) => {
         setDescription(res.data);
       })
-      .catch((err) => {
-        alert("Error occured while getting page description!");
+      .catch(() => {
+        console.error("Error occured while getting page description!");
       });
-  }, [pagePath]);
+  }, [id]);
 
   return (
     <>

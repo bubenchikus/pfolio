@@ -1,26 +1,32 @@
+import React from "react";
 import universalStyles from "../UniversalStyles.module.scss";
 import styles from "./JournalPostTemplate.module.scss";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import emoji from "node-emoji";
+import Markdown from "react-markdown";
+import { Link } from "react-router-dom";
 
-const JournalPostTemplate = ({ postData }) => {
+const JournalPostTemplate = ({
+  postData,
+  currentCategory,
+  clickable = false,
+}) => {
   return (
     <div className={universalStyles.blockContainer}>
-      <div className={universalStyles.blockTitle}>{postData?.title}</div>
-      <ReactMarkdown
-        className={universalStyles.blockText}
-        components={{
-          img: ({ node, ...props }) => (
-            <img
-              alt=""
-              style={{ maxWidth: "100%", maxHeight: "400px" }}
-              {...props}
-            />
-          ),
-        }}
-      >
-        {emoji.emojify(postData?.txt)}
-      </ReactMarkdown>
+      {clickable ? (
+        <Link
+          to={`/journal/${currentCategory}/${postData?.id}`}
+          className={universalStyles.blockTitle}
+          onClick={() => {
+            document.body.style.overflow = "hidden";
+          }}
+          id={`#${postData?.id}`}
+        >
+          {postData?.title}
+        </Link>
+      ) : (
+        <div className={universalStyles.blockTitle}>{postData?.title}</div>
+      )}
+
+      <Markdown className={universalStyles.blockText}>{postData?.txt}</Markdown>
       <div className={styles.footer}>
         <div className={styles.footerComponent}>
           <b>Created:</b> {postData?.created?.substring(0, 10)}

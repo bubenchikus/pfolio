@@ -1,0 +1,5 @@
+{
+  "events": {
+    "crash": "npx kill-port 4002"
+  }
+}

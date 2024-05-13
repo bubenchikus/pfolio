@@ -7,12 +7,12 @@ export const getAllPagesDescriptions = async (_, res) => {
     );
 
     const processedDescriptions = descriptions?.map((el) => {
-      return { id: el.id, page: el.series, txt: el.txt };
+      return { id: el.id, page: el?.series, txt: el.txt };
     });
 
     res.json(processedDescriptions);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Getting all pages descriptions failed!" });
   }
 };
@@ -25,7 +25,7 @@ export const getPageDescriptionByTitle = async (req, res) => {
 
     res.json(descriptions[0]);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res
       .status(500)
       .json({ message: "Getting page description failed (by title)!" });
@@ -42,7 +42,7 @@ export const uploadPageDescription = async (req, res) => {
 
     res.json({ message: "Page description successfully uploaded!" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Page description uploading failed!" });
   }
 };
@@ -59,7 +59,7 @@ export const updatePageDescription = async (req, res) => {
 
     res.json({ message: "Page description successfully updated!" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Page description updating failed!" });
   }
 };
@@ -70,7 +70,7 @@ export const deletePageDescription = async (req, res) => {
 
     res.json({ message: "Page description successfully deleted!" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Page description deletion failed!" });
   }
 };

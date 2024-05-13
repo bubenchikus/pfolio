@@ -1,28 +1,73 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "../axios";
 import JournalPostTemplate from "../components/JournalPostTemplate/JournalPostTemplate";
+import PostPage from "./PostPage";
 import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
 import universalStyles from "../components/UniversalStyles.module.scss";
-import Pagination from "@mui/material/Pagination";
+import { Link, useParams } from "react-router-dom";
+import { journalCategories } from "../internalConstants";
 
 const Journal = () => {
+  let { category, id } = useParams();
+
   const [data, setData] = useState([]);
   const [descriptionData, setDescription] = useState({});
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentCategory, setCurrentCategory] = useState("all");
+  const [lastPage, setLastPage] = useState(1);
+  const [currentCategory, setCurrentCategory] = useState(category);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
-      .get(`/posts/${currentCategory}`)
+      .get(`/posts/${currentCategory}?page=1`)
       .then((res) => {
         setData(res?.data);
+        if (res?.data) {
+          setLastPage(2);
+          document
+            .getElementById(currentCategory)
+            .setAttribute("class", universalStyles.buttonPressed);
+        }
       })
-      .catch((err) => {
-        alert("Error occured while getting journal!");
+      .catch(() => {
+        console.error("Error occured while getting Journal page description!");
       });
   }, [currentCategory]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      axios
+        .get(`/posts/${currentCategory}?page=${lastPage}`)
+        .then((res) => {
+          setData((prevData) => [...prevData, ...res?.data]);
+          setLastPage((prevLastPage) => prevLastPage + 1);
+        })
+        .catch(() => {
+          console.error("Error occured while getting journal!");
+        });
+      setIsLoading(false);
+    };
+
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop !==
+          document.documentElement.offsetHeight ||
+        isLoading
+      ) {
+        return;
+      }
+      fetchData();
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isLoading, lastPage, currentCategory]);
 
   useEffect(() => {
     axios
@@ -30,66 +75,49 @@ const Journal = () => {
       .then((res) => {
         setDescription(res?.data);
       })
-      .catch((err) => {
-        alert("Error occured while getting Journal page description!");
+      .catch(() => {
+        console.error("Error occured while getting Journal page description!");
       });
   }, []);
 
-  function pressButton(id) {
-    document
-      .getElementById(id)
-      ?.setAttribute("class", universalStyles.buttonPressed);
-  }
-
-  function unpressButton(id) {
-    document.getElementById(id)?.setAttribute("class", universalStyles.button);
-  }
-
-  return (
+  return data ? (
     <>
+      {id ? <PostPage /> : <></>}
       <PageTitle pageTitle="Action Journal" />
       <PageDescription descriptionData={descriptionData} />
       <div className={universalStyles.buttonBox}>
-        {["all", "dev", "art", "stories", "misc"].map((category) => (
-          <div
+        {journalCategories.map((category) => (
+          <Link
+            to={`/journal/${category}`}
             key={category}
             id={category}
-            className={
-              category === "all"
-                ? universalStyles.buttonPressed
-                : universalStyles.button
-            }
+            className={universalStyles.button}
             onClick={() => {
               setCurrentCategory(category);
-              setCurrentPage(1);
-              pressButton(category);
-              unpressButton(currentCategory);
+              document
+                .getElementById(currentCategory)
+                .setAttribute("class", universalStyles.button);
             }}
           >
             {category}
-          </div>
+          </Link>
         ))}
       </div>
       {data && data.length > 0 ? (
-        data[currentPage - 1]?.map((post) => (
-          <JournalPostTemplate postData={post} />
+        data?.map((post) => (
+          <JournalPostTemplate
+            postData={post}
+            currentCategory={currentCategory}
+            clickable={true}
+          />
         ))
       ) : (
         <h2>No posts available for this category yet...</h2>
       )}
-      <div className={universalStyles.paginationBox}>
-        <Pagination
-          count={data?.length}
-          onChange={(_, page) => {
-            setCurrentPage(page);
-            window.scrollTo(0, 0);
-          }}
-          variant="outlined"
-          shape="rounded"
-          sx={{ margin: "20px 0", color: "rgb(148, 205, 171)" }}
-        />
-      </div>
+      <>{isLoading && <p>Loading...</p>}</>
     </>
+  ) : (
+    <></>
   );
 };
 

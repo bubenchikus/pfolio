@@ -1,73 +1,100 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Header from "./components/Header/Header";
-import Home from "./pages/Home";
-import Journal from "./pages/Journal";
-import GalleryPage from "./pages/GalleryPage";
-import SimplePage from "./pages/SimplePage";
+import { useEffect, useState, useMemo } from "react";
+import {
+  KeyboardDoubleArrowUp,
+  LightModeSharp,
+  Brightness3Sharp,
+} from "@mui/icons-material";
+import { GalleryPage, Home, Journal, SimplePage } from "./pages";
+import createPersistedState from "use-persisted-state";
+import { artCategories, journalCategories } from "./internalConstants";
 
 function App() {
+  const useColorSchemeState = createPersistedState("colorScheme");
+  const [isDark, setIsDark] = useColorSchemeState(true);
+
+  const value = useMemo(() => isDark, [isDark]);
+
+  useEffect(() => {
+    if (value) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [value]);
+
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isUpButtonActive, setIsUpButtonActive] = useState(false);
+
+  const handleScroll = () => {
+    const position = window.scrollY;
+    setScrollPosition(position);
+    if (position > 200) {
+      setIsUpButtonActive(true);
+    } else {
+      setIsUpButtonActive(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollPosition]);
+
   return (
-    <Container>
-      <Header />
-      <div className="wrapper">
+    <>
+      {isUpButtonActive ? (
+        <div
+          className="upButton"
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+        >
+          <KeyboardDoubleArrowUp sx={{ fontSize: "60px" }} />
+          <div>UP</div>
+        </div>
+      ) : null}
+
+      <div
+        className="togglerButton"
+        onClick={() => {
+          setIsDark(!isDark);
+        }}
+      >
+        {isDark ? (
+          <LightModeSharp sx={{ fontSize: "50px" }} />
+        ) : (
+          <Brightness3Sharp sx={{ fontSize: "50px" }} />
+        )}
+      </div>
+
+      <Header isDark={isDark} />
+      <Container maxWidth="lg">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home isDark={isDark} />} />
+
+          {artCategories.map((category) => (
+            <Route
+              path={`/art/${category}/:id?`}
+              element={<GalleryPage category={category} />}
+            />
+          ))}
+
+
+          <Route path={`/journal/:category/:id?`} element={<Journal />} />
+
 
           <Route
-            path="/dev"
-            element={<SimplePage pagePath="dev" pageTitle="Dev works" />}
+            path="/article/lore?"
+            element={<SimplePage pageTitle="Lore" />}
           />
           <Route
-            path="/this-page"
-            element={<SimplePage pagePath="this-page" pageTitle="This page" />}
-          />
-          <Route
-            path="/art"
-            element={<SimplePage pagePath="art" pageTitle="Art works" />}
-          />
-          <Route
-            path="/about"
-            element={<SimplePage pagePath="about" pageTitle="About+contacts" />}
-          />
-
-          <Route
-            path="/art/cg-paint-right"
-            element={
-              <GalleryPage
-                pageTitle="CG Paintings I"
-                url="art/cg-paint-right"
-              />
-            }
-          />
-          <Route
-            path="/art/cg-paint-left"
-            element={
-              <GalleryPage
-                pageTitle="CG Paintings II"
-                url="art/cg-paint-left"
-              />
-            }
-          />
-          <Route
-            path="/art/cg-graph"
-            element={<GalleryPage pageTitle="CG Graphics" url="art/cg-graph" />}
-          />
-          <Route
-            path="/art/trad"
-            element={<GalleryPage pageTitle="Traditional" url="art/trad" />}
-          />
-          <Route
-            path="/art/stories"
-            element={
-              <GalleryPage pageTitle="Stories materials" url="art/stories" />
-            }
-          />
-
-          <Route path="/journal" element={<Journal />} />
-
-          <Route
-            path="/admin-screenshots"
+            path="/article/admin-screenshots"
             element={
               <SimplePage
                 pagePath="admin-screenshots"
@@ -77,9 +104,10 @@ function App() {
           />
 
           <Route path="*" element={<Navigate to={"/"} />} />
+
         </Routes>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 }
 

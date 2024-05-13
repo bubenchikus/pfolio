@@ -37,8 +37,8 @@ const TableTemplate = ({ route }) => {
         setData(res.data);
         setDataChanged(false);
       })
-      .catch((err) => {
-        alert(`Error occured while getting ${route}!`);
+      .catch(() => {
+        console.error(`Error occured while getting ${route}!`);
       });
 
     if (route === "pictures") {
@@ -49,18 +49,18 @@ const TableTemplate = ({ route }) => {
           if (res.data) {
             Object.values(res.data)?.forEach((el) => {
               if (!temp.hasOwnProperty(el.category)) {
-                temp[el.category] = [el.series];
+                temp[el.category] = [el?.series];
               } else {
-                if (!temp[el.category].includes(el.series)) {
-                  temp[el.category].push(el.series);
+                if (!temp[el.category].includes(el?.series)) {
+                  temp[el.category].push(el?.series);
                 }
               }
             });
           }
           setSeries(temp);
         })
-        .catch((err) => {
-          alert(`Error occured while getting series!`);
+        .catch(() => {
+          console.error(`Error occured while getting series!`);
         });
     }
   }, [route, headers, dataChanged]);
@@ -71,8 +71,8 @@ const TableTemplate = ({ route }) => {
       .then((res) => {
         setColumnsTitles(res.data);
       })
-      .catch((err) => {
-        alert(`Error occured while getting columns!`);
+      .catch(() => {
+        console.error(`Error occured while getting columns!`);
       });
   }, [headers]);
 

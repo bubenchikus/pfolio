@@ -1,21 +1,23 @@
 import styles from "./GalleryTemplate.module.scss";
+import universalStyles from "../UniversalStyles.module.scss";
+import styleConstants from "../../styleConstants.scss";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloseIcon from "@mui/icons-material/Close";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const CarouselTemplate = ({
   currentImage,
-  setCurrentImage,
-  setViewerIsOpen,
+  nextImageId,
+  prevImageId,
   clientWidth,
-  images,
 }) => {
   const [loaded, setLoaded] = useState(false);
 
   const iconFontStyle = `${
-    clientWidth > 850
+    clientWidth > parseInt(styleConstants.mobileWidth)
       ? Math.floor(clientWidth / 30)
       : Math.floor(clientWidth / 10)
   }px`;
@@ -33,25 +35,20 @@ const CarouselTemplate = ({
     padding: "10px",
   };
 
-  return (
-    <div className={styles.dark}>
+  return currentImage ? (
+    <div className={universalStyles.dark}>
       <div className={styles.carouselBox}>
         <div className={styles.carouselSidePanel}>
           <div className={styles.carouselSidePanelBox}></div>
-          {currentImage.galleryIndex > 0 ? (
-            <ArrowBackIcon
-              sx={iconStyle}
-              onClick={() => {
-                setLoaded(false);
-                setCurrentImage(
-                  images[currentImage.series].find(
-                    (image) =>
-                      image?.galleryIndex === currentImage?.galleryIndex - 1 &&
-                      image?.series === currentImage?.series
-                  )
-                );
-              }}
-            />
+          {prevImageId ? (
+            <Link to={`/art/${currentImage.category}/${prevImageId}`}>
+              <ArrowBackIcon
+                sx={iconStyle}
+                onClick={() => {
+                  setLoaded(false);
+                }}
+              />
+            </Link>
           ) : (
             <ArrowBackIcon sx={disabledIconStyle} />
           )}
@@ -63,9 +60,9 @@ const CarouselTemplate = ({
           )}
           <div className={loaded ? styles.carouselImageBox : styles.imgHidden}>
             <img
-              src={`${process.env.REACT_APP_API_URL}/pictures/${currentImage.category}/${currentImage.pictureName}`}
+              src={`${process.env.REACT_APP_API_URL}/pictures/${currentImage?.category}/${currentImage?.pictureName}`}
               className={styles.carouselImage}
-              alt={currentImage.title}
+              alt={currentImage.title ?? ""}
               onLoad={() => setLoaded(true)}
             />
           </div>
@@ -74,16 +71,16 @@ const CarouselTemplate = ({
           >
             <div
               className={styles.carouselText}
-            >{`Title: ${currentImage.title}`}</div>
+            >{`Title: ${currentImage?.title}`}</div>
             <div className={styles.carouselText}>
-              {`Redraw: ${currentImage.redraw ? "yes" : "no"}`}
+              {`Redraw: ${currentImage?.redraw ? "yes" : "no"}`}
             </div>
             <div className={styles.carouselText}>
-              {`Created: ${currentImage.created}`}
+              {`Created: ${currentImage?.created}`}
             </div>
-            {currentImage.about ? (
+            {currentImage?.about ? (
               <div className={styles.carouselText}>
-                `About: ${currentImage.about}`
+                `About: ${currentImage?.about}`
               </div>
             ) : (
               <></>
@@ -92,30 +89,24 @@ const CarouselTemplate = ({
         </div>
 
         <div className={styles.carouselSidePanel}>
-          <CloseIcon
-            sx={iconStyle}
-            onClick={() => {
-              setCurrentImage();
-              setViewerIsOpen(false);
-            }}
-          />
+          <Link to={`/art/${currentImage.category}`}>
+            <CloseIcon
+              sx={iconStyle}
+              onClick={() => {
+                document.body.style.overflow = "visible";
+              }}
+            />
+          </Link>
           <div className={styles.carouselSidePanelBox}>
-            {currentImage.galleryIndex <
-            images[currentImage.series].length - 1 ? (
-              <ArrowForwardIcon
-                sx={iconStyle}
-                onClick={() => {
-                  setLoaded(false);
-                  setCurrentImage(
-                    images[currentImage.series].find(
-                      (image) =>
-                        image?.galleryIndex ===
-                          currentImage?.galleryIndex + 1 &&
-                        image?.series === currentImage?.series
-                    )
-                  );
-                }}
-              />
+            {nextImageId ? (
+              <Link to={`/art/${currentImage.category}/${nextImageId}`}>
+                <ArrowForwardIcon
+                  sx={iconStyle}
+                  onClick={() => {
+                    setLoaded(false);
+                  }}
+                />
+              </Link>
             ) : (
               <ArrowForwardIcon sx={disabledIconStyle} />
             )}
@@ -123,6 +114,8 @@ const CarouselTemplate = ({
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 

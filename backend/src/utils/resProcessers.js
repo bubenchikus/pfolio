@@ -1,5 +1,3 @@
-import config from "config";
-
 function sortImagesByCreatedDate(a, b) {
   const a_year = parseInt(a.created?.split("-")[0] || "0");
   const a_month = parseInt(a.created?.split("-")[1] || "0");
@@ -95,29 +93,4 @@ export function arrangeSeries(series) {
       return 0;
     }
   });
-}
-
-export function paginatePosts(posts) {
-  posts.sort(function (a, b) {
-    return new Date(b.created) - new Date(a.created);
-  });
-
-  const pagesNum = config.get("journal.postsPerPage");
-  const paginatedPosts = [];
-
-  for (let i = 0; i < Math.ceil(posts.length / pagesNum); i++) {
-    paginatedPosts.push([]);
-    for (let j = 0; j < pagesNum; j++) {
-      if (posts[i * pagesNum + j]) {
-        posts[i * pagesNum + j].created = posts[i * pagesNum + j].created
-          .toISOString()
-          .substring(0, 10);
-        paginatedPosts[i].push(posts[i * pagesNum + j]);
-      } else {
-        break;
-      }
-    }
-  }
-
-  return paginatedPosts;
 }

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import config from "config";
+import * as databaseFunctions from "../db_queries/informationSchemaQueries.js";
 
 dotenv.config();
 
@@ -20,24 +20,23 @@ export const login = async (req, res) => {
 
     res.json({ token: createToken() });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Authorization failed!" });
   }
 };
 
-// getting columns for admin panel pictures datagrid
 export const getColumns = async (_, res) => {
   try {
     res.json({
-      pictures: config.get("columns.pictures"),
-      "pictures-categories": config.get("categories.pictures"),
-      "posts-categories": config.get("categories.posts"),
-      posts: config.get("columns.posts"),
-      "series-descriptions": config.get("columns.series-descriptions"),
-      "pages-descriptions": config.get("columns.pages-descriptions"),
+      "pictures-categories": await databaseFunctions.getPicturesCategories(),
+      "posts-categories": await databaseFunctions.getPostsCategories(),
+      pictures: await databaseFunctions.getPicturesColumnsNames(),
+      posts: await databaseFunctions.getPostsColumnsNames(),
+      "series-descriptions": await databaseFunctions.getSeriesDescriptionsColumnsNames(),
+      "pages-descriptions": ["id", "txt", "page"],
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res
       .status(500)
       .json({ message: "Getting columns for admin panel failed!" });

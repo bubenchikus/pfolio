@@ -1,3 +1,5 @@
+@import "../../styleConstants.scss";
+
 .root {
   margin: 0;
   padding: 0;
@@ -7,7 +9,7 @@
   text-decoration: none;
   justify-content: center;
   display: grid;
-  grid-template-columns: 14vw auto 14vw;
+  grid-template-columns: auto 16vw;
   gap: 0.7vw;
 }
 
@@ -22,16 +24,15 @@
 .pageSubtitle {
   display: flex;
   align-items: center;
-  font-family: "Marcellus SC", serif;
-  font-size: calc(20px + 0.5vw);
+  // font-family: "Marcellus SC", serif;
+  font-size: calc(35px + 0.1vw);
   letter-spacing: -2px;
   padding: calc(15px + 0.5vh) 0;
-  color: rgb(85, 85, 85);
   text-decoration: underline 2px;
   transition: 1s;
   text-transform: uppercase;
   font-weight: 400;
-  mix-blend-mode: multiply;
+  color: var(--varSubtitle);
 }
 
 .blockSubblock {
@@ -44,16 +45,18 @@
   justify-content: center;
   text-justify: center;
   text-decoration: none;
+  //
+  border: solid 3px black;
 }
 
 .blockSubblockText {
   position: absolute;
   font-weight: 400;
-  font-size: calc(10px + 0.8vw);
-  color: white;
+  font-size: calc(15px + 0.8vw);
+  color: rgb(255, 255, 255);
   text-shadow: 0 0 2px black, 0 0 5px black, 0 0 10px black;
-  white-space: nowrap;
   transition: 1s;
+  letter-spacing: -0.05vw;
 }
 
 .blockSubblockImage {
@@ -61,7 +64,7 @@
   height: 100%;
   background-position: center 50%;
   background-size: 100% auto;
-  filter: brightness(0.6);
+  filter: brightness(var(--varSubblockImageBrightness));
   transition: 1s;
 }
 
@@ -72,17 +75,12 @@
 
 .blockSubblock:hover .blockSubblockText {
   transition: 1s;
-  font-size: calc(10px + 1vw);
+  font-size: calc(15px + 1vw);
 }
 
-.blockSubblockDev1Image {
+.blockSubblockWorld1Image {
   @extend .blockSubblockImage;
-  background-image: url("../../uiPictures/site-hands.webp");
-}
-
-.blockSubblockDev2Image {
-  @extend .blockSubblockImage;
-  background-image: url("../../uiPictures/site-ptichky.webp");
+  background-image: url("../../uiPictures/lore.webp");
 }
 
 .blockSubblockArt1Image {
@@ -102,12 +100,17 @@
 
 .blockSubblockArt4Image {
   @extend .blockSubblockImage;
-  background-image: url("../../uiPictures/trad.webp");
+  background-image: url("../../uiPictures/trad-graph.webp");
 }
 
 .blockSubblockArt5Image {
   @extend .blockSubblockImage;
   background-image: url("../../uiPictures/stories.webp");
+}
+
+.blockSubblockArt6Image {
+  @extend .blockSubblockImage;
+  background-image: url("../../uiPictures/trad-paint.webp");
 }
 
 .middleBlock {
@@ -123,11 +126,20 @@
   max-height: 75vh;
 }
 
-@media (max-width: 850px), (max-height: 500px) {
+.hugeLink {
+  color: var(--varLinkColor);
+  @extend .pageSubtitle;
+}
+
+.hugeLink:hover {
+  font-size: calc(35px + 0.2vw);
+}
+
+@media (max-width: $mobileWidth), (max-height: 500px) {
   .grid {
     justify-content: center;
     display: grid;
-    grid-template-columns: 1fr 0 1fr;
+    grid-template-columns: 1fr;
     gap: 5px;
     padding: 0 10px;
   }
@@ -146,7 +158,7 @@
   }
 }
 
-@media (max-width: 850px) {
+@media (max-width: $mobileWidth) {
   .pageSubtitle {
     font-size: 6vw;
     padding: 1vh 0;

@@ -1,8 +1,8 @@
 import * as databaseFunctions from "../db_queries/pictureDatabaseQueries.js";
 import fs from "fs";
 import path from "path";
-import config from "config";
 import { standardError } from "./universalHelpers.js";
+import * as schemaDatabaseFunctions from "../db_queries/informationSchemaQueries.js";
 
 // Delete pictures present in DB but not in FS
 async function removeDeletedPicturesFromDB() {
@@ -78,7 +78,7 @@ async function removeDeletedPicturesFromFS() {
 }
 
 // Setup necessary archive folders if they don't exist yet
-function createStorage() {
+async function createStorage() {
   var storageName = path.resolve("pictures");
 
   [storageName, path.resolve("pictures", "previews")].forEach((path) => {
@@ -87,20 +87,20 @@ function createStorage() {
 
       fs.mkdir(path, (err) => {
         if (err && err.code != "EEXIST") {
-          console.log(err);
+          console.error(err);
           return;
         }
       });
     });
   });
 
-  config.get("categories.pictures").forEach((dir) => {
+  (await schemaDatabaseFunctions.getPicturesCategories()).forEach((dir) => {
     storageName = path.resolve("pictures", `${dir}`);
 
     if (!fs.existsSync(storageName)) {
       fs.mkdir(storageName, (err) => {
         if (err && err.code != "EEXIST") {
-          console.log(err);
+          console.error(err);
           return;
         }
       });

@@ -28,7 +28,7 @@ export const getAllPictures = async (_, res) => {
 
     res.json(pictures);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Getting all pictures failed!" });
   }
 };
@@ -39,7 +39,7 @@ export const getUnhiddenPictures = async (_, res) => {
 
     res.json(pictures);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Getting unhidden pictures failed!" });
   }
 };
@@ -52,7 +52,21 @@ export const getPicturesByCategory = async (req, res) => {
 
     res.json(processPictures(pictures));
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    res.status(500).json({ message: "Getting pictures failed (by category)!" });
+  }
+};
+
+export const getPicturesByCategoryAndSeries = async (req, res) => {
+  try {
+    const pictures = await databaseFunctions.getPicturesByCategoryAndSeries(
+      req.params.category,
+      req.params.series
+    );
+
+    res.json(processPictures(pictures));
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Getting pictures failed (by category)!" });
   }
 };
@@ -80,7 +94,7 @@ export const uploadPicture = async (req, res) => {
 
     res.json(picture);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Picture uploading failed!" });
   }
 };
@@ -104,7 +118,7 @@ export const updatePicture = async (req, res) => {
 
     res.json({ message: "Picture updating failed!" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Picture updating failed!" });
   }
 };
@@ -114,7 +128,7 @@ export const deletePicture = async (req, res) => {
     const files = await databaseFunctions.getPictureById(req.params.id);
 
     if (!files[0]) {
-      console.log(err);
+      console.error(err);
       res.status(404).json({ message: "File was not found!" });
     }
 
@@ -138,7 +152,7 @@ export const deletePicture = async (req, res) => {
 
     res.json({ message: "Picture successfully deleted!" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Picture deletion failed!" });
   }
 };

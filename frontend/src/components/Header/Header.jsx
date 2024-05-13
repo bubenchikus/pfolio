@@ -1,13 +1,19 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 
 import logo from "./../../uiPictures/logo-web.svg";
+import logoDark from "./../../uiPictures/logo-web-dark.svg";
 
-const Header = () => {
+const Header = ({ isDark }) => {
   return (
     <div className={styles.root}>
       <Link className={styles.logoBox} to="/">
-        <img className={styles.imageLogo} src={logo} alt="Not found" />
+        <img
+          className={styles.imageLogo}
+          src={isDark ? logoDark : logo}
+          alt="Not found"
+        />
         <h1 className={styles.textLogo}>
           Bubengogh's
           <br />

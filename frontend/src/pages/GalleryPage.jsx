@@ -1,11 +1,12 @@
+import React from "react";
 import GalleryTemplate from "../components/GalleryTemplate/GalleryTemplate";
 import PageTitle from "../components/PageTitle";
 
-const GalleryPage = ({ pageTitle, url }) => {
+const GalleryPage = ({ category }) => {
   return (
     <>
-      <PageTitle pageTitle={pageTitle} />
-      <GalleryTemplate url={url} />
+      <PageTitle pageTitle={category} />
+      <GalleryTemplate category={category} />
     </>
   );
 };

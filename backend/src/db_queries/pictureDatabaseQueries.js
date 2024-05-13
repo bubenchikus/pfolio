@@ -3,8 +3,8 @@ import userQuery from "./baseQuery.js";
 export async function getAllPictures() {
   const res = await userQuery(
     `
-        SELECT * 
-        FROM picture;
+      SELECT * 
+      FROM picture;
     `
   );
   return res;
@@ -13,9 +13,9 @@ export async function getAllPictures() {
 export async function getUnhiddenPictures() {
   const res = await userQuery(
     `
-        SELECT * 
-        FROM picture
-        WHERE hide=false;
+      SELECT * 
+      FROM picture
+      WHERE hide=false;
     `
   );
   return res;
@@ -32,7 +32,7 @@ export async function getPictureByCategoryAndPictureName(
       FROM picture
       WHERE category=?
       AND pictureName=?;
-  `,
+    `,
     [category, pictureName]
   );
   return res;
@@ -45,7 +45,7 @@ export async function getPictureByPreviewName(previewName) {
       SELECT * 
       FROM picture
       WHERE previewName=?;
-  `,
+    `,
     [previewName]
   );
   return res;
@@ -58,8 +58,22 @@ export async function getPicturesByCategory(category) {
       FROM picture
       WHERE category=?
       AND hide=false;
-  `,
+    `,
     [category]
+  );
+  return res;
+}
+
+export async function getPicturesByCategoryAndSeries(category, series) {
+  const res = await userQuery(
+    `
+      SELECT * 
+      FROM picture
+      WHERE category=?
+      AND series=?
+      AND hide=false;
+    `,
+    [category, series]
   );
   return res;
 }
@@ -67,9 +81,9 @@ export async function getPicturesByCategory(category) {
 export async function getPictureById(id) {
   const res = await userQuery(
     `
-        SELECT *
-        FROM picture
-        WHERE id=?;
+      SELECT *
+      FROM picture
+      WHERE id=?;
     `,
     [id]
   );
@@ -89,27 +103,27 @@ export async function uploadPicture(
 ) {
   const res = await userQuery(
     `
-        INSERT INTO picture(
-          title, 
-          created, 
-          category, 
-          pictureName,
-          previewName,
-          series, 
-          about, 
-          redraw, 
-          hide)
-        VALUE (
-          COALESCE(?, DEFAULT(title)), 
-          ?,
-          COALESCE(?, DEFAULT(category)),
-          ?,
-          ?,
-          COALESCE(?, DEFAULT(series)),
-          ?,
-          COALESCE(?, DEFAULT(redraw)),
-          COALESCE(?, DEFAULT(hide)));
-      `,
+      INSERT INTO picture(
+        title, 
+        created, 
+        category, 
+        pictureName,
+        previewName,
+        series, 
+        about, 
+        redraw, 
+        hide)
+      VALUE (
+        COALESCE(?, DEFAULT(title)), 
+        ?,
+        COALESCE(?, DEFAULT(category)),
+        ?,
+        ?,
+        COALESCE(?, DEFAULT(series)),
+        ?,
+        COALESCE(?, DEFAULT(redraw)),
+        COALESCE(?, DEFAULT(hide)));
+    `,
     [
       title,
       created,
@@ -139,19 +153,19 @@ export async function updatePicture(
 ) {
   const res = await userQuery(
     `
-        UPDATE picture
-        SET
-        title = COALESCE(?, DEFAULT(title)),
-        created = COALESCE(?, created),
-        category = COALESCE(?, DEFAULT(category)),
-        pictureName = COALESCE(?, pictureName),
-        previewName = COALESCE(?, previewName),
-        series = COALESCE(?, DEFAULT(series)),
-        about= ?,
-        redraw = COALESCE(?, DEFAULT(redraw)),
-        hide = COALESCE(?, DEFAULT(hide))
-        WHERE id=?;
-      `,
+      UPDATE picture
+      SET
+      title = COALESCE(?, DEFAULT(title)),
+      created = COALESCE(?, created),
+      category = COALESCE(?, DEFAULT(category)),
+      pictureName = COALESCE(?, pictureName),
+      previewName = COALESCE(?, previewName),
+      series = COALESCE(?, DEFAULT(series)),
+      about= ?,
+      redraw = COALESCE(?, DEFAULT(redraw)),
+      hide = COALESCE(?, DEFAULT(hide))
+      WHERE id=?;
+    `,
     [
       title,
       created,
@@ -173,7 +187,7 @@ export async function deletePictureById(id) {
     `
       DELETE FROM picture
       WHERE id=?;
-        `,
+    `,
     [id]
   );
   return res;

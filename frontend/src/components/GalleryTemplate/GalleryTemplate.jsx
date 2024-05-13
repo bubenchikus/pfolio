@@ -1,53 +1,78 @@
+import React from "react";
 import { useState, useEffect, useLayoutEffect } from "react";
 import axios from "../../axios";
 import PageDescription from "../PageDescription";
 import CarouselTemplate from "./CarouselTemplate";
 import SeriesGalleryTemplate from "./SeriesGalleryTemplate";
+import { useParams } from "react-router-dom";
 
-const GalleryTemplate = ({ url }) => {
-  const [images, setImages] = useState({});
-  const [descriptionData, setDescription] = useState({});
-  const [seriesDescriptions, setSeriesDescriptions] = useState([]);
+const GalleryTemplate = ({ category }) => {
+  let { id } = useParams();
 
-  const [currentImage, setCurrentImage] = useState({});
-  const [viewerIsOpen, setViewerIsOpen] = useState(false);
+  const [images, setImages] = useState();
+  const [descriptionData, setDescription] = useState();
+  const [seriesDescriptions, setSeriesDescriptions] = useState();
 
   const [clientWidth, setClientWidth] = useState(0);
 
   const [loaded, setLoaded] = useState({});
 
+  const [currentImage, setCurrentImage] = useState();
+
+  const [nextImageId, setNextImageId] = useState();
+  const [prevImageId, setPrevImageId] = useState();
+
   useEffect(() => {
     axios
-      .get(url)
+      .get(`art/${category}`)
       .then((res) => {
         setImages(res?.data);
       })
-      .catch((err) => {
-        alert("Error occured while getting images!");
+      .catch(() => {
+        console.error("Error occured while getting images!");
       });
-  }, [url]);
 
-  useEffect(() => {
     axios
-      .get(`/pages-descriptions/${url.substring(4)}`)
+      .get(`/pages-descriptions/${category}`)
       .then((res) => {
         setDescription(res.data);
       })
-      .catch((err) => {
-        alert("Error occured while getting descriptions!");
+      .catch(() => {
+        console.error("Error occured while getting descriptions!");
       });
-  }, [url]);
 
-  useEffect(() => {
     axios
-      .get(`/series-descriptions/${url.substring(4)}`)
+      .get(`/series-descriptions/${category}`)
       .then((res) => {
         setSeriesDescriptions(res.data);
       })
-      .catch((err) => {
-        alert("Error occured while getting descriptions!");
+      .catch(() => {
+        console.error("Error occured while getting descriptions!");
       });
-  }, [url]);
+  }, [category]);
+
+  useEffect(() => {
+    if (id && images) {
+      const tempCurrentImage = Object?.values(images)
+        .flat(1)
+        .find((el) => el.id === parseInt(id));
+
+      if (tempCurrentImage) {
+        setCurrentImage(tempCurrentImage);
+
+        setPrevImageId(
+          images[tempCurrentImage?.series][tempCurrentImage?.galleryIndex - 1]
+            ?.id
+        );
+        setNextImageId(
+          images[tempCurrentImage?.series][tempCurrentImage?.galleryIndex + 1]
+            ?.id
+        );
+      }
+    } else {
+      id = undefined;
+    }
+  });
 
   useLayoutEffect(() => {
     function updateWidth() {
@@ -60,13 +85,12 @@ const GalleryTemplate = ({ url }) => {
 
   return (
     <>
-      {viewerIsOpen ? (
+      {id ? (
         <CarouselTemplate
           currentImage={currentImage}
-          setCurrentImage={setCurrentImage}
-          setViewerIsOpen={setViewerIsOpen}
+          nextImageId={nextImageId}
+          prevImageId={prevImageId}
           clientWidth={clientWidth}
-          images={images}
         />
       ) : (
         <></>
@@ -75,22 +99,19 @@ const GalleryTemplate = ({ url }) => {
       <PageDescription descriptionData={descriptionData} />
 
       {seriesDescriptions?.map((el, index) => {
-        if (images[el?.series]) {
-          return (
-            <SeriesGalleryTemplate
-              key={index}
-              series={el.series}
-              seriesDescriptions={seriesDescriptions}
-              images={images}
-              clientWidth={clientWidth}
-              setCurrentImage={setCurrentImage}
-              setViewerIsOpen={setViewerIsOpen}
-              loaded={loaded}
-              setLoaded={setLoaded}
-            />
-          );
-        }
-        return <></>;
+        return images && Object.keys(images)?.includes(el?.series) ? (
+          <SeriesGalleryTemplate
+            key={index}
+            series={el?.series}
+            seriesDescription={el?.series.txt}
+            images={images[el?.series]}
+            clientWidth={clientWidth}
+            loaded={loaded}
+            setLoaded={setLoaded}
+          />
+        ) : (
+          <></>
+        );
       })}
     </>
   );

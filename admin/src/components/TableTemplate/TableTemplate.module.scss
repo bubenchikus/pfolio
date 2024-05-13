@@ -104,4 +104,6 @@ $smooth-accent: rgb(161, 204, 180);
   @extend .uploaderEditorBox;
   z-index: 1;
   background-color: white;
+  overflow-y: scroll;
+  max-height: 80%;
 }
