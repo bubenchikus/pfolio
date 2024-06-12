@@ -3,23 +3,20 @@ import { useState, useEffect } from "react";
 import axios from "../axios";
 import PageTitle from "../components/PageTitle";
 import PageDescription from "../components/PageDescription";
-import { useParams } from "react-router-dom";
 
-const SimplePage = ({ pageTitle }) => {
+const Article = ({ pageTitle }) => {
   const [descriptionData, setDescription] = useState({});
-
-  let { id } = useParams();
 
   useEffect(() => {
     axios
-      .get(`/pages-descriptions/${id}`)
+      .get(`/pages-descriptions/${pageTitle}`)
       .then((res) => {
         setDescription(res.data);
       })
       .catch(() => {
         console.error("Error occured while getting page description!");
       });
-  }, [id]);
+  }, [pageTitle]);
 
   return (
     <>
@@ -29,4 +26,4 @@ const SimplePage = ({ pageTitle }) => {
   );
 };
 
-export default SimplePage;
+export default Article;

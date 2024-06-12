@@ -69,10 +69,8 @@ const GalleryTemplate = ({ category }) => {
             ?.id
         );
       }
-    } else {
-      id = undefined;
     }
-  });
+  }, [id, images]);
 
   useLayoutEffect(() => {
     function updateWidth() {

@@ -2,7 +2,7 @@ import userQuery from "./baseQuery.js";
 
 const calculateLimitsByPage = (page) => {
   page = parseInt(page) || 1;
-  const postsPerPage = 10;
+  const postsPerPage = 2;
   return [(page - 1) * postsPerPage, postsPerPage];
 };
 

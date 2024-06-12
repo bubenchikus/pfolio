@@ -7,9 +7,9 @@ import {
   LightModeSharp,
   Brightness3Sharp,
 } from "@mui/icons-material";
-import { GalleryPage, Home, Journal, SimplePage } from "./pages";
+import { Gallery, Home, Journal, Article } from "./pages";
 import createPersistedState from "use-persisted-state";
-import { artCategories, journalCategories } from "./internalConstants";
+import { artCategories } from "./internalConstants";
 
 function App() {
   const useColorSchemeState = createPersistedState("colorScheme");
@@ -81,7 +81,7 @@ function App() {
           {artCategories.map((category) => (
             <Route
               path={`/art/${category}/:id?`}
-              element={<GalleryPage category={category} />}
+              element={<Gallery category={category} />}
             />
           ))}
 
@@ -91,14 +91,13 @@ function App() {
 
           <Route
             path="/article/lore?"
-            element={<SimplePage pageTitle="Lore" />}
+            element={<Article pageTitle="lore" />}
           />
           <Route
             path="/article/admin-screenshots"
             element={
-              <SimplePage
-                pagePath="admin-screenshots"
-                pageTitle="Admin panel screenshots"
+              <Article
+                pageTitle="admin-screenshots"
               />
             }
           />
