@@ -11,6 +11,7 @@
     "@mui/material": "^5.15.19",
     "ajv": "^8.16.0",
     "axios": "^1.7.2",
+    "gzipper": "^7.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^8.0.7",
@@ -20,7 +21,7 @@
     "use-persisted-state": "^0.3.3"
   },
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider PORT=3000 react-scripts start",
+    "start": "NODE_OPTIONS= PORT=3000 react-scripts start",
     "build": "react-scripts build && gzipper compress --verbose ./build"
   },
   "eslintConfig": {

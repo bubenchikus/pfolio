@@ -4,20 +4,13 @@ import universalStyles from "../UniversalStyles.module.scss";
 
 import { Link } from "react-router-dom";
 
-import helloImage from "../../uiPictures/hello-image.webp";
-import helloImageDark from "../../uiPictures/hello-image-dark.webp";
-
 const MainMenu = ({ isDark }) => {
   return (
     <>
       <div className={styles.grid}>
-        <div className={styles.middleBlock}>
-          <img
-            className={styles.helloImage}
-            src={isDark ? helloImageDark : helloImage}
-            alt="Not found"
-          />
-        </div>
+        <div
+          className={isDark ? styles.middleBlockDark : styles.middleBlockLight}
+        />
         <div className={styles.menuBlock}>
           <Link to="/article/lore" className={styles.blockSubblock}>
             <div className={styles.blockSubblockWorld1Image}></div>

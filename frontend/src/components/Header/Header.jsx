@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 
-import logo from "./../../uiPictures/logo-web.svg";
+import logoLight from "./../../uiPictures/logo-web-light.svg";
 import logoDark from "./../../uiPictures/logo-web-dark.svg";
 
 const Header = ({ isDark }) => {
@@ -11,7 +11,7 @@ const Header = ({ isDark }) => {
       <Link className={styles.logoBox} to="/">
         <img
           className={styles.imageLogo}
-          src={isDark ? logoDark : logo}
+          src={isDark ? logoDark : logoLight}
           alt="Not found"
         />
         <h1 className={styles.textLogo}>
