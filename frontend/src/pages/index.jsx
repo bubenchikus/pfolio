@@ -1,7 +1,7 @@
-import GalleryPage from "./GalleryPage";
+import Gallery from "./Gallery";
 import Home from "./Home";
 import Journal from "./Journal";
 import PostPage from "./PostPage";
-import SimplePage from "./SimplePage";
+import Article from "./Article";
 
-export { GalleryPage, Home, Journal, PostPage, SimplePage };
+export { Gallery, Home, Journal, PostPage, Article };

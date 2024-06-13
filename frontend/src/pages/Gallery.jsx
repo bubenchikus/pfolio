@@ -2,7 +2,7 @@ import React from "react";
 import GalleryTemplate from "../components/GalleryTemplate/GalleryTemplate";
 import PageTitle from "../components/PageTitle";
 
-const GalleryPage = ({ category }) => {
+const Gallery = ({ category }) => {
   return (
     <>
       <PageTitle pageTitle={category} />
@@ -11,4 +11,4 @@ const GalleryPage = ({ category }) => {
   );
 };
 
-export default GalleryPage;
+export default Gallery;
