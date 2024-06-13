@@ -28,7 +28,7 @@ jobs:
             for arg in frontend admin; do
             cd ${arg}
             rm -r node_modules
-            npm ci
+            npm ci --legacy-peer-deps
             rm -r build
             npm run build --max_old_space_size=4096
             rm -r /var/www/bubengogh/${arg}/*
