@@ -2,74 +2,71 @@
   display: none;
 }
 
-@keyframes smooth-appear {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 * {
   font-family: "Hind Madurai", sans-serif;
   text-decoration-skip-ink: none;
 }
 
-.baseBody {
+%base-body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Hind Madurai",
-    "Titillium Web", "Marcellus";
+    "Titillium Web", Marcellus, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 body {
-  @extend .baseBody;
+  @extend %base-body;
 
-  background: var(--varMainColor);
+  background: var(--var-main-color);
   background: radial-gradient(
     circle,
-    rgba(107, 226, 183, 1) 0%,
-    rgba(237, 255, 246, 1) 50%,
-    rgba(253, 255, 253, 1) 65%,
-    rgba(255, 255, 255, 1) 100%
+    rgb(107 226 183 / 100%) 0%,
+    rgb(237 255 246 / 100%) 50%,
+    rgb(253 255 253 / 100%) 65%,
+    rgb(255 255 255 / 100%) 100%
   );
 
-  --varMainColor: white;
-  --varSubtitle: rgb(85, 85, 85);
-  --varContrastTextsAndLogos: black;
-  --varLinkColor: blue;
-  --varSubblockImageBrightness: 0.6;
-  --varContainerColor: rgb(160, 187, 175);
-  --varBlockLink: rgb(54, 54, 167);
+  --var-main-color: white;
+  --var-subtitle: rgb(85 85 85);
+  --var-contrast-texts-and-logos: black;
+  --var-link-color: blue;
+  --var-subblock-image-brightness: 0.6;
+  --var-container-color: rgb(160 187 175);
+  --var-block-link: rgb(54 54 167);
+
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 body.dark {
-  @extend .baseBody;
-  background: var(--varMainColor);
+  @extend %base-body;
+
+  background: var(--var-main-color);
   background: radial-gradient(
     circle,
-    rgba(83, 89, 117, 1) 0%,
-    rgba(38, 38, 45, 1) 46%,
-    rgba(12, 13, 13, 1) 100%
+    rgb(83 89 117 / 100%) 0%,
+    rgb(38 38 45 / 100%) 46%,
+    rgb(12 13 13 / 100%) 100%
   );
 
-  --varMainColor: rgba(12, 13, 13, 1);
-  --varSubtitle: rgb(209, 209, 209);
-  --varContrastTextsAndLogos: rgb(220, 220, 220);
-  --varLinkColor: rgb(118, 118, 255);
-  --varSubblockImageBrightness: 0.8;
-  --varContainerColor: rgb(123, 142, 155);
-  --varBlockLink: rgb(22, 22, 139);
+  --var-main-color: rgb(12 13 13 / 100%);
+  --var-subtitle: rgb(209 209 209);
+  --var-contrast-texts-and-logos: rgb(220 220 220);
+  --var-link-color: rgb(118 118 255);
+  --var-subblock-image-brightness: 0.8;
+  --var-container-color: rgb(123 142 155);
+  --var-block-link: rgb(22 22 139);
+
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 h2 {
-  color: var(--varContrastTextsAndLogos);
+  color: var(--var-contrast-texts-and-logos);
   font-weight: 500;
 }
 
@@ -78,13 +75,13 @@ h2 {
   min-height: 100%;
 }
 
-.upButton {
+%button {
   position: fixed;
   display: flex;
   flex-direction: row;
   height: 60px;
-  margin: 0px 20px;
-  padding: 0px 10px;
+  margin: 0 20px;
+  padding: 0 10px;
   align-items: center;
   justify-content: center;
   font-size: 30px;
@@ -92,12 +89,17 @@ h2 {
   letter-spacing: -2px;
   line-height: calc(25px + 1vw);
   cursor: pointer;
-  color: var(--varContrastTextsAndLogos);
+  color: var(--var-contrast-texts-and-logos);
   z-index: 1;
 }
 
-.togglerButton {
-  @extend .upButton;
+.up-button {
+  @extend %button;
+}
+
+.toggler-button {
+  @extend %button;
+
   background: none;
   position: absolute;
   right: 0;

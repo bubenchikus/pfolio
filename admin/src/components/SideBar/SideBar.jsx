@@ -13,7 +13,9 @@ const SideBar = () => {
   };
 
   function pressButton(id) {
-    document.getElementById(id)?.setAttribute("class", styles.buttonPressed);
+    document
+      .getElementById(id)
+      ?.setAttribute("class", styles["button-pressed"]);
   }
 
   function unpressButton(id) {
@@ -49,7 +51,7 @@ const SideBar = () => {
                 setCurrentPage(page);
               }}
             >
-              <div className={styles.sideBarLink}>{capitalize(page)}</div>
+              <div className={styles["side-bar-link"]}>{capitalize(page)}</div>
             </div>
           </Link>
         ))}
@@ -61,7 +63,9 @@ const SideBar = () => {
               localStorage.clear();
             }}
           >
-            <div className={styles.sideBarLink}>{capitalize("logout")}</div>
+            <div className={styles["side-bar-link"]}>
+              {capitalize("logout")}
+            </div>
           </div>
         </Link>
       </Menu>

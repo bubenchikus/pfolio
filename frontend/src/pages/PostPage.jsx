@@ -40,7 +40,7 @@ const PostPage = () => {
   }, []);
 
   const iconFontStyle = `${
-    clientWidth > parseInt(styleConstants.mobileWidth)
+    clientWidth > parseInt(styleConstants["mobile-width"])
       ? Math.floor(clientWidth / 30)
       : Math.floor(clientWidth / 10)
   }px`;
@@ -54,7 +54,7 @@ const PostPage = () => {
 
   return (
     <div className={universalStyles.dark}>
-      <div className={styles.closeBox}>
+      <div className={styles["close-box"]}>
         <Link to={`/journal/${category}`}>
           <CloseIcon
             sx={iconStyle}
@@ -65,7 +65,7 @@ const PostPage = () => {
         </Link>
       </div>
 
-      <div className={styles.postBox}>
+      <div className={styles["post-box"]}>
         <JournalPostTemplate postData={postData} clickable={false} />
       </div>
     </div>
