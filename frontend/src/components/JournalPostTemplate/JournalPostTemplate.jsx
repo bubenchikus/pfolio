@@ -10,11 +10,11 @@ const JournalPostTemplate = ({
   clickable = false,
 }) => {
   return (
-    <div className={universalStyles.blockContainer}>
+    <div className={universalStyles["block-container"]}>
       {clickable ? (
         <Link
           to={`/journal/${currentCategory}/${postData?.id}`}
-          className={universalStyles.blockTitle}
+          className={universalStyles["block-title"]}
           onClick={() => {
             document.body.style.overflow = "hidden";
           }}
@@ -23,15 +23,17 @@ const JournalPostTemplate = ({
           {postData?.title}
         </Link>
       ) : (
-        <div className={universalStyles.blockTitle}>{postData?.title}</div>
+        <div className={universalStyles["block-title"]}>{postData?.title}</div>
       )}
 
-      <Markdown className={universalStyles.blockText}>{postData?.txt}</Markdown>
+      <Markdown className={universalStyles["block-text"]}>
+        {postData?.txt}
+      </Markdown>
       <div className={styles.footer}>
-        <div className={styles.footerComponent}>
+        <div className={styles["footer-component"]}>
           <b>Created:</b> {postData?.created?.substring(0, 10)}
         </div>
-        <div className={styles.footerComponent}>
+        <div className={styles["footer-component"]}>
           <b>Category:</b> {postData?.category}
         </div>
       </div>

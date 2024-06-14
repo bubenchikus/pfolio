@@ -1,3 +1,5 @@
+@import "../../styleConstants";
+
 .footer {
   display: flex;
   flex-direction: row;
@@ -9,7 +11,7 @@
   font-weight: 500;
 }
 
-.footerComponent {
+.footer-component {
   font-size: 18px;
 }
 
@@ -17,16 +19,81 @@
   min-width: 400px;
 }
 
-.postBox {
+.post-box {
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
   width: 90vw;
 }
 
-.closeBox {
+.close-box {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   padding-right: 2vw;
+}
+
+%link {
+  color: var(--var-block-link);
+  text-decoration: underline 2px;
+  font-size: calc(15px + 0.3vw);
+  text-align: center;
+  transition: 1s;
+
+  &:hover {
+    transition: 1s;
+    font-size: calc(15px + 0.4vw);
+    cursor: pointer;
+  }
+}
+
+.button-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+%button {
+  @extend %link;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  min-width: 100px;
+  font-size: 22px;
+  height: 40px;
+  padding: 0 20px;
+  background: var(--var-container-color);
+  border-radius: 5px;
+  transition: 0.5s;
+
+  &:hover {
+    transition: 1s;
+    font-size: 26px;
+    cursor: pointer;
+  }
+}
+
+.button-pressed {
+  @extend %button;
+
+  filter: saturate(3) brightness(0.7);
+}
+
+@media (max-width: $mobile-width) {
+  .button-box {
+    display: block;
+    columns: auto;
+    column-count: 2;
+  }
+
+  .button {
+    margin-bottom: 5px;
+    break-inside: avoid;
+  }
 }

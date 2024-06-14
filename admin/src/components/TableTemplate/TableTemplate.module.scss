@@ -10,7 +10,7 @@ $smooth-accent: rgb(161, 204, 180);
   padding: 0 20px;
 }
 
-.buttonBox {
+.button-box {
   display: flex;
   flex-direction: row;
   padding-top: 20px;
@@ -21,8 +21,8 @@ $smooth-accent: rgb(161, 204, 180);
   align-items: center;
 }
 
-.editorButtonBox {
-  @extend .buttonBox;
+.editorbutton-box {
+  @extend .button-box;
   padding: 10px 0;
   justify-content: center;
 }
@@ -35,14 +35,14 @@ $smooth-accent: rgb(161, 204, 180);
   text-decoration: none;
   min-height: 40px;
   padding: 0 20px;
-  background-color: $smooth-accent;
+  background: $smooth-accent;
   border-radius: 5px;
   transition: 0.5s;
 }
 
-.buttonPressed {
+.button-pressed {
   @extend .button;
-  background-color: $accent;
+  background: $accent;
 }
 
 .button:hover {
@@ -55,7 +55,7 @@ $smooth-accent: rgb(161, 204, 180);
   display: flex;
   flex-direction: column;
   position: fixed;
-  background-color: $smooth-accent;
+  background: $smooth-accent;
   margin: auto 0;
   padding: 10px 50px;
   width: 800px;
@@ -89,7 +89,7 @@ $smooth-accent: rgb(161, 204, 180);
 
 .submitButton {
   @extend .button;
-  background-color: transparent;
+  background: transparent;
   border: solid black 1px;
   width: 200px;
 }
@@ -103,7 +103,7 @@ $smooth-accent: rgb(161, 204, 180);
 .textEditorBox {
   @extend .uploaderEditorBox;
   z-index: 1;
-  background-color: white;
+  background: white;
   overflow-y: scroll;
   max-height: 80%;
 }

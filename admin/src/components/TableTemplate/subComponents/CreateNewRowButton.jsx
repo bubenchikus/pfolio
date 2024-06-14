@@ -12,7 +12,7 @@ const CreateNewRowButton = ({
   resetEditor,
 }) => {
   return (
-    <div className={styles.buttonBox}>
+    <div className={styles["button-box"]}>
       <div
         className={styles.button}
         onClick={(e) => {

@@ -1,4 +1,4 @@
-.sideBarLink {
+.side-bar-link {
   font-size: 20px;
   text-align: center;
   color: black;
@@ -6,7 +6,7 @@
   transition: 1s;
 }
 
-.sideBarLink:hover {
+.side-bar-link:hover {
   font-size: 22px;
 }
 
@@ -18,14 +18,14 @@ a {
   border: solid rgb(80, 80, 80) 2px;
   border-top: none;
   box-sizing: "content-box";
-  background-color: rgb(200, 200, 200);
+  background: rgb(200, 200, 200);
   min-height: 40px;
   justify-content: center;
   align-items: center;
   display: flex;
 }
 
-.buttonPressed {
+.button-pressed {
   @extend .button;
-  background-color: rgb(240, 240, 240);
+  background: rgb(240, 240, 240);
 }

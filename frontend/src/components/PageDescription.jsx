@@ -4,7 +4,7 @@ import Markdown from "react-markdown";
 
 const PageDescription = ({ descriptionData }) => {
   return (
-    <Markdown className={universalStyles.pageDescription}>
+    <Markdown load="lazy" className={universalStyles["page-description"]}>
       {descriptionData?.txt || ""}
     </Markdown>
   );

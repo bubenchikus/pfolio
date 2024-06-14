@@ -17,7 +17,7 @@ const CarouselTemplate = ({
   const [loaded, setLoaded] = useState(false);
 
   const iconFontStyle = `${
-    clientWidth > parseInt(styleConstants.mobileWidth)
+    clientWidth > parseInt(styleConstants["mobile-width"])
       ? Math.floor(clientWidth / 30)
       : Math.floor(clientWidth / 10)
   }px`;
@@ -37,9 +37,9 @@ const CarouselTemplate = ({
 
   return currentImage ? (
     <div className={universalStyles.dark}>
-      <div className={styles.carouselBox}>
-        <div className={styles.carouselSidePanel}>
-          <div className={styles.carouselSidePanelBox}></div>
+      <div className={styles["carousel-box"]}>
+        <div className={styles["carousel-side-panel"]}>
+          <div className={styles["carousel-side-panelBox"]}></div>
           {prevImageId ? (
             <Link to={`/art/${currentImage.category}/${prevImageId}`}>
               <ArrowBackIcon
@@ -54,32 +54,38 @@ const CarouselTemplate = ({
           )}
         </div>
 
-        <div className={styles.carouselMiddleBox}>
+        <div className={styles["carousel-middle-box"]}>
           {loaded ? null : (
             <CircularProgress sx={{ position: "absolute", color: "white" }} />
           )}
-          <div className={loaded ? styles.carouselImageBox : styles.imgHidden}>
+          <div
+            className={
+              loaded ? styles["carousel-image-box"] : styles["img-hidden"]
+            }
+          >
             <img
               src={`${process.env.REACT_APP_API_URL}/pictures/${currentImage?.category}/${currentImage?.pictureName}`}
-              className={styles.carouselImage}
+              className={styles["carousel-image"]}
               alt={currentImage.title ?? ""}
               onLoad={() => setLoaded(true)}
             />
           </div>
           <div
-            className={loaded ? styles.carouselDescription : styles.imgHidden}
+            className={
+              loaded ? styles["carousel-description"] : styles["img-hidden"]
+            }
           >
             <div
-              className={styles.carouselText}
+              className={styles["carousel-text"]}
             >{`Title: ${currentImage?.title}`}</div>
-            <div className={styles.carouselText}>
+            <div className={styles["carousel-text"]}>
               {`Redraw: ${currentImage?.redraw ? "yes" : "no"}`}
             </div>
-            <div className={styles.carouselText}>
+            <div className={styles["carousel-text"]}>
               {`Created: ${currentImage?.created}`}
             </div>
             {currentImage?.about ? (
-              <div className={styles.carouselText}>
+              <div className={styles["carousel-text"]}>
                 `About: ${currentImage?.about}`
               </div>
             ) : (
@@ -88,7 +94,7 @@ const CarouselTemplate = ({
           </div>
         </div>
 
-        <div className={styles.carouselSidePanel}>
+        <div className={styles["carousel-side-panel"]}>
           <Link to={`/art/${currentImage.category}`}>
             <CloseIcon
               sx={iconStyle}
@@ -97,7 +103,7 @@ const CarouselTemplate = ({
               }}
             />
           </Link>
-          <div className={styles.carouselSidePanelBox}>
+          <div className={styles["carousel-side-panelBox"]}>
             {nextImageId ? (
               <Link to={`/art/${currentImage.category}/${nextImageId}`}>
                 <ArrowForwardIcon
