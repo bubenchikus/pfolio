@@ -18,8 +18,6 @@ const Journal = () => {
   const [lastPage, setLastPage] = useState(1);
   const [currentCategory, setCurrentCategory] = useState(category);
 
-  const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     axios
       .get(`/posts/${currentCategory}?page=1`)
@@ -39,7 +37,6 @@ const Journal = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
       axios
         .get(`/posts/${currentCategory}?page=${lastPage}`)
         .then((res) => {
@@ -49,16 +46,17 @@ const Journal = () => {
         .catch(() => {
           console.error("Error occured while getting journal!");
         });
-      setIsLoading(false);
     };
 
     const handleScroll = () => {
       if (
         window.innerHeight + document.documentElement.scrollTop ===
-          document.documentElement.offsetHeight ||
-        isLoading
+        document.documentElement.offsetHeight
       ) {
-        return fetchData();
+        fetchData();
+        return () => {
+          window.removeEventListener("scroll", handleScroll);
+        };
       }
     };
     window.addEventListener("scroll", handleScroll);
@@ -66,7 +64,7 @@ const Journal = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [isLoading, lastPage, currentCategory]);
+  }, [lastPage, currentCategory]);
 
   useEffect(() => {
     axios
@@ -114,7 +112,6 @@ const Journal = () => {
       ) : (
         <h2>No posts available for this category yet...</h2>
       )}
-      <>{isLoading && <p>Loading...</p>}</>
     </>
   ) : (
     <></>
