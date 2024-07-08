@@ -23,9 +23,6 @@
     "Titillium Web", "Marcellus";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 body {
@@ -47,10 +44,14 @@ body {
   --varSubblockImageBrightness: 0.6;
   --varContainerColor: rgb(160, 187, 175);
   --varBlockLink: rgb(54, 54, 167);
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 body.dark {
   @extend .baseBody;
+
   background: var(--varMainColor);
   background: radial-gradient(
     circle,
@@ -66,6 +67,9 @@ body.dark {
   --varSubblockImageBrightness: 0.8;
   --varContainerColor: rgb(123, 142, 155);
   --varBlockLink: rgb(22, 22, 139);
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 h2 {

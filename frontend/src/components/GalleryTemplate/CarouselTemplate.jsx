@@ -89,14 +89,16 @@ const CarouselTemplate = ({
         </div>
 
         <div className={styles.carouselSidePanel}>
-          <Link to={`/art/${currentImage.category}`}>
-            <CloseIcon
-              sx={iconStyle}
-              onClick={() => {
-                document.body.style.overflow = "visible";
-              }}
-            />
-          </Link>
+          <div>
+            <Link to={`/art/${currentImage.category}`}>
+              <CloseIcon
+                sx={iconStyle}
+                onClick={() => {
+                  document.body.style.overflow = "visible";
+                }}
+              />
+            </Link>
+          </div>
           <div className={styles.carouselSidePanelBox}>
             {nextImageId ? (
               <Link to={`/art/${currentImage.category}/${nextImageId}`}>

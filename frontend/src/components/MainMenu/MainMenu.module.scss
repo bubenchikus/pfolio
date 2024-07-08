@@ -46,7 +46,7 @@
   justify-content: center;
   text-justify: center;
   text-decoration: none;
-  border: solid 0.2vw black;
+  border: solid 2.5px black;
 }
 
 .blockSubblockText {
@@ -121,7 +121,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border: solid 0.25vw black;
+  border: solid 2.5px black;
   transition: ease 0.5s;
 }
 
@@ -183,9 +183,7 @@
     font-size: 6vw;
     padding: 1vh 0;
   }
-}
 
-@media (max-width: 900px) {
   .grid {
     grid-template-columns: 0 100%;
   }
