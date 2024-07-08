@@ -177,7 +177,7 @@
     font-size: 5.5vw;
   }
 
-  .middle-block {
+  %middle-block {
     border: none;
   }
 }
@@ -192,7 +192,7 @@
     grid-template-columns: 0 100%;
   }
 
-  .middle-block {
+  %middle-block {
     border: none;
   }
 }
