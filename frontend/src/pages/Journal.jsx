@@ -54,13 +54,12 @@ const Journal = () => {
 
     const handleScroll = () => {
       if (
-        window.innerHeight + document.documentElement.scrollTop !==
+        window.innerHeight + document.documentElement.scrollTop ===
           document.documentElement.offsetHeight ||
         isLoading
       ) {
-        return;
+        return fetchData();
       }
-      return fetchData();
     };
     window.addEventListener("scroll", handleScroll);
 
