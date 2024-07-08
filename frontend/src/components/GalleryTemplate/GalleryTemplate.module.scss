@@ -4,7 +4,7 @@
   aspect-ratio: 1;
 }
 
-.imgHidden {
+.img-hidden {
   display: none;
 }
 
@@ -12,7 +12,7 @@
   cursor: pointer;
 }
 
-.carouselBox {
+.carousel-box {
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
   align-items: stretch;
@@ -22,7 +22,7 @@
   width: 90vw;
 }
 
-.carouselMiddleBox {
+.carousel-middle-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,31 +30,31 @@
   max-height: 100%;
 }
 
-.carouselSidePanel {
+.carousel-side-panel {
   display: grid;
   grid-template-rows: 1fr 1fr;
   justify-content: center;
   height: 700px;
 }
 
-.carouselSidePanelBox {
+.carousel-side-panel-box {
   align-items: start;
 }
 
-.carouselImageBox {
+.carousel-image-box {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
 }
 
-.carouselImage {
+.carousel-image {
   max-height: 70vh;
   max-width: 100%;
   display: block;
 }
 
-.carouselDescription {
+.carousel-description {
   border-top: solid white 2px;
   width: 30%;
   padding-top: 10px;
@@ -62,18 +62,18 @@
   color: white;
 }
 
-.carouselText {
+.carousel-text {
   max-width: 100%;
   font-size: 16px;
   text-align: center;
 }
 
-@media (max-width: 850px) {
-  .carouselBox {
+@media (width <= 850px) {
+  .carousel-box {
     width: 100%;
   }
 
-  .carouselImageBox {
-    padding: 0 0 2vh 0;
+  .carousel-image-box {
+    padding: 0 0 2vh;
   }
 }

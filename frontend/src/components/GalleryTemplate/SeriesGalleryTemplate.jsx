@@ -32,7 +32,7 @@ const SeriesGalleryTemplate = ({
           />
         )}
         <img
-          className={loaded[item.id] ? styles.img : styles.imgHidden}
+          className={loaded[item.id] ? styles.img : styles["img-hidden"]}
           onLoad={() => {
             loaded[item.id] = true;
             setLoaded(loaded);
@@ -48,12 +48,12 @@ const SeriesGalleryTemplate = ({
     </Link>
   ));
   return (
-    <div className={universalStyles.blockContainer}>
-      <div className={universalStyles.blockTitle}>{`Series: ${
+    <div className={universalStyles["block-container"]}>
+      <div className={universalStyles["block-title"]}>{`Series: ${
         series ? series : "no-series"
       }`}</div>
       {seriesDescription ? (
-        <div className={universalStyles.blockText}>{seriesDescription}</div>
+        <div className={universalStyles["block-text"]}>{seriesDescription}</div>
       ) : (
         <></>
       )}
