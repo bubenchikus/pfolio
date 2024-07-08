@@ -26,7 +26,7 @@ const Journal = () => {
       .then((res) => {
         setData(res?.data);
         if (res?.data) {
-          setLastPage(2);
+          setLastPage(1);
           document
             .getElementById(currentCategory)
             .setAttribute("class", universalStyles["button-pressed"]);
@@ -104,8 +104,9 @@ const Journal = () => {
         ))}
       </div>
       {data && data.length > 0 ? (
-        data?.map((post) => (
+        data?.map((post, index) => (
           <JournalPostTemplate
+            key={index}
             postData={post}
             currentCategory={currentCategory}
             clickable={true}

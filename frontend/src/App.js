@@ -80,6 +80,7 @@ function App() {
 
           {artCategories.map((category) => (
             <Route
+              key={category}
               path={`/art/${category}/:id?`}
               element={<Gallery category={category} />}
             />
