@@ -8,13 +8,13 @@ import logoDark from "./../../uiPictures/logo-web-dark.svg";
 const Header = ({ isDark }) => {
   return (
     <div className={styles.root}>
-      <Link className={styles.logoBox} to="/">
+      <Link className={styles["logo-box"]} to="/">
         <img
-          className={styles.imageLogo}
+          className={styles["image-logo"]}
           src={isDark ? logoDark : logoLight}
           alt="Not found"
         />
-        <h1 className={styles.textLogo}>
+        <h1 className={styles["test-logo"]}>
           Bubengogh's
           <br />
           bunker

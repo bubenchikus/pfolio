@@ -40,7 +40,7 @@ const CropWindow = ({
         crop={onCrop}
         ref={cropperRef}
       />
-      <div className={styles.editorButtonBox}>
+      <div className={styles["editorbutton-box"]}>
         <div
           className={styles.submitButton}
           onClick={() => {

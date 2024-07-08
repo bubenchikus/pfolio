@@ -3,9 +3,9 @@ import styles from "./LogoBar.module.scss";
 
 const LogoBar = () => {
   return (
-    <div className={styles.logoBox}>
-      <img className={styles.imageLogo} src={logo} alt="Not found" />
-      <div className={styles.textLogo}>Admin panel</div>
+    <div className={styles["logo-box"]}>
+      <img className={styles["image-logo"]} src={logo} alt="Not found" />
+      <div className={styles["test-logo"]}>Admin panel</div>
     </div>
   );
 };

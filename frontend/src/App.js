@@ -50,7 +50,7 @@ function App() {
     <>
       {isUpButtonActive ? (
         <div
-          className="upButton"
+          className="up-button"
           onClick={() => {
             window.scrollTo(0, 0);
           }}
@@ -61,7 +61,7 @@ function App() {
       ) : null}
 
       <div
-        className="togglerButton"
+        className="toggler-button"
         onClick={() => {
           setIsDark(!isDark);
         }}
@@ -90,7 +90,7 @@ function App() {
 
 
           <Route
-            path="/article/lore?"
+            path="/article/lore"
             element={<Article pageTitle="lore" />}
           />
           <Route

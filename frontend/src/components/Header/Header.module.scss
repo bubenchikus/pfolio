@@ -6,29 +6,29 @@
   margin: 0;
   padding: 0;
   text-decoration: none;
-  background: var(--varMainColor);
+  background: var(--var-main-color);
   background: linear-gradient(
     0deg,
-    rgba(255, 255, 255, 0) 25%,
+    rgb(255 255 255 / 0%) 25%,
     75%,
-    var(--varMainColor) 100%
+    var(--var-main-color) 100%
   );
   z-index: 1;
 }
 
-.logoBox {
+.logo-box {
   align-items: center;
   justify-content: center;
   display: flex;
   text-decoration: none;
-  padding: 20px 0 40px 0;
+  padding: 20px 0 40px;
 }
 
-.imageLogo {
+.image-logo {
   height: calc(max(35px + 2vw, 80px));
 }
 
-.textLogo {
+.test-logo {
   align-items: center;
   font-size: calc(35px + 1vw);
   font-weight: 400;
@@ -37,14 +37,15 @@
   margin: 0;
   padding: 0 5px;
   text-transform: uppercase;
-  color: var(--varContrastTextsAndLogos);
+  color: var(--var-contrast-texts-and-logos);
 }
 
-@media (max-width: 500px) {
-  .logoBox {
+@media (width <= 500px) {
+  .logo-box {
     padding: 20px 0;
   }
-  .textLogo {
+
+  .test-logo {
     font-size: 0;
     opacity: 0;
   }

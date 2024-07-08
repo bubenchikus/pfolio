@@ -29,7 +29,7 @@ const Journal = () => {
           setLastPage(2);
           document
             .getElementById(currentCategory)
-            .setAttribute("class", universalStyles.buttonPressed);
+            .setAttribute("class", universalStyles["button-pressed"]);
         }
       })
       .catch(() => {
@@ -85,7 +85,7 @@ const Journal = () => {
       {id ? <PostPage /> : <></>}
       <PageTitle pageTitle="Action Journal" />
       <PageDescription descriptionData={descriptionData} />
-      <div className={universalStyles.buttonBox}>
+      <div className={universalStyles["button-box"]}>
         {journalCategories.map((category) => (
           <Link
             to={`/journal/${category}`}

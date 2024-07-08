@@ -15,7 +15,7 @@ const EditorButtonBox = ({
   setDataChanged,
 }) => {
   return (
-    <div className={styles.editorButtonBox}>
+    <div className={styles["editorbutton-box"]}>
       <div
         className={styles.submitButton}
         onClick={() => {

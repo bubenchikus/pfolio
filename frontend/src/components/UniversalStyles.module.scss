@@ -1,13 +1,13 @@
-@import "../styleConstants.scss";
+@import "../styleConstants";
 
-.linkBox {
+.link-box {
   display: flex;
   padding: 10px;
   justify-content: center;
   gap: 20px;
 }
 
-.buttonBox {
+.button-box {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -18,7 +18,7 @@
 }
 
 .link {
-  color: var(--varBlockLink);
+  color: var(--var-block-link);
   text-decoration: underline 2px;
   font-size: calc(15px + 0.3vw);
   text-align: center;
@@ -27,6 +27,7 @@
 
 .button {
   @extend .link;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,13 +36,14 @@
   font-size: 22px;
   height: 40px;
   padding: 0 20px;
-  background-color: var(--varContainerColor);
+  background: var(--var-container-color);
   border-radius: 5px;
   transition: 0.5s;
 }
 
-.buttonPressed {
+.button-pressed {
   @extend .button;
+
   filter: saturate(3) brightness(0.7);
 }
 
@@ -57,71 +59,72 @@
   cursor: pointer;
 }
 
-.blockContainer {
+.block-container {
   margin-bottom: 20px;
   border: black 2px solid;
   border-left: black 4px solid;
   box-sizing: border-box;
-  background-color: var(--varContainerColor);
+  background: var(--var-container-color);
   overflow-wrap: break-word;
   padding: 10px 20px;
   border-radius: 0 5px 5px 0;
 }
 
-.blockTitle {
+.block-title {
   font-size: 25px;
   text-decoration: underline 2px;
   text-underline-offset: 4px;
 }
 
-.blockTitle:link {
-  color: var(--varBlockLink);
+.block-title:link {
+  color: var(--var-block-link);
 }
 
-.blockTitle:visited {
-  color: var(--varBlockLink);
+.block-title:visited {
+  color: var(--var-block-link);
 }
 
-.blockText {
+.block-text {
   font-size: 20px;
-  margin: 5px 0 20px 0;
+  margin: 5px 0 20px;
   min-height: 0;
   font-weight: 300;
 }
 
-.blockText img {
+.block-text img {
   max-height: 300px;
   max-width: 100%;
 }
 
-.pageTitle {
+.page-title {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   font-size: 40px;
-  color: var(--varSubtitle);
-  border-bottom: solid var(--varSubtitle) 3px;
+  color: var(--var-subtitle);
+  border-bottom: solid var(--var-subtitle) 3px;
   letter-spacing: -2px;
-  margin: 5px 0 30px 0;
+  margin: 5px 0 30px;
   font-family: "Marcellus SC", serif;
   line-height: 98%;
   text-transform: uppercase;
   font-weight: 400;
 }
 
-.pageSubtitle:hover {
+.page-subtitle:hover {
   font-size: 34px;
   transition: 1s;
 }
 
-.pageDescription {
-  @extend .blockText;
-  color: var(--varContrastTextsAndLogos);
+.page-description {
+  @extend .block-text;
+
+  color: var(--var-contrast-texts-and-logos);
   margin-bottom: 30px;
   max-width: 100%;
 }
 
-.pageDescription img {
+.page-description img {
   max-width: 100%;
   max-height: 90vh;
   display: block;
@@ -129,7 +132,7 @@
   margin-right: auto;
 }
 
-.paginationBox {
+.pagination-box {
   display: flex;
   justify-content: center;
 }
@@ -140,17 +143,16 @@
   width: 100%;
   height: 100%;
   z-index: 1;
-  background-color: #000;
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgb(0 0 0 / 90%);
   align-items: center;
   justify-content: center;
 }
 
-@media (max-width: $mobileWidth) {
-  .buttonBox {
+@media (max-width: $mobile-width) {
+  .button-box {
     display: block;
     columns: auto;
     column-count: 2;
