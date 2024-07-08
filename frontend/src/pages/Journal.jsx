@@ -51,18 +51,16 @@ const Journal = () => {
     const handleScroll = () => {
       if (
         window.innerHeight + Math.ceil(document.documentElement.scrollTop) ===
-        document.documentElement.offsetHeight
+        Math.ceil(document.documentElement.offsetHeight)
       ) {
         fetchData();
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    // document.body.addEventListener("touchmove", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      // document.body.removeEventListener("touchmove", handleScroll);
     };
   }, [lastPage, currentCategory]);
 
