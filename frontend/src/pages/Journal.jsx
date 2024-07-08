@@ -26,7 +26,7 @@ const Journal = () => {
       .then((res) => {
         setData(res?.data);
         if (res?.data) {
-          setLastPage(1);
+          setLastPage(2);
           document
             .getElementById(currentCategory)
             .setAttribute("class", universalStyles["button-pressed"]);
@@ -60,7 +60,7 @@ const Journal = () => {
       ) {
         return;
       }
-      fetchData();
+      return fetchData();
     };
     window.addEventListener("scroll", handleScroll);
 
