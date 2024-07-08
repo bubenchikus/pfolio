@@ -41,7 +41,7 @@ const Journal = () => {
         .get(`/posts/${currentCategory}?page=${lastPage}`)
         .then((res) => {
           setData((prevData) => [...prevData, ...res?.data]);
-          setLastPage((prevLastPage) => prevLastPage + 2);
+          setLastPage((prevLastPage) => prevLastPage + 1);
         })
         .catch(() => {
           console.error("Error occured while getting journal!");
@@ -58,11 +58,11 @@ const Journal = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    document.body.addEventListener("touchmove", handleScroll);
+    // document.body.addEventListener("touchmove", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      document.body.removeEventListener("touchmove", handleScroll);
+      // document.body.removeEventListener("touchmove", handleScroll);
     };
   }, [lastPage, currentCategory]);
 
