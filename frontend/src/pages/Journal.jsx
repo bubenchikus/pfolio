@@ -54,15 +54,15 @@ const Journal = () => {
         document.documentElement.offsetHeight
       ) {
         fetchData();
-        return () => {
-          window.removeEventListener("scroll", handleScroll);
-        };
       }
     };
+
     window.addEventListener("scroll", handleScroll);
+    document.body.addEventListener("touchmove", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      document.body.removeEventListener("touchmove", handleScroll);
     };
   }, [lastPage, currentCategory]);
 
