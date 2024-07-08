@@ -41,7 +41,7 @@ const Journal = () => {
         .get(`/posts/${currentCategory}?page=${lastPage}`)
         .then((res) => {
           setData((prevData) => [...prevData, ...res?.data]);
-          setLastPage((prevLastPage) => prevLastPage + 1);
+          setLastPage((prevLastPage) => prevLastPage + 2);
         })
         .catch(() => {
           console.error("Error occured while getting journal!");
