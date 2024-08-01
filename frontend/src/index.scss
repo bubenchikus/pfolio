@@ -25,6 +25,29 @@ body {
   background: var(--var-main-color);
   background: radial-gradient(
     circle,
+    rgb(83 89 117 / 100%) 0%,
+    rgb(38 38 45 / 100%) 46%,
+    rgb(12 13 13 / 100%) 100%
+  );
+
+  --var-main-color: rgb(12 13 13 / 100%);
+  --var-subtitle: rgb(209 209 209);
+  --var-contrast-texts-and-logos: rgb(220 220 220);
+  --var-link-color: rgb(118 118 255);
+  --var-subblock-image-brightness: 0.8;
+  --var-container-color: rgb(123 142 155);
+  --var-block-link: rgb(22 22 139);
+
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+body.light {
+  @extend %base-body;
+
+  background: var(--var-main-color);
+  background: radial-gradient(
+    circle,
     rgb(107 226 183 / 100%) 0%,
     rgb(237 255 246 / 100%) 50%,
     rgb(253 255 253 / 100%) 65%,
@@ -38,29 +61,6 @@ body {
   --var-subblock-image-brightness: 0.6;
   --var-container-color: rgb(160 187 175);
   --var-block-link: rgb(54 54 167);
-
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-}
-
-body.dark {
-  @extend %base-body;
-
-  background: var(--var-main-color);
-  background: radial-gradient(
-    circle,
-    rgb(83 89 117 / 100%) 0%,
-    rgb(38 38 45 / 100%) 46%,
-    rgb(12 13 13 / 100%) 100%
-  );
-
-  --var-main-color: rgb(12 13 13 / 100%);
-  --var-subtitle: rgb(209 209 209);
-  --var-contrast-texts-and-logos: rgb(220 220 220);
-  --var-link-color: rgb(118 118 255);
-  --var-subblock-image-brightness: 0.8;
-  --var-container-color: rgb(123 142 155);
-  --var-block-link: rgb(22 22 139);
 
   background-attachment: fixed;
   background-repeat: no-repeat;
