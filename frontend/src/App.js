@@ -13,7 +13,7 @@ import { artCategories } from "./internalConstants";
 
 function App() {
   const useColorSchemeState = createPersistedState("colorScheme");
-  const [isLight, setIsLight] = useColorSchemeState(true);
+  const [isLight, setIsLight] = useColorSchemeState(false);
 
   const value = useMemo(() => isLight, [isLight]);
 
