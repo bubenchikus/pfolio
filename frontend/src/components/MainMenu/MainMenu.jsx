@@ -3,13 +3,13 @@ import styles from "./MainMenu.module.scss";
 
 import { Link } from "react-router-dom";
 
-const MainMenu = ({ isDark }) => {
+const MainMenu = ({ isLight }) => {
   return (
     <>
       <div className={styles.grid}>
         <div
           className={
-            isDark ? styles["middle-block-dark"] : styles["middle-block-light"]
+            isLight ? styles["middle-block-light"] : styles["middle-block-dark"]
           }
         />
         <div className={styles["menu-block"]}>

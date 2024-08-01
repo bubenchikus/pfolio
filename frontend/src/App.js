@@ -13,15 +13,15 @@ import { artCategories } from "./internalConstants";
 
 function App() {
   const useColorSchemeState = createPersistedState("colorScheme");
-  const [isDark, setIsDark] = useColorSchemeState(true);
+  const [isLight, setIsLight] = useColorSchemeState(true);
 
-  const value = useMemo(() => isDark, [isDark]);
+  const value = useMemo(() => isLight, [isLight]);
 
   useEffect(() => {
     if (value) {
-      document.body.classList.add("dark");
+      document.body.classList.add("light");
     } else {
-      document.body.classList.remove("dark");
+      document.body.classList.remove("light");
     }
   }, [value]);
 
@@ -63,20 +63,20 @@ function App() {
       <div
         className="toggler-button"
         onClick={() => {
-          setIsDark(!isDark);
+          setIsLight(!isLight);
         }}
       >
-        {isDark ? (
+        {isLight ? (
           <LightModeSharp sx={{ fontSize: "50px" }} />
         ) : (
           <Brightness3Sharp sx={{ fontSize: "50px" }} />
         )}
       </div>
 
-      <Header isDark={isDark} />
+      <Header isLight={isLight} />
       <Container maxWidth="lg">
         <Routes>
-          <Route path="/" element={<Home isDark={isDark} />} />
+          <Route path="/" element={<Home isLight={isLight} />} />
 
           {artCategories.map((category) => (
             <Route
