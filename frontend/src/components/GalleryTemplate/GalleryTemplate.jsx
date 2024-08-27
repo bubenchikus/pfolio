@@ -22,6 +22,8 @@ const GalleryTemplate = ({ category }) => {
   const [nextImageId, setNextImageId] = useState();
   const [prevImageId, setPrevImageId] = useState();
 
+  document.body.style.overflow = "unset";
+
   useEffect(() => {
     axios
       .get(`art/${category}`)
@@ -89,7 +91,9 @@ const GalleryTemplate = ({ category }) => {
           nextImageId={nextImageId}
           prevImageId={prevImageId}
           clientWidth={clientWidth}
-        />
+        >
+          {(document.body.style.overflow = "hidden")}
+        </CarouselTemplate>
       ) : (
         <></>
       )}

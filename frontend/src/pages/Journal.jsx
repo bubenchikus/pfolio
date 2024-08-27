@@ -18,6 +18,8 @@ const Journal = () => {
   const [lastPage, setLastPage] = useState(1);
   const [currentCategory, setCurrentCategory] = useState(category);
 
+  document.body.style.overflow = "unset";
+
   useEffect(() => {
     axios
       .get(`/posts/${currentCategory}?page=1`)
@@ -77,7 +79,11 @@ const Journal = () => {
 
   return data ? (
     <>
-      {id ? <PostPage /> : <></>}
+      {id ? (
+        <PostPage>{(document.body.style.overflow = "hidden")}</PostPage>
+      ) : (
+        <></>
+      )}
       <PageTitle pageTitle="Action Journal" />
       <PageDescription descriptionData={descriptionData} />
       <div className={universalStyles["button-box"]}>

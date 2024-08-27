@@ -15,9 +15,6 @@ const JournalPostTemplate = ({
         <Link
           to={`/journal/${currentCategory}/${postData?.id}`}
           className={universalStyles["block-title"]}
-          onClick={() => {
-            document.body.style.overflow = "hidden";
-          }}
           id={`#${postData?.id}`}
         >
           {postData?.title}
