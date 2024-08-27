@@ -17,9 +17,6 @@ const SeriesGalleryTemplate = ({
   const imagesList = images?.map((item) => (
     <Link to={`/art/${item.category}/${item.id}`} key={item.id}>
       <ImageListItem
-        onClick={() => {
-          document.body.style.overflow = "hidden";
-        }}
         sx={{
           aspectRatio: "1",
           overflow: "hidden",

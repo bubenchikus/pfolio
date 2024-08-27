@@ -97,12 +97,7 @@ const CarouselTemplate = ({
         <div className={styles["carousel-side-panel"]}>
           <div>
             <Link to={`/art/${currentImage.category}`}>
-              <CloseIcon
-                sx={iconStyle}
-                onClick={() => {
-                  document.body.style.overflow = "visible";
-                }}
-              />
+              <CloseIcon sx={iconStyle} />
             </Link>
           </div>
           <div className={styles["carousel-side-panelBox"]}>

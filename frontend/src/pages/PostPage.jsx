@@ -56,12 +56,7 @@ const PostPage = () => {
     <div className={universalStyles.dark}>
       <div className={styles["close-box"]}>
         <Link to={`/journal/${category}`}>
-          <CloseIcon
-            sx={iconStyle}
-            onClick={() => {
-              document.body.style.overflow = "visible";
-            }}
-          />
+          <CloseIcon sx={iconStyle} />
         </Link>
       </div>
 
