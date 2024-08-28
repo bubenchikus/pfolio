@@ -16,9 +16,8 @@
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
   align-items: stretch;
-  align-items: center;
   justify-content: center;
-  max-height: 1000px;
+  height: 90vh;
   width: 90vw;
 }
 
@@ -32,9 +31,9 @@
 
 .carousel-side-panel {
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  justify-content: center;
-  height: 700px;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
+  height: 100%;
 }
 
 .carousel-side-panel-box {
@@ -45,7 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding-bottom: 20px;
 }
 
 .carousel-image {
@@ -75,5 +74,9 @@
 
   .carousel-image-box {
     padding: 0 0 2vh;
+  }
+
+  .carousel-description {
+    width: 90%;
   }
 }
